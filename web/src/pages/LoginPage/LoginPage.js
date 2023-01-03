@@ -18,9 +18,15 @@ const LoginPortal = () => {
   }
 
   const onSubmitSignUp = async (type) => {
-    const response = await signUp({ type })
+    let parsedType = type
+    let login_provider = ''
+    if (type.includes('KEYP')) {
+      parsedType = 'OAUTH2_SERVER_REDWOOD'
+      login_provider = `&login_provider=${type.split('KEYP_')[1]}`
+    }
+    const response = await signUp({ type: parsedType })
     if (response.url) {
-      window.location = response.url
+      window.location = response.url + login_provider
     } else {
       toast.error('Something went wrong')
     }
@@ -37,64 +43,63 @@ const LoginPortal = () => {
   }, [error])
 
   useEffect(() => {
-    // if (isAuthenticated) {
-    //   navigate(routes.profile())
-    // }
+    if (isAuthenticated) {
+      navigate(routes.profile())
+    }
   }, [isAuthenticated])
+
+  const getButton = (type, text) => (
+    <button
+      onClick={() => onSubmitSignUp(type)}
+      className="login-button mt-2"
+      size="small"
+    >
+      <div className="align-center m-1 flex items-center justify-center">
+        <span className="mr-2">{text}</span>
+      </div>
+    </button>
+  )
 
   return (
     <div className="flex justify-center">
       <div className="login-portal-container w-80 sm:w-96">
-        <h1 className="text-2xl tracking-tight font-extrabold text-gray-900 sm:text-3xl md:text-4xl">
+        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
           <span className="block xl:inline">Oauth2 Client Redwood</span>
         </h1>
         <div className="mt-6">
           <div className="mb-2">
-            <h3 className="text-base font-bold color-grey-light text-center">
+            <h2 className="color-grey-light text-center text-base font-bold">
               Sign in
-            </h3>
+            </h2>
           </div>
         </div>
 
         <div className="login-portal-container--button-wrapper ">
-          <button
-            onClick={() => onSubmitSignUp('NODE_OIDC')}
-            className="login-button mt-2"
-            size="small"
-          >
-            <div className="flex justify-center align-center items-center m-1">
-              <span className="mr-2">node-oidc-provider</span>
-            </div>
-          </button>
+          {getButton('NODE_OIDC', 'oidc-provider')}
           <br />
-          <button
-            onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')}
-            className="login-button mt-2"
-            size="small"
-          >
-            <div className="flex justify-center align-center items-center m-1">
-              <span className="mr-2">oauth2-server-redwood</span>
-            </div>
-          </button>
+          {getButton('OAUTH2_SERVER_REDWOOD', 'oauth2-server-redwood')}
           <br />
-          <button
-            onClick={() => onSubmitSignUp('DISCORD')}
-            className="login-button "
-            size="small"
-          >
-            <div className="flex justify-center align-center items-center m-1">
-              <span className="mr-2">Discord</span>
-            </div>
-          </button>
-          {errorText && <div className="mt-2 rw-cell-error">{errorText}</div>}
+          {getButton('DISCORD', 'Discord')}
+          <br />
+          {process.env.SHOW_KEYP_PROVIDERS && (
+            <>
+              <h4 className="color-grey-light text-center text-base font-bold">
+                Keyp Providers
+              </h4>
+              {getButton('KEYP_DISCORD', 'Discord')}
+              {getButton('KEYP_NODE_OIDC', 'oidc-provider')}
+              {getButton('KEYP_GOOGLE', 'Google')}
+            </>
+          )}
+          {errorText && <div className="rw-cell-error mt-2">{errorText}</div>}
         </div>
         <div className="w-full text-center"></div>
         <h4 className="mt-6">
-          <a className="mr-2 text-blue" href="/">
+          <a className="text-blue mr-2" href="/">
             Terms of Service
           </a>
           ·
-          <a className="ml-2 text-blue" href="/">
+          <a className="text-blue ml-2" href="/">
             Privacy Policy
           </a>
         </h4>
@@ -103,7 +108,7 @@ const LoginPortal = () => {
   )
 }
 
-const SignInPage = () => {
+const LoginPage = () => {
   return (
     <>
       <MetaTags title="Sign In" description="Join to start collecting." />
@@ -112,4 +117,4 @@ const SignInPage = () => {
   )
 }
 
-export default SignInPage
+export default LoginPage
