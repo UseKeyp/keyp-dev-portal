@@ -68,6 +68,14 @@ const LoginPortal = () => {
         {/*        fluid="true">*/}
         {/*  <div>oauth2 server</div>*/}
         {/*</Button>*/}
+        {/*<Button onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
+        {/*                  fluid="true">*/}
+        {/*  <div>keyp_node_oidc</div>*/}
+        {/*</Button>*/}
+        {/*<Button onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
+        {/*        fluid="true">*/}
+        {/*  <div>keyp_discord</div>*/}
+        {/*</Button>*/}
         <Button
           onClick={() => onSubmitSignUp('DISCORD')}
           classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
