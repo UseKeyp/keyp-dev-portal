@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
+
 import { useAuth } from '@redwoodjs/auth'
 import { routes, navigate, useParams } from '@redwoodjs/router'
-import { useToast } from 'src/providers/toast'
+
+import Button from 'src/components/Button/Button'
+import Icon from 'src/components/Icon/Icon'
 import { saveRedirectTo } from 'src/providers/redirection'
-import Button from "src/components/Button/Button";
-import Icon from "src/components/Icon/Icon";
+import { useToast } from 'src/providers/toast'
 
 const LoginPortal = () => {
-  const {signUp, isAuthenticated, reauthenticate} = useAuth()
-  const {error, redirectTo} = useParams()
-  const {toast} = useToast()
+  const { signUp, isAuthenticated, reauthenticate } = useAuth()
+  const { error, redirectTo } = useParams()
+  const { toast } = useToast()
   const [errorText, setErrorText] = React.useState('')
   const getErrorText = (error) => {
     if (error === 'expired') return `Session expired, please log in again.`
@@ -46,14 +48,18 @@ const LoginPortal = () => {
     }
   }, [isAuthenticated])
 
-  return (<div className="flex flex-col justify-center items-center">
-      <div className="flex max-w-2">
-        <h1 className="flex flex-col items-center"><Icon height="120px" width="327px" name="keypnameandlogo"/>
-          <div className="flex text-blue-1200 text-2xl font-light">Dev Portal</div>
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="max-w-2 flex">
+        <h1 className="flex flex-col items-center">
+          <Icon height="120px" width="327px" name="keypnameandlogo" />
+          <div className="flex text-2xl font-light text-blue-1200">
+            Dev Portal
+          </div>
         </h1>
       </div>
-      <div className="flex flex-col mt-8 gap-y-2">
-        <div className="text-gray-1200 font-light">Log In or Sign Up</div>
+      <div className="mt-8 flex flex-col gap-y-2">
+        <div className="font-light text-gray-1200">Log In or Sign Up</div>
         {/*<Button onClick={() => onSubmitSignUp('NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
         {/*                  fluid="true">*/}
         {/*  <div>node_oidc</div>*/}
@@ -69,7 +75,7 @@ const LoginPortal = () => {
           fluid={false}
           alt="discord"
         >
-          <Icon name="discord"/>
+          <Icon name="discord" />
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
@@ -78,25 +84,41 @@ const LoginPortal = () => {
           fluid={false}
           alt="google"
         >
-          <Icon name="google"/>
+          <Icon name="google" />
         </Button>
         <Button
-          onClick={() => onSubmitSignUp('KEYP_TWITTER')} classNameVariant="hover:bg-[#1DA1F2] hover:border-[#1DA1F2]"
-          borderColor="border-[#E5E7EB]" fluid={true} alt="twitter">
+          onClick={() => onSubmitSignUp('KEYP_TWITTER')}
+          classNameVariant="hover:bg-[#1DA1F2] hover:border-[#1DA1F2]"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          alt="twitter"
+        >
           <div className="flex justify-center">
             <Icon height="300px" width="400px" name="twitter"></Icon>
           </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_GITHUB')}
-          classNameVariant="hover:bg-black hover:border-[#6c9d41]" borderColor="border-[#E5E7EB]" fluid={true}>
+          classNameVariant="hover:bg-black hover:border-[#6c9d41]"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+        >
           <div className="flex justify-center">
-            <Icon height="300px" width="400px" color="fill-[#24292f] group-hover:fill-white" name="github"></Icon>
+            <Icon
+              height="300px"
+              width="400px"
+              color="fill-[#24292f] group-hover:fill-white"
+              name="github"
+            ></Icon>
           </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_APPLE')}
-          classNameVariant="hover:bg-black hover:border-black" borderColor="border-[#E5E7EB]" fluid={true} alt="apple">
+          classNameVariant="hover:bg-black hover:border-black"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          alt="apple"
+        >
           <div className="flex justify-center">
             <Icon name="apple"></Icon>
           </div>
@@ -104,15 +126,16 @@ const LoginPortal = () => {
         {errorText && <div className="mt-2">{errorText}</div>}
       </div>
       <h4 className="mt-6">
-        <a className="text-blue-1200 mr-2 font-light text-sm" href="/">
+        <a className="mr-2 text-sm font-light text-blue-1200" href="/">
           Terms of Service
         </a>
         ·
-        <a className="text-blue-1200 ml-2 font-light text-sm" href="/">
+        <a className="ml-2 text-sm font-light text-blue-1200" href="/">
           Privacy Policy
         </a>
       </h4>
-    </div>)
+    </div>
+  )
 }
 
 export default LoginPortal

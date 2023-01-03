@@ -12,13 +12,20 @@ const EmptyIcon = () => <div />
  * @returns {JSX.Element} - icon component
  */
 const Icon = ({ name, size, color, className, ...rest }) => {
-    const Icon = iconMap[name] || EmptyIcon
-    return <Icon color={color} className={className} style={{ width: size, height: size }} {...rest} />
+  const Icon = iconMap[name] || EmptyIcon
+  return (
+    <Icon
+      color={color}
+      className={className}
+      style={{ width: size, height: size }}
+      {...rest}
+    />
+  )
 }
 
 Icon.defaultProps = {
-    size: '32px',
-    color: 'black',
+  size: '32px',
+  color: 'black',
 }
 
 export default Icon
