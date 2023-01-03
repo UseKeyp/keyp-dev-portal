@@ -44,7 +44,7 @@ const Redirect = ({ type }) => {
         <div className="redirect-container w-80 sm:w-96">
           <div className="redirect-contents w-full">
             <div
-              className={`flex align-center bg-black p-4 rounded-lg border-2 border-${
+              className={`flex align-center p-4 rounded-lg border-2 border-${
                 successMessage ? `green` : `[#FFBB0D]`
               }`}
             >
