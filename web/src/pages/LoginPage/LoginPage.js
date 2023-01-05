@@ -60,22 +60,38 @@ const LoginPortal = () => {
       </div>
       <div className="mt-8 flex flex-col gap-y-2">
         <div className="font-light text-gray-1200">Log In or Sign Up</div>
-        {/*<Button onClick={() => onSubmitSignUp('NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
-        {/*                  fluid="true">*/}
-        {/*  <div>node_oidc</div>*/}
-        {/*</Button>*/}
-        {/*<Button onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')} textColor="text-black" borderColor="border border-black"*/}
-        {/*        fluid="true">*/}
-        {/*  <div>oauth2 server</div>*/}
-        {/*</Button>*/}
-        {/*<Button onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
-        {/*                  fluid="true">*/}
-        {/*  <div>keyp_node_oidc</div>*/}
-        {/*</Button>*/}
-        {/*<Button onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')} textColor="text-black" borderColor="border border-black"*/}
-        {/*        fluid="true">*/}
-        {/*  <div>keyp_discord</div>*/}
-        {/*</Button>*/}
+        <Button
+          onClick={() => onSubmitSignUp('NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>node_oidc</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>oauth2 server</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>keyp_node_oidc</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>keyp_discord</div>
+        </Button>
         <Button
           onClick={() => onSubmitSignUp('DISCORD')}
           classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
