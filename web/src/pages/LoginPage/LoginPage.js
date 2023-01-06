@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
 
 import { useAuth } from '@redwoodjs/auth'
-import { useParams, navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { routes, navigate, useParams } from '@redwoodjs/router'
 
+import Button from 'src/components/Button/Button'
+import Icon from 'src/components/Icon/Icon'
 import { saveRedirectTo } from 'src/providers/redirection'
 import { useToast } from 'src/providers/toast'
 
 const LoginPortal = () => {
   const { signUp, isAuthenticated, reauthenticate } = useAuth()
-
   const { error, redirectTo } = useParams()
   const { toast } = useToast()
   const [errorText, setErrorText] = React.useState('')
@@ -48,73 +48,118 @@ const LoginPortal = () => {
     }
   }, [isAuthenticated])
 
-  const getButton = (type, text) => (
-    <button
-      onClick={() => onSubmitSignUp(type)}
-      className="login-button mt-2"
-      size="small"
-    >
-      <div className="align-center m-1 flex items-center justify-center">
-        <span className="mr-2">{text}</span>
-      </div>
-    </button>
-  )
-
   return (
-    <div className="flex justify-center">
-      <div className="login-portal-container w-80 sm:w-96">
-        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
-          <span className="block xl:inline">Oauth2 Client Redwood</span>
-        </h1>
-        <div className="mt-6">
-          <div className="mb-2">
-            <h2 className="color-grey-light text-center text-base font-bold">
-              Sign in
-            </h2>
+    <div className="flex flex-col items-center justify-center">
+      <div className="max-w-2 flex">
+        <h1 className="flex flex-col items-center">
+          <Icon height="120px" width="327px" name="keypnameandlogo" />
+          <div className="flex text-2xl font-light text-blue-1200">
+            Dev Portal
           </div>
-        </div>
-
-        <div className="login-portal-container--button-wrapper ">
-          {getButton('NODE_OIDC', 'oidc-provider')}
-          <br />
-          {getButton('OAUTH2_SERVER_REDWOOD', 'oauth2-server-redwood')}
-          <br />
-          {getButton('DISCORD', 'Discord')}
-          <br />
-          {process.env.SHOW_KEYP_PROVIDERS && (
-            <>
-              <h4 className="color-grey-light text-center text-base font-bold">
-                Keyp Providers
-              </h4>
-              {getButton('KEYP_DISCORD', 'Discord')}
-              {getButton('KEYP_NODE_OIDC', 'oidc-provider')}
-              {getButton('KEYP_GOOGLE', 'Google')}
-            </>
-          )}
-          {errorText && <div className="rw-cell-error mt-2">{errorText}</div>}
-        </div>
-        <div className="w-full text-center"></div>
-        <h4 className="mt-6">
-          <a className="text-blue mr-2" href="/">
-            Terms of Service
-          </a>
-          ·
-          <a className="text-blue ml-2" href="/">
-            Privacy Policy
-          </a>
-        </h4>
+        </h1>
       </div>
+      <div className="mt-8 flex flex-col gap-y-2">
+        <div className="font-light text-gray-1200">Log In or Sign Up</div>
+        <Button
+          onClick={() => onSubmitSignUp('NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>node_oidc</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>oauth2 server</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>keyp_node_oidc</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid="true"
+        >
+          <div>keyp_discord</div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('DISCORD')}
+          classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
+          borderColor="border-[#E5E7EB]"
+          fluid={false}
+          alt="discord"
+        >
+          <Icon name="discord" />
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
+          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
+          borderColor="border-[#E5E7EB]"
+          fluid={false}
+          alt="google"
+        >
+          <Icon name="google" />
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_TWITTER')}
+          classNameVariant="hover:bg-[#1DA1F2] hover:border-[#1DA1F2]"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          alt="twitter"
+        >
+          <div className="flex justify-center">
+            <Icon height="300px" width="400px" name="twitter"></Icon>
+          </div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_GITHUB')}
+          classNameVariant="hover:bg-black hover:border-[#6c9d41]"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+        >
+          <div className="flex justify-center">
+            <Icon
+              height="300px"
+              width="400px"
+              color="fill-[#24292f] group-hover:fill-white"
+              name="github"
+            ></Icon>
+          </div>
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_APPLE')}
+          classNameVariant="hover:bg-black hover:border-black"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          alt="apple"
+        >
+          <div className="flex justify-center">
+            <Icon name="apple"></Icon>
+          </div>
+        </Button>
+        {errorText && <div className="mt-2">{errorText}</div>}
+      </div>
+      <h4 className="mt-6">
+        <a className="mr-2 text-sm font-light text-blue-1200" href="/">
+          Terms of Service
+        </a>
+        ·
+        <a className="ml-2 text-sm font-light text-blue-1200" href="/">
+          Privacy Policy
+        </a>
+      </h4>
     </div>
   )
 }
 
-const LoginPage = () => {
-  return (
-    <>
-      <MetaTags title="Sign In" description="Join to start collecting." />
-      <LoginPortal />
-    </>
-  )
-}
-
-export default LoginPage
+export default LoginPortal
