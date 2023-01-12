@@ -7,7 +7,7 @@ import Tooltip from 'src/components/Tooltip/Tooltip'
 
 const URLRedirects = ({ inputURLs = '' }) => {
   const [urls, setUrls] = useState([inputURLs])
-  const [disabledURLs, setDisabledURLs] = useState([''])
+  const [disabledURLs, setDisabledURLs] = useState([inputURLs])
 
   const handleAddURL = (index) => {
     const currentUrl = urls[index]
