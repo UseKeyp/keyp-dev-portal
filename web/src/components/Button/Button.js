@@ -39,14 +39,14 @@ const Button = ({
   if (to) {
     return (
       <Link
-        className={`group flex items-center justify-center rounded-[6px] text-center text-lg font-bold leading-button tracking-wide  
-            ${textColor ? textColor : 'text-white'} 
+        className={`group flex items-center justify-center rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
+            ${textColor ? textColor : 'text-white'}
             ${size === 'regular' && !fluid ? 'h-[48px] w-[200px]' : ''}
             ${size === 'small' && !fluid ? 'h-[32px] w-[200px]' : ''}
             ${size === 'square' && !fluid ? 'h-[48px] w-[48px]' : ''}
             ${fluid && 'h-[48px] w-full'}
             ${borderColor ? borderColor : ''}
-            ${variant === 'transparent' ? 'bg-transparent' : ''} 
+            ${variant === 'transparent' ? 'bg-transparent' : ''}
             ${variant === 'grey' ? 'bg-gray-1200 hover:bg-gray-2000' : ''}
             ${variant === 'green' ? 'bg-green-1200 hover:bg-green-1800' : ''}
             ${variant === 'blue' ? 'bg-blue-1200 hover:bg-blue-2000' : ''}
@@ -70,19 +70,19 @@ const Button = ({
   return (
     <Element
       className={`group flex items-center justify-center rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
-            ${textColor ? textColor : 'text-white'} 
+            ${textColor ? textColor : 'text-white'}
             ${size === 'regular' && !fluid ? 'h-[48px] w-[200px]' : ''}
             ${size === 'small' && !fluid ? 'h-[32px] w-[200px]' : ''}
             ${size === 'square' && !fluid ? 'h-[48px] w-[48px]' : ''}
             ${fluid && 'h-[48px] w-full'}
             ${borderColor ? 'border ' + borderColor : ''}
-            ${variant === 'transparent' ? 'bg-transparent' : ''} 
+            ${variant === 'transparent' ? 'bg-transparent' : ''}
             ${variant === 'grey' ? 'bg-gray-1200 hover:bg-gray-2000' : ''}
             ${variant === 'green' ? 'bg-green-1200 hover:bg-green-1800' : ''}
             ${variant === 'blue' ? 'bg-blue-1200 hover:bg-blue-2000' : ''}
             ${variant === 'white' ? 'bg-white' : ''}
             ${variant === 'black' ? 'bg-black' : ''}
-            ${classNameVariant ? classNameVariant : ''} 
+            ${classNameVariant ? classNameVariant : ''}
             `}
       onClick={() => onClick()}
       data-variant={variant}
@@ -116,6 +116,8 @@ Button.propTypes = {
   to: PropTypes.any,
   href: PropTypes.string,
   alt: PropTypes.string,
+  classNameVariant: PropTypes.string,
+  borderColor: PropTypes.string,
 }
 
 export default Button

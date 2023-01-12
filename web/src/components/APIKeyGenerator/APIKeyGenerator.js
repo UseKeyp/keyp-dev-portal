@@ -72,7 +72,7 @@ const APIKeyGenerator = (props) => {
           </div>
           <div className="flex flex-row gap-x-2">
             <div className="flex font-light">{apiKey}</div>
-            <div
+            <button
               className="flex"
               onClick={() => {
                 handleCopy()
@@ -89,7 +89,7 @@ const APIKeyGenerator = (props) => {
               >
                 <Icon color="fill-red-1200" name="copy" />
               </Tooltip>
-            </div>
+            </button>
           </div>
         </div>
       </div>
