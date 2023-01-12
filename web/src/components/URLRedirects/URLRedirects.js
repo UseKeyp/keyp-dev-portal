@@ -15,10 +15,6 @@ const URLRedirects = ({ inputURLs = '' }) => {
       alert('Cannot add more than 5 URLs')
       return
     }
-    if (currentUrl.length <= 1) {
-      alert('URL should be longer than 1 character')
-      return
-    }
     if (disabledURLs.includes(currentUrl)) {
       alert('You cannot add the same URL twice')
       document.getElementById(`url-${index}`).value = ''
