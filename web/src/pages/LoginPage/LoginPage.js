@@ -19,14 +19,14 @@ const LoginPortal = () => {
 
   const onSubmitSignUp = async (type) => {
     let parsedType = type
-    let login_provider = ''
+    let loginProvider = ''
     if (type.includes('KEYP')) {
       parsedType = 'OAUTH2_SERVER_REDWOOD'
-      login_provider = `&login_provider=${type.split('KEYP_')[1]}`
+      loginProvider = `&login_provider=${type.split('KEYP_')[1]}`
     }
     const response = await signUp({ type: parsedType })
     if (response.url) {
-      window.location = response.url + login_provider
+      window.location = response.url + loginProvider
     } else {
       toast.error('Something went wrong')
     }
@@ -64,7 +64,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('NODE_OIDC')}
           textColor="text-black"
           borderColor="border border-black"
-          fluid="true"
+          fluid={true}
         >
           <div>node_oidc</div>
         </Button>
@@ -72,7 +72,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')}
           textColor="text-black"
           borderColor="border border-black"
-          fluid="true"
+          fluid={true}
         >
           <div>oauth2 server</div>
         </Button>
@@ -80,7 +80,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
           textColor="text-black"
           borderColor="border border-black"
-          fluid="true"
+          fluid={true}
         >
           <div>keyp_node_oidc</div>
         </Button>
@@ -88,7 +88,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
           textColor="text-black"
           borderColor="border border-black"
-          fluid="true"
+          fluid={true}
         >
           <div>keyp_discord</div>
         </Button>
@@ -96,7 +96,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('DISCORD')}
           classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
           borderColor="border-[#E5E7EB]"
-          fluid={false}
+          fluid={true}
           alt="discord"
         >
           <Icon name="discord" />
@@ -105,7 +105,7 @@ const LoginPortal = () => {
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
           classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
           borderColor="border-[#E5E7EB]"
-          fluid={false}
+          fluid={true}
           alt="google"
         >
           <Icon name="google" />

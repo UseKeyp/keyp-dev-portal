@@ -15,7 +15,11 @@ const TextInput = (props) => {
       } leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding pl-4 pr-3 text-sm text-gray-700 transition-all ease-soft placeholder:text-gray-300 focus:border-green-400 focus:shadow-soft-sm focus:outline-none focus:transition-shadow ${
         props.variant
       }`}
+      value={props.value}
+      readOnly={props.readOnly}
+      disabled={props.disabled}
       placeholder={props.placeholder}
+      id={props.id}
     />
   )
 }
