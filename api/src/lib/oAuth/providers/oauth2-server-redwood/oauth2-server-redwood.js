@@ -2,12 +2,14 @@ import fetch from 'cross-fetch'
 import { decode as decodeJwt } from 'jsonwebtoken'
 
 import { db } from 'src/lib/db'
+import { isProduction } from 'src/lib/helpers'
 import { logger } from 'src/lib/logger'
 import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
 export const OAUTH2_SERVER_REDWOOD = 'OAUTH2_SERVER_REDWOOD'
-const OAUTH2_SERVER_REDWOOD_API_DOMAIN =
-  process.env.OAUTH2_SERVER_REDWOOD_API_DOMAIN
+const OAUTH2_SERVER_REDWOOD_API_DOMAIN = isProduction
+  ? 'https://oauth.usekeyp.com'
+  : 'http://localhost/oauth'
 
 export const OAUTH2_SERVER_REDWOOD_OAUTH_URL_AUTHORIZE = `${OAUTH2_SERVER_REDWOOD_API_DOMAIN}/auth`
 
@@ -19,7 +21,7 @@ const OAUTH2_SERVER_REDWOOD_REDIRECT_URI =
 
 const responseType = 'code'
 const params = {
-  client_id: process.env.OAUTH2_SERVER_REDWOOD_CLIENT_ID,
+  client_id: 'a08dd22e-e05c-4314-ae7c-cda1af389a34',
   scope: OAUTH2_SERVER_REDWOOD_SCOPE,
   redirect_uri: OAUTH2_SERVER_REDWOOD_REDIRECT_URI,
 }
