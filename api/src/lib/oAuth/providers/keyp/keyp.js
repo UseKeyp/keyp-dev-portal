@@ -6,44 +6,46 @@ import { isProduction } from 'src/lib/helpers'
 import { logger } from 'src/lib/logger'
 import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
-export const OAUTH2_SERVER_REDWOOD = 'OAUTH2_SERVER_REDWOOD'
-const OAUTH2_SERVER_REDWOOD_API_DOMAIN = isProduction
+export const KEYP = 'KEYP'
+
+const KEYP_API_DOMAIN = isProduction
   ? 'https://oauth.usekeyp.com'
   : 'http://localhost/oauth'
 
-export const OAUTH2_SERVER_REDWOOD_OAUTH_URL_AUTHORIZE = `${OAUTH2_SERVER_REDWOOD_API_DOMAIN}/auth`
+export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
 
-const OAUTH2_SERVER_REDWOOD_OAUTH_URL_TOKEN = `${OAUTH2_SERVER_REDWOOD_API_DOMAIN}/token`
+const KEYP_OAUTH_URL_TOKEN = `${KEYP_API_DOMAIN}/token`
 
-const OAUTH2_SERVER_REDWOOD_SCOPE = 'openid profile email'
-const OAUTH2_SERVER_REDWOOD_REDIRECT_URI =
-  process.env.APP_DOMAIN + '/redirect/oauth2_server_redwood'
+const KEYP_REDIRECT_URI = process.env.APP_DOMAIN + '/redirect/keyp'
 
 const responseType = 'code'
 const params = {
-  client_id: 'a08dd22e-e05c-4314-ae7c-cda1af389a34',
-  scope: OAUTH2_SERVER_REDWOOD_SCOPE,
-  redirect_uri: OAUTH2_SERVER_REDWOOD_REDIRECT_URI,
+  client_id: process.env.KEYP_CLIENT_ID,
+  scope: 'openid profile email',
+  redirect_uri: KEYP_REDIRECT_URI,
 }
 
 export const onSubmitCode = async (code, { codeVerifier }) => {
   try {
     const body = {
       grant_type: 'authorization_code',
-      client_id: process.env.OAUTH2_SERVER_REDWOOD_CLIENT_ID,
-      redirect_uri: OAUTH2_SERVER_REDWOOD_REDIRECT_URI,
+      client_id: process.env.KEYP_CLIENT_ID,
+      redirect_uri: KEYP_REDIRECT_URI,
       code_verifier: codeVerifier,
       code,
     }
     const encodedBody = encodeBody(body)
     logger.debug({ custom: body }, '/token request body')
-    const response = await fetch(OAUTH2_SERVER_REDWOOD_OAUTH_URL_TOKEN, {
+    const response = await fetch(KEYP_OAUTH_URL_TOKEN, {
       method: 'post',
       body: encodedBody,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    }).then((res) => {
-      if (res.status != 200)
-        throw `OAUTH2_SERVER_REDWOOD API failed for /token. Returned ${res.status} - ${res.statusText}`
+    }).then(async (res) => {
+      const status = res.status
+      if (status !== 200) {
+        const text = await res.json()
+        throw `KEYP API failed for /token. Returned ${status} - ${text.error} ${text.error_description}`
+      }
       return res.json()
     })
     if (response.error)
@@ -58,7 +60,8 @@ export const onSubmitCode = async (code, { codeVerifier }) => {
     if (!response.id_token) throw 'Failed to get id_token'
     const decoded = await decodeJwt(idToken)
 
-    logger.debug({ custom: decoded }, 'decoded id_tokem')
+    logger.debug({ custom: response }, '/token response')
+    logger.debug({ custom: decoded }, 'decoded id_token')
 
     if (new Date() - new Date(decoded.iat * 1000) > 60 * 1000)
       throw 'id_token was not issued recently. It must be <1 minute old.'
@@ -75,17 +78,22 @@ export const onSubmitCode = async (code, { codeVerifier }) => {
   }
 }
 
-export const onConnected = async ({ accessToken }) => {
+export const onConnected = async ({ accessToken, decoded }) => {
   try {
-    const userDetails = await fetch(`${OAUTH2_SERVER_REDWOOD_API_DOMAIN}/me`, {
+    const userDetails = await fetch(`${KEYP_API_DOMAIN}/me`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then((res) => {
       if (res.status != 200)
-        throw 'OAUTH2_SERVER_REDWOOD authorization failed, or secret invalid'
+        throw 'KEYP authorization failed, or secret invalid'
       return res.json()
     })
-    logger.debug({ custom: userDetails }, 'User details')
-    // For login-type oauth providers, create the user and return the object
+
+    // Prevent token substitution attacks. See https://openid.net/specs/openid-connect-core-1_0.html#TokenSubstitution
+    if (decoded.sub != userDetails.sub)
+      throw "id_token's sub does not match userInfo"
+
+    logger.debug({ custom: userDetails }, 'User info')
+
     const user = await db.user.upsert({
       update: { email: userDetails.email, accessToken },
       create: {
@@ -106,7 +114,7 @@ export const onConnected = async ({ accessToken }) => {
 }
 
 export const provider = {
-  urlAuthorize: OAUTH2_SERVER_REDWOOD_OAUTH_URL_AUTHORIZE,
+  urlAuthorize: KEYP_OAUTH_URL_AUTHORIZE,
   params,
   onSubmitCode,
   onConnected,

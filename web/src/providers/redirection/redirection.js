@@ -8,9 +8,7 @@ const LOCAL_REDIRECT_TO_KEY = 'redirect_to'
 
 // If one of these types, treat the incoming action as a login
 export const APPROVED_LOGIN_PROVIDERS = [
-  'DISCORD',
-  'NODE_OIDC',
-  'OAUTH2_SERVER_REDWOOD',
+  'KEYP',
 ]
 
 const saveRedirectTo = (redirect) =>
