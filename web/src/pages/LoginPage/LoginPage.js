@@ -62,14 +62,6 @@ const LoginPortal = () => {
         <div className="font-light text-gray-1200">Log In or Sign Up</div>
 
         <Button
-          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>keyp_node_oidc</div>
-        </Button>
-        <Button
           onClick={() => onSubmitSignUp('KEYP_DISCORD')}
           classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
           borderColor="border-[#E5E7EB]"
@@ -78,7 +70,7 @@ const LoginPortal = () => {
         >
           <Icon name="discord" />
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
           classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
           borderColor="border-[#E5E7EB]"
@@ -123,15 +115,23 @@ const LoginPortal = () => {
           <div className="flex justify-center">
             <Icon name="apple"></Icon>
           </div>
+        </Button> */}
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid={true}
+        >
+          <div>Test Provider</div>
         </Button>
         {errorText && <div className="mt-2">{errorText}</div>}
       </div>
       <h4 className="mt-6">
-        <a className="mr-2 text-sm font-light text-blue-1200" href="/">
+        <a className="mr-2 text-sm font-light text-blue-1200" href="/terms">
           Terms of Service
         </a>
         ·
-        <a className="ml-2 text-sm font-light text-blue-1200" href="/">
+        <a className="ml-2 text-sm font-light text-blue-1200" href="/privacy">
           Privacy Policy
         </a>
       </h4>
