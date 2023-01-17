@@ -28,8 +28,10 @@ const URLRedirects = ({ client }) => {
     updateClient({ variables: data })
   }
 
-  const [urls, setUrls] = useState([inputURLs])
-  const [disabledURLs, setDisabledURLs] = useState([inputURLs])
+  const [urls, setUrls] = useState([client.payload.redirect_uris])
+  const [disabledURLs, setDisabledURLs] = useState([
+    client.payload.redirect_uris,
+  ])
 
   const handleAddURL = (index) => {
     const currentUrl = urls[index]

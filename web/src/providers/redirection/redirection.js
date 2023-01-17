@@ -7,9 +7,7 @@ import { useOAuth } from 'src/providers/oAuth'
 const LOCAL_REDIRECT_TO_KEY = 'redirect_to'
 
 // If one of these types, treat the incoming action as a login
-export const APPROVED_LOGIN_PROVIDERS = [
-  'KEYP',
-]
+export const APPROVED_LOGIN_PROVIDERS = ['KEYP']
 
 const saveRedirectTo = (redirect) =>
   redirect &&
@@ -61,14 +59,12 @@ const RedirectionProvider = ({ children }) => {
         isLoading: false,
         errorMessage: response.error || 'Something went wrong',
       })
-    await reauthenticate()
-    setState({
-      isLoading: false,
-      successMessage: "Great - You're signed in!",
-    })
-    setTimeout(() => {
-      navigate(getRedirectTo() || '/profile')
-    }, [3000])
+    // await reauthenticate()
+    // setState({
+    //   isLoading: false,
+    //   successMessage: "Great - You're signed in!",
+    // })
+    window.location = '/profile'
   }
 
   const completeOAuth = async () => {
