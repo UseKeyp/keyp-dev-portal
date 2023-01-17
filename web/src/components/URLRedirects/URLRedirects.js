@@ -26,24 +26,28 @@ const URLRedirects = ({ client }) => {
   })
 
   const onSubmit = async () => {
-    const redirectUrls = urls.filter((url) => url.length).join(',')
+    const redirectUrls = urls.filter((url) => url.length > 1).join(',')
     await updateClient({ variables: { redirectUrls, id: client.id } })
   }
-  const [urls, setUrls] = useState(client.payload.redirect_uris)
-  const [disabledURLs, setDisabledURLs] = useState(client.payload.redirect_uris)
+  const initialUrls = client.payload.redirect_uris
+    ? [client.payload.redirect_uris, '']
+    : ['']
+  const [urls, setUrls] = useState(initialUrls)
+  const [disabledURLs, setDisabledURLs] = useState(initialUrls)
 
   const handleAddURL = (index) => {
     const currentUrl = urls[index]
+    if (!currentUrl.length) return alert('Please enter a URL')
     if (urls.length >= 5) {
       alert('Cannot add more than 5 URLs')
       return
     }
-    if (disabledURLs.includes(currentUrl)) {
-      alert('You cannot add the same URL twice')
-      document.getElementById(`url-${index}`).value = ''
-      document.getElementById(`url-${index}`).disabled = false
-      return
-    }
+    // if (disabledURLs.includes(currentUrl)) {
+    //   alert('You cannot add the same URL twice')
+    //   document.getElementById(`url-${index}`).value = ''
+    //   document.getElementById(`url-${index}`).disabled = false
+    //   return
+    // }
     if (!validateUrl(currentUrl)) {
       alert('Please enter a valid web address')
       return
