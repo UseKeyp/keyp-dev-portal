@@ -24,5 +24,6 @@ export const updateClient = async ({ id, redirectUrls }) => {
     accessToken: context.currentUser.accessToken,
   })
   const client = await keyp.updateClient({ id, redirectUrls })
+  console.log(client)
   return client
 }

@@ -56,9 +56,7 @@ export const Success = ({ clients }) => {
   return (
     <div>
       {clients.map((client) => (
-        <>
-          <ClientCredentials client={client} />
-        </>
+        <ClientCredentials key={client.id} client={client} />
       ))}
     </div>
   )

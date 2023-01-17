@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
 
 import Button from 'src/components/Button/Button'
 import { QUERY as clientQuery } from 'src/components/ClientCell'
@@ -20,18 +21,16 @@ const URLRedirects = ({ client }) => {
   const [updateClient, { loading, error }] = useMutation(UPDATE_ClIENT, {
     refetchQueries: [{ query: clientQuery }],
     onCompleted: () => {
-      toast.success('Client updated!')
+      toast.success('Client updated')
     },
   })
-  const onSubmit = (data) => {
-    console.log(data)
-    updateClient({ variables: data })
-  }
 
-  const [urls, setUrls] = useState([client.payload.redirect_uris])
-  const [disabledURLs, setDisabledURLs] = useState([
-    client.payload.redirect_uris,
-  ])
+  const onSubmit = async () => {
+    const redirectUrls = urls.filter((url) => url.length).join(',')
+    await updateClient({ variables: { redirectUrls, id: client.id } })
+  }
+  const [urls, setUrls] = useState(client.payload.redirect_uris)
+  const [disabledURLs, setDisabledURLs] = useState(client.payload.redirect_uris)
 
   const handleAddURL = (index) => {
     const currentUrl = urls[index]
@@ -76,7 +75,7 @@ const URLRedirects = ({ client }) => {
     <div className="flex w-full flex-col rounded-md border border-gray-800 p-2">
       <div className="flex gap-x-1">
         <h2 className="font-sans text-xs text-gray-800">URL REDIRECTS</h2>
-        <Tooltip
+        {/* <Tooltip
           id="url-redirects"
           delayHideTime={250}
           effect="float"
@@ -86,7 +85,7 @@ const URLRedirects = ({ client }) => {
           tooltipChild={<div className="text-black">Placeholder text</div>}
         >
           <Icon color="fill-gray-800" name="tooltip" />
-        </Tooltip>
+        </Tooltip> */}
       </div>
       <div className="flex flex-col">
         {urls.map((url, index) => (
@@ -136,6 +135,10 @@ const URLRedirects = ({ client }) => {
             </div>
           </div>
         ))}
+        <Button onClick={onSubmit} disabled={loading} variant="green">
+          Save
+        </Button>
+        {error?.message}
       </div>
     </div>
   )

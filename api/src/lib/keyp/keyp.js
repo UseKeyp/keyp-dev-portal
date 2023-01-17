@@ -39,24 +39,6 @@ class KeypManager {
   }
 }
 
-export const postToChannel = async ({
-  message,
-  embed,
-  channelId,
-  botToken,
-}) => {
-  try {
-    await fetchKeyp({
-      path: `channels/${channelId}/messages`,
-      method: 'POST',
-      body: message ? message : JSON.stringify({ embed }),
-      botToken,
-    })
-  } catch (e) {
-    Sentry.captureException(e)
-  }
-}
-
 export const fetchKeyp = async ({
   path: pathArg,
   body,
