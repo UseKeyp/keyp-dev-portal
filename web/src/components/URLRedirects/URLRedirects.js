@@ -1,11 +1,33 @@
 import React, { useState } from 'react'
 
+import { useMutation } from '@redwoodjs/web'
+
 import Button from 'src/components/Button/Button'
+import { QUERY as clientQuery } from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
 import TextInput from 'src/components/TextInput/TextInput'
 import Tooltip from 'src/components/Tooltip/Tooltip'
 
-const URLRedirects = ({ inputURLs = '' }) => {
+const UPDATE_ClIENT = gql`
+  mutation UpdateClientMutation($id: String!, $redirectUrls: String!) {
+    updateClient(id: $id, redirectUrls: $redirectUrls) {
+      id
+    }
+  }
+`
+
+const URLRedirects = ({ client }) => {
+  const [updateClient, { loading, error }] = useMutation(UPDATE_ClIENT, {
+    refetchQueries: [{ query: clientQuery }],
+    onCompleted: () => {
+      toast.success('Client updated!')
+    },
+  })
+  const onSubmit = (data) => {
+    console.log(data)
+    updateClient({ variables: data })
+  }
+
   const [urls, setUrls] = useState([inputURLs])
   const [disabledURLs, setDisabledURLs] = useState([inputURLs])
 

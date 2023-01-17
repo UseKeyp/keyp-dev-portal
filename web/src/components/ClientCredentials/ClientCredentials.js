@@ -192,7 +192,7 @@ const ClientCredentials = ({ client }) => {
             </div>
           </div>
           <div className="mt-4 flex">
-            <URLRedirects />
+            <URLRedirects client={client} />
           </div>
         </div>
       </div>

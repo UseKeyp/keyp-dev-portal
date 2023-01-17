@@ -1,16 +1,7 @@
-import {
-  FieldError,
-  Form,
-  Label,
-  TextField,
-  TextAreaField,
-  Submit,
-} from '@redwoodjs/forms'
+import { FieldError, Form, Submit } from '@redwoodjs/forms'
 import { MetaTags } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
-
-import URLRedirects from 'src/components/URLRedirects/URLRedirects'
 
 import Button from '../Button/Button.js'
 import ClientCredentials from '../ClientCredentials/ClientCredentials.js'
@@ -29,34 +20,39 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
-export const Empty = () => <div>Empty</div>
-
-export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
-
-const UPDATE_ClIENT = gql`
-  mutation UpdateClientMutation($id: String!, $redirectUrls: String!) {
-    updateClient(id: $id, redirectUrls: $redirectUrls) {
+const CREATE_ClIENT = gql`
+  mutation CreateClientMutation {
+    createClient {
       id
     }
   }
 `
 
-export const Success = ({ clients }) => {
-  const [updateClient, { loading, error }] = useMutation(UPDATE_ClIENT, {
+export const Loading = () => <div>Loading...</div>
+
+export const Empty = () => {
+  const [createClient, { loading, error }] = useMutation(CREATE_ClIENT, {
+    refetchQueries: [{ query: QUERY }],
     onCompleted: () => {
-      toast.success('Client updated!')
+      toast.success('Client created!')
     },
   })
 
-  const onSubmit = (data) => {
-    console.log(data)
-    updateClient({ variables: data })
-  }
+  return (
+    <>
+      <Button variant="green" onClick={createClient} disabled={loading}>
+        Create
+      </Button>
+      {error?.message}
+    </>
+  )
+}
 
+export const Failure = ({ error }) => (
+  <div style={{ color: 'red' }}>Error: {error?.message}</div>
+)
+
+export const Success = ({ clients }) => {
   return (
     <div>
       {clients.map((client) => (

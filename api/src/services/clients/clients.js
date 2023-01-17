@@ -22,12 +22,12 @@ const validateOwnerAccess = (developers) => {
 
 export const clients = async () => {
   return [
-    {
-      id: '1',
-      payload: '',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+    // {
+    //   id: '1',
+    //   payload: '',
+    //   createdAt: new Date(),
+    //   updatedAt: new Date(),
+    // },
   ]
   // const clients = await db.oidc.findMany({
   //   where: { developers: { some: { userId: context.currentUser.id } } },
