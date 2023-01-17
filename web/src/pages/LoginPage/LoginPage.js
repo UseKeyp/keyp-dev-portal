@@ -21,7 +21,7 @@ const LoginPortal = () => {
     let parsedType = type
     let loginProvider = ''
     if (type.includes('KEYP')) {
-      parsedType = 'OAUTH2_SERVER_REDWOOD'
+      parsedType = 'KEYP'
       loginProvider = `&login_provider=${type.split('KEYP_')[1]}`
     }
     const response = await signUp({ type: parsedType })
@@ -60,40 +60,9 @@ const LoginPortal = () => {
       </div>
       <div className="mt-8 flex flex-col gap-y-2">
         <div className="font-light text-gray-1200">Log In or Sign Up</div>
+
         <Button
-          onClick={() => onSubmitSignUp('NODE_OIDC')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>node_oidc</div>
-        </Button>
-        <Button
-          onClick={() => onSubmitSignUp('OAUTH2_SERVER_REDWOOD')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>oauth2 server</div>
-        </Button>
-        <Button
-          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>keyp_node_oidc</div>
-        </Button>
-        <Button
-          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>keyp_discord</div>
-        </Button>
-        <Button
-          onClick={() => onSubmitSignUp('DISCORD')}
+          onClick={() => onSubmitSignUp('KEYP_DISCORD')}
           classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] w-[327px]"
           borderColor="border-[#E5E7EB]"
           fluid={true}
@@ -101,7 +70,7 @@ const LoginPortal = () => {
         >
           <Icon name="discord" />
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
           classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
           borderColor="border-[#E5E7EB]"
@@ -146,15 +115,23 @@ const LoginPortal = () => {
           <div className="flex justify-center">
             <Icon name="apple"></Icon>
           </div>
+        </Button> */}
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+          textColor="text-black"
+          borderColor="border border-black"
+          fluid={true}
+        >
+          <div>Test Provider</div>
         </Button>
         {errorText && <div className="mt-2">{errorText}</div>}
       </div>
       <h4 className="mt-6">
-        <a className="mr-2 text-sm font-light text-blue-1200" href="/">
+        <a className="mr-2 text-sm font-light text-blue-1200" href="/terms">
           Terms of Service
         </a>
         ·
-        <a className="ml-2 text-sm font-light text-blue-1200" href="/">
+        <a className="ml-2 text-sm font-light text-blue-1200" href="/privacy">
           Privacy Policy
         </a>
       </h4>

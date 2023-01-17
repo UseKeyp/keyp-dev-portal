@@ -1,26 +1,53 @@
 import React, { useState } from 'react'
 
+import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
+
 import Button from 'src/components/Button/Button'
+import { QUERY as clientQuery } from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
 import TextInput from 'src/components/TextInput/TextInput'
 import Tooltip from 'src/components/Tooltip/Tooltip'
 
-const URLRedirects = ({ inputURLs = '' }) => {
-  const [urls, setUrls] = useState([inputURLs])
-  const [disabledURLs, setDisabledURLs] = useState([inputURLs])
+const UPDATE_ClIENT = gql`
+  mutation UpdateClientMutation($id: String!, $redirectUrls: String!) {
+    updateClient(id: $id, redirectUrls: $redirectUrls) {
+      id
+    }
+  }
+`
+
+const URLRedirects = ({ client }) => {
+  const [updateClient, { loading, error }] = useMutation(UPDATE_ClIENT, {
+    refetchQueries: [{ query: clientQuery }],
+    onCompleted: () => {
+      toast.success('Client updated')
+    },
+  })
+
+  const onSubmit = async () => {
+    const redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    await updateClient({ variables: { redirectUrls, id: client.id } })
+  }
+  const initialUrls = client.payload.redirect_uris
+    ? [client.payload.redirect_uris, '']
+    : ['']
+  const [urls, setUrls] = useState(initialUrls)
+  const [disabledURLs, setDisabledURLs] = useState(initialUrls)
 
   const handleAddURL = (index) => {
     const currentUrl = urls[index]
+    if (!currentUrl.length) return alert('Please enter a URL')
     if (urls.length >= 5) {
       alert('Cannot add more than 5 URLs')
       return
     }
-    if (disabledURLs.includes(currentUrl)) {
-      alert('You cannot add the same URL twice')
-      document.getElementById(`url-${index}`).value = ''
-      document.getElementById(`url-${index}`).disabled = false
-      return
-    }
+    // if (disabledURLs.includes(currentUrl)) {
+    //   alert('You cannot add the same URL twice')
+    //   document.getElementById(`url-${index}`).value = ''
+    //   document.getElementById(`url-${index}`).disabled = false
+    //   return
+    // }
     if (!validateUrl(currentUrl)) {
       alert('Please enter a valid web address')
       return
@@ -52,7 +79,7 @@ const URLRedirects = ({ inputURLs = '' }) => {
     <div className="flex w-full flex-col rounded-md border border-gray-800 p-2">
       <div className="flex gap-x-1">
         <h2 className="font-sans text-xs text-gray-800">URL REDIRECTS</h2>
-        <Tooltip
+        {/* <Tooltip
           id="url-redirects"
           delayHideTime={250}
           effect="float"
@@ -62,7 +89,7 @@ const URLRedirects = ({ inputURLs = '' }) => {
           tooltipChild={<div className="text-black">Placeholder text</div>}
         >
           <Icon color="fill-gray-800" name="tooltip" />
-        </Tooltip>
+        </Tooltip> */}
       </div>
       <div className="flex flex-col">
         {urls.map((url, index) => (
@@ -112,6 +139,10 @@ const URLRedirects = ({ inputURLs = '' }) => {
             </div>
           </div>
         ))}
+        <Button onClick={onSubmit} disabled={loading} variant="green">
+          Save
+        </Button>
+        {error?.message}
       </div>
     </div>
   )
