@@ -70,7 +70,7 @@ const LoginPortal = () => {
         >
           <Icon name="discord" />
         </Button>
-        {/* <Button
+        <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
           classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
           borderColor="border-[#E5E7EB]"
@@ -79,7 +79,7 @@ const LoginPortal = () => {
         >
           <Icon name="google" />
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onSubmitSignUp('KEYP_TWITTER')}
           classNameVariant="hover:bg-[#1DA1F2] hover:border-[#1DA1F2]"
           borderColor="border-[#E5E7EB]"
@@ -115,15 +115,17 @@ const LoginPortal = () => {
           <div className="flex justify-center">
             <Icon name="apple"></Icon>
           </div>
-        </Button> */}
-        <Button
-          onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-          textColor="text-black"
-          borderColor="border border-black"
-          fluid={true}
-        >
-          <div>Test Provider</div>
-        </Button>
+        </Button>  */}
+        {process.env.ENVIRONMENT !== 'prod' && (
+          <Button
+            onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
+            classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px] "
+            borderColor="border-[#E5E7EB]"
+            fluid={true}
+          >
+            <p className="text-black">Test Provider</p>
+          </Button>
+        )}
         {errorText && <div className="mt-2">{errorText}</div>}
       </div>
       <h4 className="mt-6">
