@@ -5,7 +5,11 @@ import Sentry from 'src/lib/sentry'
 
 var path = require('path')
 
-const KEYP_API_URL = 'http://localhost/api/v1'
+let KEYP_API_URL = 'http://localhost/api/v1'
+if (process.env.ENVIRONMENT === 'staging')
+  KEYP_API_URL = 'https://app.usekeyp.com/api/v1'
+if (process.env.ENVIRONMENT === 'prod')
+  KEYP_API_URL = 'https://app.usekeyp.com/api/v1'
 
 const validateConfigs = ({ accessToken, clientId }) => {
   if (!accessToken) throw 'No accessToken provided'

@@ -15,3 +15,9 @@ export const cors = {
       ],
   credentials: true,
 }
+
+let appDomain = process.env.APP_DOMAIN
+if (process.env.VERCEL) {
+  appDomain = `https://${process.env.VERCEL_URL}`
+}
+export const APP_DOMAIN = appDomain
