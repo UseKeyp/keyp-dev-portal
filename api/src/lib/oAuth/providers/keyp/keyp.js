@@ -8,9 +8,10 @@ import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
 export const KEYP = 'KEYP'
 
-const KEYP_API_DOMAIN = isProduction
-  ? 'https://oauth.usekeyp.com'
-  : 'http://localhost/oauth'
+const KEYP_API_DOMAIN = 'https://app.usekeyp.com/oauth'
+// const KEYP_API_DOMAIN = isProduction
+//   ? 'https://app.usekeyp.com/oauth'
+//   : 'http://localhost/oauth'
 
 export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
 
