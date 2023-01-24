@@ -1,12 +1,8 @@
-import { FieldError, Form, Submit } from '@redwoodjs/forms'
-import { MetaTags } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import Button from '../Button/Button.js'
 import ClientCredentials from '../ClientCredentials/ClientCredentials.js'
-import Icon from '../Icon/Icon.js'
-import Tooltip from '../Tooltip/Tooltip.js'
 
 export const QUERY = gql`
   query ClientsQuery {
