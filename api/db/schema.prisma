@@ -21,14 +21,12 @@ model User {
   // --------------- STATE --------------
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  mfa_enabled  Boolean?
   imageSrc     String? // Avatar URL
   country      String? // Player's country  eg. US, DE
-  mintCredits  Int      @default(3) // Mint for free!
   banned       Boolean  @default(false)
   blocked      Boolean? // Prevents others from interacting with this person
-  refreshToken String? // Discord.com Oauth
-  accessToken  String? // Discord.com Oauth
+  refreshToken String?
+  accessToken  String?
   OAuth        OAuth[]
   betaAccess   Boolean  @default(false)
 }

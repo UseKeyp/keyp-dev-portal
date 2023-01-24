@@ -1,8 +1,9 @@
 import KeypManager from 'src/lib/keyp'
+const KEYP_CLIENT_ID = 'dev-portal'
 
 export const clients = async () => {
   const keyp = new KeypManager({
-    clientId: process.env.KEYP_CLIENT_ID,
+    clientId: KEYP_CLIENT_ID,
     accessToken: context.currentUser.accessToken,
   })
   const clients = await keyp.getClients()
@@ -11,7 +12,7 @@ export const clients = async () => {
 
 export const createClient = async () => {
   const keyp = new KeypManager({
-    clientId: process.env.KEYP_CLIENT_ID,
+    clientId: KEYP_CLIENT_ID,
     accessToken: context.currentUser.accessToken,
   })
   const client = await keyp.createClient()
@@ -20,7 +21,7 @@ export const createClient = async () => {
 
 export const updateClient = async ({ id, redirectUrls }) => {
   const keyp = new KeypManager({
-    clientId: process.env.KEYP_CLIENT_ID,
+    clientId: KEYP_CLIENT_ID,
     accessToken: context.currentUser.accessToken,
   })
   const client = await keyp.updateClient({ id, redirectUrls })

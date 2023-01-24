@@ -17,10 +17,10 @@ export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
 const KEYP_OAUTH_URL_TOKEN = `${KEYP_API_DOMAIN}/token`
 
 const KEYP_REDIRECT_URI = process.env.APP_DOMAIN + '/redirect/keyp'
-
+const KEYP_CLIENT_ID = 'dev-portal'
 const responseType = 'code'
 const params = {
-  client_id: process.env.KEYP_CLIENT_ID,
+  client_id: KEYP_CLIENT_ID,
   scope: 'openid profile email',
   redirect_uri: KEYP_REDIRECT_URI,
 }
@@ -29,7 +29,7 @@ export const onSubmitCode = async (code, { codeVerifier }) => {
   try {
     const body = {
       grant_type: 'authorization_code',
-      client_id: process.env.KEYP_CLIENT_ID,
+      client_id: KEYP_CLIENT_ID,
       redirect_uri: KEYP_REDIRECT_URI,
       code_verifier: codeVerifier,
       code,
