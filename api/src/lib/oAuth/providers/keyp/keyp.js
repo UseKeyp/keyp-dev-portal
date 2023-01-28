@@ -8,14 +8,13 @@ import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
 export const KEYP = 'KEYP'
 
-// let KEYP_API_DOMAIN = 'https://oauth2-server-redwood.vercel.app/oauth'
-// let KEYP_API_DOMAIN = 'https://app.usekeyp.com/oauth'
-
 let KEYP_API_DOMAIN = 'http://localhost/oauth'
 if (process.env.ENVIRONMENT === 'staging')
   KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
 if (process.env.ENVIRONMENT === 'prod')
   KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
+
+// KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
 
 export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
 

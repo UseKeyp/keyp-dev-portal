@@ -7,9 +7,9 @@ var path = require('path')
 
 let KEYP_API_URL = 'http://localhost/api/v1'
 if (process.env.ENVIRONMENT === 'staging')
-  KEYP_API_URL = 'https://app.usekeyp.com/api/v1'
+  KEYP_API_URL = 'https://api.usekeyp.com/v1'
 if (process.env.ENVIRONMENT === 'prod')
-  KEYP_API_URL = 'https://app.usekeyp.com/api/v1'
+  KEYP_API_URL = 'https://api.usekeyp.com/v1'
 
 const validateConfigs = ({ accessToken, clientId }) => {
   if (!accessToken) throw 'No accessToken provided'
