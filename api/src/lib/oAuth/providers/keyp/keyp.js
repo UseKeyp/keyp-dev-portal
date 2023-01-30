@@ -8,17 +8,17 @@ import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
 export const KEYP = 'KEYP'
 
-let KEYP_API_DOMAIN = 'http://localhost/oauth'
-if (process.env.ENVIRONMENT === 'staging')
-  KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
-if (process.env.ENVIRONMENT === 'prod')
-  KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
+let KEYP_OAUTH_DOMAIN = 'http://localhost/oauth'
+if (['staging', 'prod'].includes(process.env.ENVIRONMENT))
+  KEYP_OAUTH_DOMAIN = 'https://app.usekeyp.com/oauth'
 
-// KEYP_API_DOMAIN = 'https://oauth.usekeyp.com'
+// KEYP_OAUTH_DOMAIN = 'https://app.oauth-demo.keyp.gg/oauth'
+// KEYP_OAUTH_DOMAIN = 'https://app.usekeyp.com/oauth'
 
-export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
+const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_OAUTH_DOMAIN}/auth`
+export default KEYP_OAUTH_URL_AUTHORIZE
 
-const KEYP_OAUTH_URL_TOKEN = `${KEYP_API_DOMAIN}/token`
+const KEYP_OAUTH_URL_TOKEN = `${KEYP_OAUTH_DOMAIN}/token`
 
 const KEYP_REDIRECT_URI = APP_DOMAIN + '/redirect/keyp'
 const KEYP_CLIENT_ID = 'dev-portal'
@@ -84,7 +84,7 @@ export const onSubmitCode = async (code, { codeVerifier }) => {
 
 export const onConnected = async ({ accessToken, decoded }) => {
   try {
-    const userDetails = await fetch(`${KEYP_API_DOMAIN}/me`, {
+    const userDetails = await fetch(`${KEYP_OAUTH_DOMAIN}/me`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then((res) => {
       if (res.status != 200)
