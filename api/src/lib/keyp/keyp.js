@@ -28,12 +28,27 @@ class KeypManager {
   getClients = () => {
     return fetchKeyp({ path: 'clients', accessToken: this.accessToken })
   }
-  updateClient = async ({ id, redirectUrls }) => {
+  updateClient = async ({
+    id,
+    redirectUrls,
+    clientURI,
+    clientName,
+    tosURI,
+    logoURI,
+    policyURI,
+  }) => {
     const list = redirectUrls.split(',').map((url) => url.trim())
     return fetchKeyp({
       path: `clients/${id}`,
       method: 'PATCH',
-      body: JSON.stringify({ redirect_uris: list }),
+      body: JSON.stringify({
+        redirect_uris: list,
+        clientURI,
+        clientName,
+        tosURI,
+        logoURI,
+        policyURI,
+      }),
       accessToken: this.accessToken,
     })
   }

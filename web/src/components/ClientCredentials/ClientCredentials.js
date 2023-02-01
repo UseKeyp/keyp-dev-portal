@@ -1,21 +1,8 @@
 import { useState } from 'react'
 
-import { v4 as uuidv4 } from 'uuid'
-
-import {
-  FieldError,
-  Form,
-  Label,
-  TextField,
-  TextAreaField,
-  Submit,
-} from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import ClientCell from 'src/components/ClientCell'
-
-import Button from '../Button/Button.js'
 import Icon from '../Icon/Icon.js'
 import Tooltip from '../Tooltip/Tooltip.js'
 import URLRedirects from '../URLRedirects/URLRedirects.js'
@@ -34,20 +21,17 @@ const ClientCredentials = ({ client }) => {
       toast.success('Client created!')
     },
   })
+  const [showEditSection, setShowEditSection] = useState(false)
 
-  const onSubmit = () => {
-    createClient()
-  }
+  // let clientSecretSection
 
-  let clientSecretSection
-
-  function handleCopy() {
-    navigator.clipboard.writeText(apiKey)
-    setCopySuccess('Copied!')
-    setTimeout(() => {
-      setCopySuccess('Click to copy key')
-    }, 2000)
-  }
+  // function handleCopy() {
+  //   navigator.clipboard.writeText(apiKey)
+  //   setCopySuccess('Copied!')
+  //   setTimeout(() => {
+  //     setCopySuccess('Click to copy key')
+  //   }, 2000)
+  // }
 
   // let regenerateConfirmationSection = (
   //   <div className="flex flex-col">
@@ -118,10 +102,39 @@ const ClientCredentials = ({ client }) => {
   //     </div>
   //   )
   // }
+
   return (
-    <div className="flex w-full flex-col gap-y-4 overflow-auto rounded-md border border-gray-800 p-2">
+    <div className="mt-4 flex w-full flex-col overflow-auto rounded-md border border-gray-800 p-4">
       <div>
         <div key={client.id}>
+          <div className="flex flex-row justify-between">
+            {(
+              <div className="mb-4 text-lg font-bold text-gray-1600">
+                {client.payload.client_name}
+              </div>
+            ) || (
+              <div className="mb-4 text-lg font-bold text-gray-1600">
+                New Client
+              </div>
+            )}
+            {showEditSection ? (
+              <button
+                onClick={() => {
+                  setShowEditSection(false)
+                }}
+                className="flex font-light text-blue-1200"
+              >
+                Close
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowEditSection(true)}
+                className="flex font-light text-blue-1200"
+              >
+                Edit
+              </button>
+            )}
+          </div>
           <div className="flex w-full flex-row justify-between">
             <div className="flex flex-col">
               <div className="flex gap-x-1 text-xs text-gray-800">
@@ -144,8 +157,9 @@ const ClientCredentials = ({ client }) => {
             </div>
             <div className="flex gap-x-3">
               <div className="flex flex-col">
-                <div className="flex text-xs text-gray-800">CREATED BY</div>
-                <div className="flex font-light">{client.createdBy}</div>
+                {(
+                  <div className="flex text-xs text-gray-800">CREATED BY</div>
+                ) && <div className="flex font-light">{client.createdBy}</div>}
               </div>
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-xs text-gray-800">
@@ -191,9 +205,7 @@ const ClientCredentials = ({ client }) => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex">
-            <URLRedirects client={client} />
-          </div>
+          <URLRedirects client={client} showEditSection={showEditSection} />
         </div>
       </div>
       <div className="flex w-full flex-row justify-between gap-x-2">
