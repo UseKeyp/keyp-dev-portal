@@ -108,11 +108,13 @@ const ClientCredentials = ({ client }) => {
       <div>
         <div key={client.id}>
           <div className="flex flex-row justify-between">
-            {(
+            {
+              client.payload.client_name ?
+              (
               <div className="mb-4 text-lg font-bold text-gray-1600">
                 {client.payload.client_name}
               </div>
-            ) || (
+            ) : (
               <div className="mb-4 text-lg font-bold text-gray-1600">
                 New Client
               </div>
