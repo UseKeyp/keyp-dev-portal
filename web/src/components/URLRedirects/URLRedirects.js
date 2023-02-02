@@ -32,7 +32,7 @@ const UPDATE_CLIENT = gql`
 `
 
 const URLRedirects = ({ client, showEditSection }) => {
-  const [updateClient, { loading, error }] = useMutation(UPDATE_CLIENT, {
+  const [updateClient, { error }] = useMutation(UPDATE_CLIENT, {
     refetchQueries: [{ query: clientQuery }],
     onCompleted: () => {
       toast.success('Client updated')
@@ -40,7 +40,16 @@ const URLRedirects = ({ client, showEditSection }) => {
   })
 
   const handleSubmit = async () => {
-    const redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    for (let u of urls) {
+      if (!validateUrl(u) && u.length > 1) {
+        alert(
+          'Not all of your URL Redirects are valid. Please check your URLs and try again.'
+        )
+        return
+      }
+    }
+
+    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
     await updateClient({
       variables: {
         redirectUrls,
@@ -54,10 +63,19 @@ const URLRedirects = ({ client, showEditSection }) => {
     })
   }
 
-  const initialUrls = client.payload.redirect_uris
-    ? [client.payload.redirect_uris]
-    : ['']
-  const [urls, setUrls] = useState(['', initialUrls])
+  let initialUrls =
+    client.payload.redirect_uris.length >= 1 &&
+    client.payload.redirect_uris[0] !== ''
+      ? [client.payload.redirect_uris]
+      : ['']
+
+  if (initialUrls[0] !== '' && initialUrls.length >= 1) {
+    initialUrls = [].concat('', ...initialUrls)
+  }
+
+  // The length is 6 because we add an empty string to the start of the array
+  const MAX_REDIRECT_URLS = 6
+  const [urls, setUrls] = useState(initialUrls)
   const [clientURI, setClientURI] = useState(client.payload.client_uri)
   const [clientName, setClientName] = useState(client.payload.client_name)
   const [tosURI, setTosURI] = useState(client.payload.tos_uri)
@@ -67,7 +85,8 @@ const URLRedirects = ({ client, showEditSection }) => {
 
   useEffect(() => {
     if (
-      urls !== client.payload.redirect_uris ||
+      urls.length !== initialUrls.length ||
+      urls[0] !== initialUrls[0] ||
       clientURI !== client.payload.client_uri ||
       clientName !== client.payload.client_name ||
       tosURI !== client.payload.tos_uri ||
@@ -76,10 +95,21 @@ const URLRedirects = ({ client, showEditSection }) => {
     ) {
       setShowDiscardChanges(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urls, clientURI, clientName, tosURI, logoURI, policyURI])
 
   function discardChanges() {
-    setUrls(...initialUrls)
+    initialUrls =
+      client.payload.redirect_uris.length >= 1 &&
+      client.payload.redirect_uris[0] !== ''
+        ? [client.payload.redirect_uris]
+        : ['']
+
+    if (initialUrls[0] !== '' && initialUrls.length >= 1) {
+      initialUrls = [].concat('', ...initialUrls)
+    }
+
+    setUrls(initialUrls)
     setClientURI(client.payload.client_uri)
     setClientName(client.payload.client_name)
     setTosURI(client.payload.tos_uri)
@@ -87,12 +117,11 @@ const URLRedirects = ({ client, showEditSection }) => {
     setPolicyURI(client.payload.policy_uri)
     setShowDiscardChanges(false)
   }
-  console.log(urls)
 
-  const handleAddURL = (index) => {
+  const handleAddURL = async (index) => {
     const currentUrl = urls[index]
     if (!currentUrl.length) return alert('Please enter a URL')
-    if (urls.length >= 5) {
+    if (urls.length >= MAX_REDIRECT_URLS) {
       alert('Cannot add more than 5 URLs')
       return
     }
@@ -101,7 +130,14 @@ const URLRedirects = ({ client, showEditSection }) => {
       alert('Please enter a valid web address')
       return
     }
-    setUrls([...urls.slice(0, index + 1), '', ...urls.slice(index + 1)])
+    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    await updateClient({
+      variables: {
+        redirectUrls,
+        id: client.id,
+      },
+    })
+    setUrls(['', ...urls.slice(0, index + 1), ...urls.slice(index + 1)])
   }
 
   const validateUrl = (url) => {
@@ -112,8 +148,16 @@ const URLRedirects = ({ client, showEditSection }) => {
     return !!pattern.test(url)
   }
 
-  const handleRemoveURL = (index) => {
+  const handleRemoveURL = async (index) => {
     setUrls(urls.filter((_, i) => i !== index))
+    urls.splice(index, 1)
+    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    await updateClient({
+      variables: {
+        redirectUrls,
+        id: client.id,
+      },
+    })
   }
 
   const handleChange = (e, index) => {
@@ -125,119 +169,117 @@ const URLRedirects = ({ client, showEditSection }) => {
 
   return showEditSection ? (
     <div className="flex rounded-md pt-4">
-      <div className="flex w-full justify-between">
-        <div className="flex flex-row">
-          <form className="flex flex-col">
-            <div className="mb-4 flex flex-col">
-              <label className="text-xs text-gray-800" name="clientName">
-                Client Name
-              </label>
-              <TextInput
-                type="text"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-                name="clientName"
-                className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
-              />
-            </div>
-            <div className="mb-4 flex flex-col">
-              <label className="text-xs text-gray-800" name="clientName">
-                Client URI
-              </label>
-              <TextInput
-                type="text"
-                value={clientURI}
-                onChange={(e) => setClientURI(e.target.value)}
-                name="clientURI"
-                className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
-              />
-            </div>
-            <div className="mb-4 flex flex-col">
-              <label className="text-xs text-gray-800" name="clientName">
-                Logo URI
-              </label>
-              <TextInput
-                type="text"
-                value={logoURI}
-                onChange={(e) => setLogoURI(e.target.value)}
-                name="logoURI"
-                className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
-              />
-            </div>
-            <div className="mb-4 flex flex-col">
-              <label className="text-xs text-gray-800" name="clientName">
-                Terms of Service URI
-              </label>
-              <TextInput
-                type="text"
-                value={tosURI}
-                onChange={(e) => setTosURI(e.target.value)}
-                name="tosURI"
-                className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
-              />
-            </div>
-            <div className="mb-4 flex flex-col">
-              <label className="text-xs text-gray-800" name="clientName">
-                Privacy Policy URI
-              </label>
-              <TextInput
-                type="text"
-                value={policyURI}
-                onChange={(e) => setPolicyURI(e.target.value)}
-                name="policyURI"
-                className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
-              />
-            </div>
-            <Button
+      <div className="flex w-full gap-x-4">
+        <form className="flex max-w-xl grow flex-col">
+          <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">Client Name</div>
+            <TextInput
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">Client URI</div>
+            <TextInput
+              type="text"
+              value={clientURI}
+              onChange={(e) => setClientURI(e.target.value)}
+              name="clientURI"
+              className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">Logo URI</div>
+            <TextInput
+              type="text"
+              value={logoURI}
+              onChange={(e) => setLogoURI(e.target.value)}
+              name="logoURI"
+              className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">Terms of Service URI</div>
+            <TextInput
+              type="text"
+              value={tosURI}
+              onChange={(e) => setTosURI(e.target.value)}
+              name="tosURI"
+              className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">Privacy Policy URI</div>
+            <TextInput
+              type="text"
+              value={policyURI}
+              onChange={(e) => setPolicyURI(e.target.value)}
+              name="policyURI"
+              className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+            />
+          </div>
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!showDiscardChanges}
+            fluid={true}
+            variant="green"
+            textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
+            classNameVariant={
+              showDiscardChanges
+                ? ''
+                : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+            }
+          >
+            Save Changes
+          </Button>
+          {showDiscardChanges ? (
+            <button
+              onClick={() => discardChanges()}
               type="button"
-              onClick={handleSubmit}
-              disabled={loading}
-              fluid={true}
-              variant="green"
+              className="mt-4 flex justify-center font-light text-red-1200"
             >
-              Save Changes
-            </Button>
-            {showDiscardChanges ? (
-              <button
-                onClick={() => discardChanges()}
-                type="button"
-                className="mt-4 flex justify-center font-light text-red-1200"
-              >
-                Discard Changes
-              </button>
-            ) : (
-              <></>
-            )}
-          </form>
-        </div>
-        <div className="flex flex-col">
+              Discard Changes
+            </button>
+          ) : (
+            <></>
+          )}
+        </form>
+        <div className="flex grow flex-col">
           <h2 className="text-xs text-gray-800">URL REDIRECTS</h2>
           {urls.map((url, index) => (
-            <div className="mb-4 w-full" key={index}>
+            <div
+              key={index}
+              className={`w-full ${
+                index === 0 && urls.length >= MAX_REDIRECT_URLS ? '' : 'mb-8'
+              }`}
+            >
               <div className="flex rounded-lg bg-white">
-                {index <= 3 ? (
+                {index === 0 && urls.length >= MAX_REDIRECT_URLS ? (
+                  <></>
+                ) : (
                   <TextInput
                     className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
                     placeholder="http://domain.com/redirect-url"
                     value={url}
                     onChange={(e) => handleChange(e, index)}
-                    readOnly={urls.length >= 5}
+                    readOnly={urls.length >= MAX_REDIRECT_URLS || index > 0}
                     id={`url-${index}`}
                   />
-                ) : (
-                  <></>
                 )}
                 <div className="ml-2">
-                  {index === urls.length - 1 ? (
+                  {index === 0 ? (
                     <div>
-                      {urls.length >= 5 ? (
+                      {urls.length >= MAX_REDIRECT_URLS ? (
                         <></>
                       ) : (
                         <Button
-                          disabled={urls.length >= 5}
+                          disabled={urls.length >= MAX_REDIRECT_URLS}
                           onClick={() => handleAddURL(index)}
                           classNameVariant={`${
-                            urls.length >= 5 ? 'bg-red-500' : ''
+                            urls.length >= MAX_REDIRECT_URLS ? 'bg-red-500' : ''
                           }`}
                           variant="green"
                         >

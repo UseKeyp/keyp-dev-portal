@@ -22,16 +22,17 @@ const ClientCredentials = ({ client }) => {
     },
   })
   const [showEditSection, setShowEditSection] = useState(false)
+  const [copySuccess, setCopySuccess] = useState('Copy ID')
 
   // let clientSecretSection
 
-  // function handleCopy() {
-  //   navigator.clipboard.writeText(apiKey)
-  //   setCopySuccess('Copied!')
-  //   setTimeout(() => {
-  //     setCopySuccess('Click to copy key')
-  //   }, 2000)
-  // }
+  function handleCopy() {
+    navigator.clipboard.writeText(client?.id)
+    setCopySuccess('Copied!')
+    setTimeout(() => {
+      setCopySuccess('Click to copy key')
+    }, 2000)
+  }
 
   // let regenerateConfirmationSection = (
   //   <div className="flex flex-col">
@@ -108,9 +109,7 @@ const ClientCredentials = ({ client }) => {
       <div>
         <div key={client.id}>
           <div className="flex flex-row justify-between">
-            {
-              client.payload.client_name ?
-              (
+            {client.payload.client_name ? (
               <div className="mb-4 text-lg font-bold text-gray-1600">
                 {client.payload.client_name}
               </div>
@@ -149,19 +148,48 @@ const ClientCredentials = ({ client }) => {
                   bgColor="#eef0f2"
                   position="top"
                   tooltipChild={
-                    <div className="text-black">Copy this into your app</div>
+                    <div className="p-1 text-black">
+                      Copy this into your app
+                    </div>
                   }
                 >
                   <Icon color="fill-gray-800" name="tooltip" />
                 </Tooltip>
               </div>
-              <div className="flex font-light">{client.id}</div>
+              <div className="flex flex-row gap-x-2">
+                <div className="flex font-light">{client.id}</div>
+                <button
+                  className="flex"
+                  onClick={() => {
+                    handleCopy()
+                  }}
+                >
+                  <Tooltip
+                    id="client-secret"
+                    delayHideTime={250}
+                    effect="float"
+                    borderColor="#C6CED2"
+                    bgColor="#eef0f2"
+                    position="top"
+                    tooltipChild={
+                      <div className="text-black">{copySuccess}</div>
+                    }
+                  >
+                    <Icon color="fill-blue-1200" name="copy" />
+                  </Tooltip>
+                </button>
+              </div>
             </div>
             <div className="flex gap-x-3">
               <div className="flex flex-col">
-                {(
-                  <div className="flex text-xs text-gray-800">CREATED BY</div>
-                ) && <div className="flex font-light">{client.createdBy}</div>}
+                {client?.createdBy ? (
+                  <div className="flex flex-col">
+                    <div className="flex text-xs text-gray-800">CREATED BY</div>
+                    <div className="flex font-light">{client.createdBy}</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-xs text-gray-800">
