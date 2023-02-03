@@ -1,21 +1,8 @@
 import { useState } from 'react'
 
-import { v4 as uuidv4 } from 'uuid'
-
-import {
-  FieldError,
-  Form,
-  Label,
-  TextField,
-  TextAreaField,
-  Submit,
-} from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import ClientCell from 'src/components/ClientCell'
-
-import Button from '../Button/Button.js'
 import Icon from '../Icon/Icon.js'
 import Tooltip from '../Tooltip/Tooltip.js'
 import URLRedirects from '../URLRedirects/URLRedirects.js'
@@ -34,15 +21,13 @@ const ClientCredentials = ({ client }) => {
       toast.success('Client created!')
     },
   })
+  const [showEditSection, setShowEditSection] = useState(false)
+  const [copySuccess, setCopySuccess] = useState('Copy ID')
 
-  const onSubmit = () => {
-    createClient()
-  }
-
-  let clientSecretSection
+  // let clientSecretSection
 
   function handleCopy() {
-    navigator.clipboard.writeText(apiKey)
+    navigator.clipboard.writeText(client?.id)
     setCopySuccess('Copied!')
     setTimeout(() => {
       setCopySuccess('Click to copy key')
@@ -118,10 +103,39 @@ const ClientCredentials = ({ client }) => {
   //     </div>
   //   )
   // }
+
   return (
-    <div className="flex w-full flex-col gap-y-4 overflow-auto rounded-md border border-gray-800 p-2">
+    <div className="mt-4 flex w-full flex-col overflow-auto rounded-md border border-gray-800 p-4">
       <div>
         <div key={client.id}>
+          <div className="flex flex-row justify-between">
+            {client.payload.client_name ? (
+              <div className="mb-4 text-lg font-bold text-gray-1600">
+                {client.payload.client_name}
+              </div>
+            ) : (
+              <div className="mb-4 text-lg font-bold text-gray-1600">
+                New Client
+              </div>
+            )}
+            {showEditSection ? (
+              <button
+                onClick={() => {
+                  setShowEditSection(false)
+                }}
+                className="flex font-light text-blue-1200"
+              >
+                Close
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowEditSection(true)}
+                className="flex font-light text-blue-1200"
+              >
+                Edit
+              </button>
+            )}
+          </div>
           <div className="flex w-full flex-row justify-between">
             <div className="flex flex-col">
               <div className="flex gap-x-1 text-xs text-gray-800">
@@ -134,18 +148,48 @@ const ClientCredentials = ({ client }) => {
                   bgColor="#eef0f2"
                   position="top"
                   tooltipChild={
-                    <div className="text-black">Copy this into your app</div>
+                    <div className="p-1 text-black">
+                      Copy this into your app
+                    </div>
                   }
                 >
                   <Icon color="fill-gray-800" name="tooltip" />
                 </Tooltip>
               </div>
-              <div className="flex font-light">{client.id}</div>
+              <div className="flex flex-row gap-x-2">
+                <div className="flex font-light">{client.id}</div>
+                <button
+                  className="flex"
+                  onClick={() => {
+                    handleCopy()
+                  }}
+                >
+                  <Tooltip
+                    id="client-secret"
+                    delayHideTime={250}
+                    effect="float"
+                    borderColor="#C6CED2"
+                    bgColor="#eef0f2"
+                    position="top"
+                    tooltipChild={
+                      <div className="text-black">{copySuccess}</div>
+                    }
+                  >
+                    <Icon color="fill-blue-1200" name="copy" />
+                  </Tooltip>
+                </button>
+              </div>
             </div>
             <div className="flex gap-x-3">
               <div className="flex flex-col">
-                <div className="flex text-xs text-gray-800">CREATED BY</div>
-                <div className="flex font-light">{client.createdBy}</div>
+                {client?.createdBy ? (
+                  <div className="flex flex-col">
+                    <div className="flex text-xs text-gray-800">CREATED BY</div>
+                    <div className="flex font-light">{client.createdBy}</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-xs text-gray-800">
@@ -191,9 +235,7 @@ const ClientCredentials = ({ client }) => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex">
-            <URLRedirects client={client} />
-          </div>
+          <URLRedirects client={client} showEditSection={showEditSection} />
         </div>
       </div>
       <div className="flex w-full flex-row justify-between gap-x-2">

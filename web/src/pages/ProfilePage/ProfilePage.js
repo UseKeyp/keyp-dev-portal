@@ -1,28 +1,24 @@
-import { useState } from 'react'
-
+import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
 import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
+import Icon from 'src/components/Icon/Icon'
 
 const ProfilePage = () => {
   return (
     <>
       <MetaTags title="Profile" description="My profile" />
-      <h1 className="mb-12 text-6xl font-light text-blue-1200">Dev Portal</h1>
+      <div className="flex flex-row items-start gap-x-4">
+        <div className="flex">
+          <Icon name="keypnameandlogo" height="48px" width="164px" />
+        </div>
+        <h1 className="mb-8 flex text-5xl font-light text-blue-1200">
+          Dev Portal
+        </h1>
+      </div>
       <AppHeader />
       <ClientCell />
-      <div className="mt-4 flex flex-row gap-x-4 font-light text-blue-1200">
-        <div className="flex text-sm">Integration Guide</div>
-        <a
-          href="https://docs.usekeyp.com/"
-          target="_blank"
-          className="flex text-sm"
-          rel="noreferrer"
-        >
-          Read the Docs
-        </a>
-      </div>
     </>
   )
 }

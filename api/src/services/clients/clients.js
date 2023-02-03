@@ -19,12 +19,28 @@ export const createClient = async () => {
   return client
 }
 
-export const updateClient = async ({ id, redirectUrls }) => {
+export const updateClient = async ({
+  id,
+  redirectUrls,
+  clientURI,
+  clientName,
+  tosURI,
+  logoURI,
+  policyURI,
+}) => {
   const keyp = new KeypManager({
     clientId: KEYP_CLIENT_ID,
     accessToken: context.currentUser.accessToken,
   })
-  const client = await keyp.updateClient({ id, redirectUrls })
+  const client = await keyp.updateClient({
+    id,
+    redirectUrls,
+    clientURI,
+    clientName,
+    tosURI,
+    logoURI,
+    policyURI,
+  })
   console.log(client)
   return client
 }
