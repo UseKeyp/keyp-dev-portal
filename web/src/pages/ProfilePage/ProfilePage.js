@@ -6,9 +6,6 @@ import ClientCell from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
 
 const ProfilePage = () => {
-  const { currentUser } = useAuth()
-  console.log(currentUser)
-
   return (
     <>
       <MetaTags title="Profile" description="My profile" />
