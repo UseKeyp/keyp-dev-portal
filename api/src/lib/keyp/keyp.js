@@ -5,7 +5,7 @@ import Sentry from 'src/lib/sentry'
 
 var path = require('path')
 
-let KEYP_API_URL = 'http://localhost/.redwood/functions/v1'
+let KEYP_API_URL = 'http://localhost:3001/v1'
 if (process.env.ENVIRONMENT === 'staging')
   KEYP_API_URL = 'https://api.usekeyp.com/v1'
 if (process.env.ENVIRONMENT === 'prod')
