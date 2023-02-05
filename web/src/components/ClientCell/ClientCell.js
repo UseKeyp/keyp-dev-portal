@@ -36,9 +36,20 @@ export const Empty = () => {
 
   return (
     <>
-      <Button variant="green" onClick={createClient} disabled={loading}>
-        Create
-      </Button>
+      <div className="mt-4 flex gap-x-8 rounded-md border border-black p-8">
+        <Button
+          fluid={true}
+          variant="green"
+          onClick={createClient}
+          disabled={loading}
+        >
+          Create Client
+        </Button>
+        <div className="ont-light flex text-gray-1600">
+          Create a client to generate a Client ID for your app. Make sure to
+          assign a Client URI and Redirect URIs.
+        </div>
+      </div>
       {error?.message}
     </>
   )

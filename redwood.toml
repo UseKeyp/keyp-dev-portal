@@ -6,7 +6,7 @@
 # https://redwoodjs.com/docs/app-configuration-redwood-toml
 
 [web]
-  title = "oauth2-client-redwood"
+  title = "Keyp Dev Portal"
   port = 8910
   host = "0.0.0.0"
   apiUrl = "/api"
