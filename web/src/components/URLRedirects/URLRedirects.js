@@ -44,9 +44,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   const handleSubmit = async () => {
     for (let u of urls) {
       if (!validateUrl(u) && u.length > 1) {
-        alert(
-          'Not all of your URL Redirects are valid. Please check your URLs and try again.'
-        )
+        setClientSideError('Redirect URL should be a valid web address')
         return
       }
     }
@@ -87,6 +85,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   const [policyURI, setPolicyURI] = useState(client.payload.policy_uri)
   const [network, setNetwork] = useState(client.payload.network)
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
+  const [clientSideError, setClientSideError] = useState('')
 
   useEffect(() => {
     if (
@@ -121,18 +120,22 @@ const URLRedirects = ({ client, showEditSection }) => {
     setLogoURI(client.payload.logo_uri)
     setPolicyURI(client.payload.policy_uri)
     setShowDiscardChanges(false)
+    setClientSideError('')
   }
 
   const handleAddURL = async (index) => {
     const currentUrl = urls[index]
-    if (!currentUrl.length) return alert('Please enter a URL')
+    if (!currentUrl.length) {
+      setClientSideError('Please enter a URL')
+      return
+    }
     if (urls.length >= MAX_REDIRECT_URLS) {
-      alert('Cannot add more than 5 URLs')
+      setClientSideError('Cannot add more than 5 URLs')
       return
     }
 
     if (!validateUrl(currentUrl)) {
-      alert('Please enter a valid web address')
+      setClientSideError('Redirect URL should be a valid web address')
       return
     }
     let redirectUrls = urls.filter((url) => url.length > 1).join(',')
@@ -144,11 +147,12 @@ const URLRedirects = ({ client, showEditSection }) => {
       },
     })
     setUrls(['', ...urls.slice(0, index + 1), ...urls.slice(index + 1)])
+    setClientSideError('')
   }
 
   const validateUrl = (url) => {
     const pattern = new RegExp(
-      '^((http||https):\\/\\/.)[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$',
+      '^(?:https?:\\/\\/)?(?:www\\.)?[a-zA-Z0-9./]+$',
       'i'
     )
     return !!pattern.test(url)
@@ -157,7 +161,9 @@ const URLRedirects = ({ client, showEditSection }) => {
   const handleRemoveURL = async (index) => {
     setUrls(urls.filter((_, i) => i !== index))
     urls.splice(index, 1)
-    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    let redirectUrls = urls
+      .filter((url) => url.length > 1 && validateUrl(url))
+      .join(',')
     await updateClient({
       variables: {
         redirectUrls,
@@ -176,7 +182,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   const handleNetworkChange = async (network) => {
     for (let u of urls) {
       if (!validateUrl(u) && u.length > 1) {
-        alert(
+        setClientSideError(
           'Not all of your URL Redirects are valid. Please check your URLs before changing networks.'
         )
         return
@@ -361,8 +367,11 @@ const URLRedirects = ({ client, showEditSection }) => {
               </div>
             </div>
           ))}
+          <div className="flex flex-col gap-y-4 text-red-1200">
+            {error?.message}
+            {clientSideError}
+          </div>
         </div>
-        {error?.message}
       </div>
     </div>
   ) : (
