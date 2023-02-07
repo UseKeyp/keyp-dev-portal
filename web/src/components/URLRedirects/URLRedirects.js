@@ -16,6 +16,7 @@ const UPDATE_CLIENT = gql`
     $tosURI: String
     $logoURI: String
     $policyURI: String
+    $network: String!
   ) {
     updateClient(
       id: $id
@@ -25,6 +26,7 @@ const UPDATE_CLIENT = gql`
       tosURI: $tosURI
       logoURI: $logoURI
       policyURI: $policyURI
+      network: $network
     ) {
       id
     }
@@ -59,8 +61,10 @@ const URLRedirects = ({ client, showEditSection }) => {
         logoURI,
         policyURI,
         id: client.id,
+        network,
       },
     })
+    setShowDiscardChanges(false)
   }
 
   let initialUrls =
@@ -81,6 +85,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   const [tosURI, setTosURI] = useState(client.payload.tos_uri)
   const [logoURI, setLogoURI] = useState(client.payload.logo_uri)
   const [policyURI, setPolicyURI] = useState(client.payload.policy_uri)
+  const [network, setNetwork] = useState(client.payload.network)
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
 
   useEffect(() => {
@@ -134,6 +139,7 @@ const URLRedirects = ({ client, showEditSection }) => {
     await updateClient({
       variables: {
         redirectUrls,
+        network,
         id: client.id,
       },
     })
@@ -155,6 +161,7 @@ const URLRedirects = ({ client, showEditSection }) => {
     await updateClient({
       variables: {
         redirectUrls,
+        network,
         id: client.id,
       },
     })
@@ -166,12 +173,47 @@ const URLRedirects = ({ client, showEditSection }) => {
     newUrls.filter((n) => n)
     setUrls(newUrls)
   }
+  const handleNetworkChange = async (network) => {
+    for (let u of urls) {
+      if (!validateUrl(u) && u.length > 1) {
+        alert(
+          'Not all of your URL Redirects are valid. Please check your URLs before changing networks.'
+        )
+        return
+      }
+    }
+    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    setNetwork(network)
+    await updateClient({
+      variables: {
+        network,
+        redirectUrls,
+        id: client.id,
+      },
+    })
+  }
 
   return showEditSection ? (
     <div className="flex rounded-md pt-4">
-      <div className="flex w-full gap-x-4">
+      <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">
+              Client Network (Goerli or Mainnet)
+            </div>
+            <select
+              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              name="networks"
+              id="networks"
+              value={network}
+              onChange={(e) => handleNetworkChange(e.target.value)}
+            >
+              {['goerli', 'mainnet'].map((network) => (
+                <option key={network} value={network}>
+                  {network}
+                </option>
+              ))}
+            </select>
             <div className="text-xs text-gray-800">Client Name</div>
             <TextInput
               type="text"
@@ -247,7 +289,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             <></>
           )}
         </form>
-        <div className="flex grow flex-col">
+        <div className="mt-4 flex grow flex-col sm:mt-0">
           <h2 className="text-xs text-gray-800">URL REDIRECTS</h2>
           {urls.map((url, index) => (
             <div
@@ -276,14 +318,34 @@ const URLRedirects = ({ client, showEditSection }) => {
                         <></>
                       ) : (
                         <Button
-                          disabled={urls.length >= MAX_REDIRECT_URLS}
+                          disabled={
+                            !showDiscardChanges ||
+                            urls.length >= MAX_REDIRECT_URLS
+                          }
                           onClick={() => handleAddURL(index)}
                           classNameVariant={`${
-                            urls.length >= MAX_REDIRECT_URLS ? 'bg-red-500' : ''
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'border border-gray-800'
+                              : ''
                           }`}
-                          variant="green"
+                          variant={`${
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'white'
+                              : 'green'
+                          }`}
                         >
-                          Add
+                          <div
+                            className={`${
+                              urls.length >= MAX_REDIRECT_URLS ||
+                              !showDiscardChanges
+                                ? 'text-gray-800'
+                                : 'text-white'
+                            }`}
+                          >
+                            Add
+                          </div>
                         </Button>
                       )}
                     </div>
