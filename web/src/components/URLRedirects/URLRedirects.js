@@ -195,11 +195,14 @@ const URLRedirects = ({ client, showEditSection }) => {
 
   return showEditSection ? (
     <div className="flex rounded-md pt-4">
-      <div className="flex w-full gap-x-4">
+      <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">
+              Client Network (Goerli or Mainnet)
+            </div>
             <select
-              className="flex rounded-md bg-gray-50 p-2 font-light"
+              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
               name="networks"
               id="networks"
               value={network}
@@ -286,7 +289,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             <></>
           )}
         </form>
-        <div className="flex grow flex-col">
+        <div className="mt-4 flex grow flex-col sm:mt-0">
           <h2 className="text-xs text-gray-800">URL REDIRECTS</h2>
           {urls.map((url, index) => (
             <div
@@ -315,14 +318,34 @@ const URLRedirects = ({ client, showEditSection }) => {
                         <></>
                       ) : (
                         <Button
-                          disabled={urls.length >= MAX_REDIRECT_URLS}
+                          disabled={
+                            !showDiscardChanges ||
+                            urls.length >= MAX_REDIRECT_URLS
+                          }
                           onClick={() => handleAddURL(index)}
                           classNameVariant={`${
-                            urls.length >= MAX_REDIRECT_URLS ? 'bg-red-500' : ''
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'border border-gray-800'
+                              : ''
                           }`}
-                          variant="green"
+                          variant={`${
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'white'
+                              : 'green'
+                          }`}
                         >
-                          Add
+                          <div
+                            className={`${
+                              urls.length >= MAX_REDIRECT_URLS ||
+                              !showDiscardChanges
+                                ? 'text-gray-800'
+                                : 'text-white'
+                            }`}
+                          >
+                            Add
+                          </div>
                         </Button>
                       )}
                     </div>
