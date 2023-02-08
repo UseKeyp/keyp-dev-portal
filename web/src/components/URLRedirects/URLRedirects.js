@@ -152,10 +152,14 @@ const URLRedirects = ({ client, showEditSection }) => {
 
   const validateUrl = (url) => {
     const pattern = new RegExp(
-      '^(?:https?:\\/\\/)?(?:www\\.)?[a-zA-Z0-9./]+$',
+      '(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)',
       'i'
     )
-    return !!pattern.test(url)
+    return (
+      !!pattern.test(url) ||
+      url.startsWith('localhost') ||
+      url.startsWith('0.0.0.0:')
+    )
   }
 
   const handleRemoveURL = async (index) => {
