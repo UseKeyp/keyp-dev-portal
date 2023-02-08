@@ -105,7 +105,7 @@ const ClientCredentials = ({ client }) => {
   // }
 
   return (
-    <div className="mt-4 flex w-full flex-col overflow-auto rounded-md border border-gray-800 p-4">
+    <div className="my-4 flex w-full flex-col overflow-auto rounded-md border border-gray-800 p-4">
       <div>
         <div key={client.id}>
           <div className="flex flex-row justify-between">
