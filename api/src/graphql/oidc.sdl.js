@@ -17,6 +17,7 @@ export const schema = gql`
       tosURI: String
       logoURI: String
       policyURI: String
+      network: String!
     ): Oidc! @requireAuth
     deleteClient(id: String!): Oidc! @requireAuth
   }

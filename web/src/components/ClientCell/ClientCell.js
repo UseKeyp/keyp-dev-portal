@@ -1,3 +1,7 @@
+import { useState } from 'react'
+
+import ConfettiExplosion from 'react-confetti-explosion'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -34,13 +38,32 @@ export const Empty = () => {
     },
   })
 
+  const [isExploding, setIsExploding] = useState(false)
+  function handleConfettiExplosion() {
+    setIsExploding(true)
+    setTimeout(() => {
+      setIsExploding(false)
+    }, 2000)
+  }
+
   return (
     <>
       <div className="mt-4 flex gap-x-8 rounded-md border border-black p-8">
+        <div className="absolute left-0">
+          {isExploding && <ConfettiExplosion duration="4400" />}
+        </div>
+        <div className="absolute right-0">
+          {isExploding && <ConfettiExplosion duration="4400" />}
+        </div>
         <Button
           fluid={true}
           variant="green"
-          onClick={createClient}
+          onClick={() => {
+            handleConfettiExplosion()
+            setTimeout(() => {
+              createClient()
+            }, 500)
+          }}
           disabled={loading}
         >
           Create Client

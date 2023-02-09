@@ -27,6 +27,7 @@ export const updateClient = async ({
   tosURI,
   logoURI,
   policyURI,
+  network,
 }) => {
   const keyp = new KeypManager({
     clientId: KEYP_CLIENT_ID,
@@ -40,6 +41,7 @@ export const updateClient = async ({
     tosURI,
     logoURI,
     policyURI,
+    network,
   })
   console.log(client)
   return client

@@ -42,6 +42,7 @@ class KeypManager {
     tosURI,
     logoURI,
     policyURI,
+    network,
   }) => {
     const list = redirectUrls.split(',').map((url) => url.trim())
     return fetchKeyp({
@@ -54,6 +55,7 @@ class KeypManager {
         tosURI,
         logoURI,
         policyURI,
+        network,
       }),
       accessToken: this.accessToken,
     })
