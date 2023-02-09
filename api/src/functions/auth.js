@@ -3,7 +3,7 @@ import { DbAuthHandler } from '@redwoodjs/api'
 
 import { validateLoginRequest } from 'src/lib/auth/validation'
 import { db } from 'src/lib/db'
-import { isProduction, cors } from 'src/lib/helpers'
+import { isProdOrStaging, cors, APP_DOMAIN } from 'src/lib/helpers'
 import { logger } from 'src/lib/logger'
 import { oAuthUrl, submitCodeGrant } from 'src/lib/oAuth'
 import { providers } from 'src/lib/oAuth/providers'
@@ -59,9 +59,9 @@ export const handler = async (event, context) => {
       HttpOnly: true,
       Path: '/',
       SameSite: 'Strict',
-      Secure: isProduction,
-      ...(isProduction && {
-        Domain: process.env.APP_DOMAIN.split('://')[1],
+      Secure: isProdOrStaging,
+      ...(isProdOrStaging && {
+        Domain: APP_DOMAIN.split('://')[1],
       }),
     },
   })
