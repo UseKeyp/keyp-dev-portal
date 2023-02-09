@@ -16,6 +16,7 @@ const UPDATE_CLIENT = gql`
     $tosURI: String
     $logoURI: String
     $policyURI: String
+    $network: String!
   ) {
     updateClient(
       id: $id
@@ -25,6 +26,7 @@ const UPDATE_CLIENT = gql`
       tosURI: $tosURI
       logoURI: $logoURI
       policyURI: $policyURI
+      network: $network
     ) {
       id
     }
@@ -42,9 +44,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   const handleSubmit = async () => {
     for (let u of urls) {
       if (!validateUrl(u) && u.length > 1) {
-        alert(
-          'Not all of your URL Redirects are valid. Please check your URLs and try again.'
-        )
+        setClientSideError('Redirect URL should be a valid web address')
         return
       }
     }
@@ -59,8 +59,10 @@ const URLRedirects = ({ client, showEditSection }) => {
         logoURI,
         policyURI,
         id: client.id,
+        network,
       },
     })
+    setShowDiscardChanges(false)
   }
 
   let initialUrls =
@@ -81,7 +83,9 @@ const URLRedirects = ({ client, showEditSection }) => {
   const [tosURI, setTosURI] = useState(client.payload.tos_uri)
   const [logoURI, setLogoURI] = useState(client.payload.logo_uri)
   const [policyURI, setPolicyURI] = useState(client.payload.policy_uri)
+  const [network, setNetwork] = useState(client.payload.network)
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
+  const [clientSideError, setClientSideError] = useState('')
 
   useEffect(() => {
     if (
@@ -116,45 +120,58 @@ const URLRedirects = ({ client, showEditSection }) => {
     setLogoURI(client.payload.logo_uri)
     setPolicyURI(client.payload.policy_uri)
     setShowDiscardChanges(false)
+    setClientSideError('')
   }
 
   const handleAddURL = async (index) => {
     const currentUrl = urls[index]
-    if (!currentUrl.length) return alert('Please enter a URL')
+    if (!currentUrl.length) {
+      setClientSideError('Please enter a URL')
+      return
+    }
     if (urls.length >= MAX_REDIRECT_URLS) {
-      alert('Cannot add more than 5 URLs')
+      setClientSideError('Cannot add more than 5 URLs')
       return
     }
 
     if (!validateUrl(currentUrl)) {
-      alert('Please enter a valid web address')
+      setClientSideError('Redirect URL should be a valid web address')
       return
     }
     let redirectUrls = urls.filter((url) => url.length > 1).join(',')
     await updateClient({
       variables: {
         redirectUrls,
+        network,
         id: client.id,
       },
     })
     setUrls(['', ...urls.slice(0, index + 1), ...urls.slice(index + 1)])
+    setClientSideError('')
   }
 
   const validateUrl = (url) => {
     const pattern = new RegExp(
-      '^((http||https):\\/\\/.)[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$',
+      '(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)',
       'i'
     )
-    return !!pattern.test(url)
+    return (
+      !!pattern.test(url) ||
+      url.startsWith('localhost') ||
+      url.startsWith('0.0.0.0:')
+    )
   }
 
   const handleRemoveURL = async (index) => {
     setUrls(urls.filter((_, i) => i !== index))
     urls.splice(index, 1)
-    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    let redirectUrls = urls
+      .filter((url) => url.length > 1 && validateUrl(url))
+      .join(',')
     await updateClient({
       variables: {
         redirectUrls,
+        network,
         id: client.id,
       },
     })
@@ -166,12 +183,47 @@ const URLRedirects = ({ client, showEditSection }) => {
     newUrls.filter((n) => n)
     setUrls(newUrls)
   }
+  const handleNetworkChange = async (network) => {
+    for (let u of urls) {
+      if (!validateUrl(u) && u.length > 1) {
+        setClientSideError(
+          'Not all of your URL Redirects are valid. Please check your URLs before changing networks.'
+        )
+        return
+      }
+    }
+    let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    setNetwork(network)
+    await updateClient({
+      variables: {
+        network,
+        redirectUrls,
+        id: client.id,
+      },
+    })
+  }
 
   return showEditSection ? (
     <div className="flex rounded-md pt-4">
-      <div className="flex w-full gap-x-4">
+      <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
+            <div className="text-xs text-gray-800">
+              Client Network (Goerli or Mainnet)
+            </div>
+            <select
+              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              name="networks"
+              id="networks"
+              value={network}
+              onChange={(e) => handleNetworkChange(e.target.value)}
+            >
+              {['goerli', 'mainnet'].map((network) => (
+                <option key={network} value={network}>
+                  {network}
+                </option>
+              ))}
+            </select>
             <div className="text-xs text-gray-800">Client Name</div>
             <TextInput
               type="text"
@@ -247,7 +299,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             <></>
           )}
         </form>
-        <div className="flex grow flex-col">
+        <div className="mt-4 flex grow flex-col sm:mt-0">
           <h2 className="text-xs text-gray-800">URL REDIRECTS</h2>
           {urls.map((url, index) => (
             <div
@@ -276,14 +328,34 @@ const URLRedirects = ({ client, showEditSection }) => {
                         <></>
                       ) : (
                         <Button
-                          disabled={urls.length >= MAX_REDIRECT_URLS}
+                          disabled={
+                            !showDiscardChanges ||
+                            urls.length >= MAX_REDIRECT_URLS
+                          }
                           onClick={() => handleAddURL(index)}
                           classNameVariant={`${
-                            urls.length >= MAX_REDIRECT_URLS ? 'bg-red-500' : ''
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'border border-gray-800'
+                              : ''
                           }`}
-                          variant="green"
+                          variant={`${
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            !showDiscardChanges
+                              ? 'white'
+                              : 'green'
+                          }`}
                         >
-                          Add
+                          <div
+                            className={`${
+                              urls.length >= MAX_REDIRECT_URLS ||
+                              !showDiscardChanges
+                                ? 'text-gray-800'
+                                : 'text-white'
+                            }`}
+                          >
+                            Add
+                          </div>
                         </Button>
                       )}
                     </div>
@@ -299,8 +371,11 @@ const URLRedirects = ({ client, showEditSection }) => {
               </div>
             </div>
           ))}
+          <div className="flex flex-col gap-y-4 text-red-1200">
+            {error?.message}
+            {clientSideError}
+          </div>
         </div>
-        {error?.message}
       </div>
     </div>
   ) : (

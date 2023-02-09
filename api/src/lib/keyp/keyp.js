@@ -7,7 +7,7 @@ var path = require('path')
 
 let KEYP_API_URL = 'http://localhost:3001/v1'
 if (process.env.ENVIRONMENT === 'staging')
-  KEYP_API_URL = 'https://api.usekeyp.com/v1'
+  KEYP_API_URL = 'https://staging-api.usekeyp.com/v1'
 if (process.env.ENVIRONMENT === 'prod')
   KEYP_API_URL = 'https://api.usekeyp.com/v1'
 
@@ -42,6 +42,7 @@ class KeypManager {
     tosURI,
     logoURI,
     policyURI,
+    network,
   }) => {
     const list = redirectUrls.split(',').map((url) => url.trim())
     return fetchKeyp({
@@ -54,6 +55,7 @@ class KeypManager {
         tosURI,
         logoURI,
         policyURI,
+        network,
       }),
       accessToken: this.accessToken,
     })
