@@ -51,14 +51,14 @@ const LoginPortal = () => {
   return (
     <div className="flex h-screen flex-col justify-center sm:items-center">
       <div className="max-w-2 sm:justify-middle flex justify-start">
-        <h1 className="flex flex-col items-start gap-x-4 text-center sm:flex-row sm:items-center">
+        <h1 className="flex flex-col items-start gap-x-4 gap-y-2 text-center sm:flex-row sm:items-center mb-20">
           <Icon height="60px" width="200px" name="keypnameandlogo" />
-          <div className="flex text-6xl font-light text-blue-1200">
+          <div className="flex text-6xl font-light text-blue-1200 mb-0 sm:mb-2">
             Dev Portal
           </div>
         </h1>
       </div>
-      <div className="mt-8 flex flex-col gap-y-2">
+      <div className="mt-8 flex flex-col gap-y-4">
         <div className="text-start text-lg font-light text-gray-1600">
           Log In or Sign Up
         </div>
@@ -127,7 +127,7 @@ const LoginPortal = () => {
         {process.env.NODE_ENV === 'development' ? (
           <Button
             onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-            classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2]"
+            classNameVariant="hover:bg-[#005285] hover:border-[#005285]"
             borderColor="border-[#E5E7EB]"
             fluid={true}
             alt="discord"
@@ -145,9 +145,9 @@ const LoginPortal = () => {
           <></>
         )}
         {errorText && <div className="mt-2">{errorText}</div>}
-        <h4 className="mt-6 text-center">
+        <h4 className="mt-20 text-center">
           <a
-            className="mr-2 text-sm font-light text-blue-1200"
+            className="mr-4 text-sm font-light text-blue-1200"
             target="_blank"
             href="https://www.usekeyp.com/terms-of-use-privacy-policy#Terms-of-Use"
             rel="noreferrer"
@@ -156,7 +156,7 @@ const LoginPortal = () => {
           </a>
           ·
           <a
-            className="ml-2 text-sm font-light text-blue-1200"
+            className="ml-4 text-sm font-light text-blue-1200"
             target="_blank"
             href="https://www.usekeyp.com/terms-of-use-privacy-policy#Privacy-Policy"
             rel="noreferrer"
