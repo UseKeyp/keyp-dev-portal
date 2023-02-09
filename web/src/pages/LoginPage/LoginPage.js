@@ -78,7 +78,7 @@ const LoginPortal = () => {
             </div>
           </div>
         </Button>
-        {/* <Button
+        <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
           classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
           borderColor="border-[#E5E7EB]"
@@ -87,7 +87,7 @@ const LoginPortal = () => {
         >
           <Icon name="google" />
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onSubmitSignUp('KEYP_TWITTER')}
           classNameVariant="hover:bg-[#1DA1F2] hover:border-[#1DA1F2]"
           borderColor="border-[#E5E7EB]"

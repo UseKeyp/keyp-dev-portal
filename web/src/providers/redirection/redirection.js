@@ -1,6 +1,5 @@
 import { useAuth } from '@redwoodjs/auth'
 import { isBrowser } from '@redwoodjs/prerender/browserUtils'
-import { navigate } from '@redwoodjs/router'
 
 import { useOAuth } from 'src/providers/oAuth'
 
@@ -25,7 +24,7 @@ const RedirectionContext = React.createContext({})
 const RedirectionProvider = ({ children }) => {
   const [state, setState] = React.useState({ isLoading: true })
 
-  const { reauthenticate, logIn } = useAuth()
+  const { logIn } = useAuth()
   const { submitCodeGrant } = useOAuth()
 
   let url
