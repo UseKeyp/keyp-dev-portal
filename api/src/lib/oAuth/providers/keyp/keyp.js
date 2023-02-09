@@ -2,19 +2,20 @@ import fetch from 'cross-fetch'
 import { decode as decodeJwt } from 'jsonwebtoken'
 
 import { db } from 'src/lib/db'
-import { isProduction } from 'src/lib/helpers'
 import { logger } from 'src/lib/logger'
 import { encodeBody, getExpiration } from 'src/lib/oAuth/helpers'
 
 export const KEYP = 'KEYP'
 
-const KEYP_API_DOMAIN = isProduction
-  ? 'https://oauth.usekeyp.com'
-  : 'http://localhost/oauth'
+let KEYP_OAUTH_DOMAIN = 'http://localhost/oauth'
+if (process.env.ENVIRONMENT === 'staging')
+  KEYP_OAUTH_DOMAIN = 'https://staging-app.keyp.com/oauth'
+if (process.env.ENVIRONMENT === 'prod')
+  KEYP_OAUTH_DOMAIN = 'https://app.usekeyp.com/oauth'
 
-export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_API_DOMAIN}/auth`
+export const KEYP_OAUTH_URL_AUTHORIZE = `${KEYP_OAUTH_DOMAIN}/auth`
 
-const KEYP_OAUTH_URL_TOKEN = `${KEYP_API_DOMAIN}/token`
+const KEYP_OAUTH_URL_TOKEN = `${KEYP_OAUTH_DOMAIN}/token`
 
 const KEYP_REDIRECT_URI = process.env.APP_DOMAIN + '/redirect/keyp'
 const KEYP_CLIENT_ID = 'dev-portal'
