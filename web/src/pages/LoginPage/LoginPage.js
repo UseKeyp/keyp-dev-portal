@@ -124,7 +124,7 @@ const LoginPortal = () => {
             <Icon name="apple"></Icon>
           </div>
         </Button> */}
-        {process.env.NODE_ENV === 'development' ? (
+        {process.env.NODE_ENV !== 'prod' ? (
           <Button
             onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
             classNameVariant="hover:bg-[#005285] hover:border-[#005285]"
