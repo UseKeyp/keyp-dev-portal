@@ -20,6 +20,7 @@ export const QUERY = gql`
   }
 `
 
+// eslint-disable-next-line camelcase
 const CREATE_ClIENT = gql`
   mutation CreateClientMutation {
     createClient {
@@ -35,6 +36,9 @@ export const Empty = () => {
     refetchQueries: [{ query: QUERY }],
     onCompleted: () => {
       toast.success('Client created!')
+    },
+    onError: () => {
+      setIsExploding(false)
     },
   })
 
@@ -59,10 +63,8 @@ export const Empty = () => {
           fluid={true}
           variant="green"
           onClick={() => {
+            createClient()
             handleConfettiExplosion()
-            setTimeout(() => {
-              createClient()
-            }, 500)
           }}
           disabled={loading}
         >

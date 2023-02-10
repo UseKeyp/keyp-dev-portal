@@ -6,7 +6,7 @@ import ClientCell from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
 
 const ProfilePage = () => {
-  const { logOut, currentUser } = useAuth()
+  const { logOut, currentUser, isAuthenticated } = useAuth()
   function getProviderIconFromCurrentUser() {
     if (!currentUser?.id) {
       return <></>
@@ -49,16 +49,18 @@ const ProfilePage = () => {
             Dev Portal
           </h1>
         </div>
-        <div className="my-auto flex flex-row gap-x-2 rounded-md border border-gray-400 p-2">
-          {getProviderIconFromCurrentUser()}
-          {currentUser?.username || <></>}
-          <button
-            className="text-sm font-light text-gray-400 hover:text-gray-800"
-            onClick={logOut}
-          >
-            Logout
-          </button>
-        </div>
+        {isAuthenticated && (
+          <div className="my-auto flex flex-row gap-x-2 rounded-md border border-gray-400 p-2">
+            {getProviderIconFromCurrentUser()}
+            {currentUser?.username || <></>}
+            <button
+              className="text-sm font-light text-gray-400 hover:text-gray-800"
+              onClick={logOut}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
       <AppHeader />
       <ClientCell />

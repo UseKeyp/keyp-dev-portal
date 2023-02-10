@@ -1,12 +1,18 @@
 import { useState } from 'react'
 
+import { timeDifference } from 'src/utils/helpers'
+
 import Icon from '../Icon/Icon.js'
 import Tooltip from '../Tooltip/Tooltip.js'
 import URLRedirects from '../URLRedirects/URLRedirects.js'
 
 const ClientCredentials = ({ client }) => {
-  const [showEditSection, setShowEditSection] = useState(true)
+  const [showEditSection, setShowEditSection] = useState(
+    !client.payload.client_name
+  )
   const [copySuccess, setCopySuccess] = useState('Copy ID')
+  const createdAtDate = timeDifference(new Date(), new Date(client.createdAt))
+  const updatedAtDate = timeDifference(new Date(), new Date(client.updatedAt))
 
   function handleCopy() {
     navigator.clipboard.writeText(client?.id)
@@ -35,14 +41,14 @@ const ClientCredentials = ({ client }) => {
                 onClick={() => {
                   setShowEditSection(false)
                 }}
-                className="flex font-light text-blue-1200"
+                className="flex font-light text-blue-1200 hover:text-blue-1600"
               >
                 Close
               </button>
             ) : (
               <button
                 onClick={() => setShowEditSection(true)}
-                className="flex font-light text-blue-1200"
+                className="flex font-light text-blue-1200 hover:text-blue-1600"
               >
                 Edit
               </button>
@@ -55,12 +61,12 @@ const ClientCredentials = ({ client }) => {
                 <Tooltip
                   id="client-id"
                   delayHideTime={250}
-                  effect="float"
+                  effect="solid"
                   borderColor="#C6CED2"
                   bgColor="#eef0f2"
                   position="top"
                   tooltipChild={
-                    <div className="p-1 text-black">
+                    <div className="p-0.5 text-gray-2400">
                       Copy this into your app
                     </div>
                   }
@@ -71,7 +77,7 @@ const ClientCredentials = ({ client }) => {
               <div className="flex flex-row gap-x-2">
                 <div className="flex font-light">{client.id}</div>
                 <button
-                  className="flex"
+                  className="group flex"
                   onClick={() => {
                     handleCopy()
                   }}
@@ -79,15 +85,20 @@ const ClientCredentials = ({ client }) => {
                   <Tooltip
                     id="client-secret"
                     delayHideTime={250}
-                    effect="float"
+                    effect="solid"
                     borderColor="#C6CED2"
                     bgColor="#eef0f2"
                     position="top"
                     tooltipChild={
-                      <div className="text-black">{copySuccess}</div>
+                      <div className="p-0.5 text-gray-2400">{copySuccess}</div>
                     }
                   >
-                    <Icon color="fill-blue-1200" name="copy" />
+                    <Icon
+                      color="fill-blue-1200 group-hover:fill-blue-1600 mt-1"
+                      height="20"
+                      width="20"
+                      name="copy"
+                    />
                   </Tooltip>
                 </button>
               </div>
@@ -104,7 +115,7 @@ const ClientCredentials = ({ client }) => {
                 )}
               </div>
               <div className="flex flex-col">
-                <div className="flex gap-x-1 text-xs text-gray-800">
+                <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
                   CREATED
                   {/* <Tooltip
                     id="created"
@@ -122,10 +133,10 @@ const ClientCredentials = ({ client }) => {
                     <Icon color="fill-gray-800" name="tooltip" />
                   </Tooltip> */}
                 </div>
-                <div className="flex font-light">{client.createdAt}</div>
+                <div className="flex font-light">{createdAtDate}</div>
               </div>
               <div className="flex flex-col">
-                <div className="flex gap-x-1 text-xs text-gray-800">
+                <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
                   LAST USED
                   {/* <Tooltip
                     id="last-used"
@@ -143,7 +154,7 @@ const ClientCredentials = ({ client }) => {
                     <Icon color="fill-gray-800" name="tooltip" />
                   </Tooltip> */}
                 </div>
-                <div className="flex font-light">{client.updatedAt}</div>
+                <div className="flex font-light">{updatedAtDate}</div>
               </div>
             </div>
           </div>

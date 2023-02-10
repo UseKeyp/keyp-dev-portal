@@ -18,7 +18,7 @@ const HomePage = () => {
                 className="flex font-bold hover:underline"
                 rel="noreferrer"
               >
-                Docs & How To's
+                Docs & How To&apos;s
               </a>
               <div className="flex text-left">
                 Start here to learn how to build with Keyp
@@ -62,7 +62,7 @@ const HomePage = () => {
                 Join the Team
               </a>
               <div className="flex text-left">
-                Want to get involved with Keyp? We're hiring!
+                Want to get involved with Keyp? We&apos;re hiring!
               </div>
             </div>
           </div>

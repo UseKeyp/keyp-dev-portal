@@ -114,17 +114,18 @@ const Copy = ({ color, width = '2rem', height = '2rem' }) => {
       className={`${color}`}
       width={width}
       height={height}
+      fill="none"
     >
       <path
         className={`${color}`}
         fillRule="evenodd"
-        d="M7 8h13v16H7V8Zm2 2v12h9V10H9Z"
+        d="M5 7.167c0-.737.597-1.334 1.333-1.334h6c.737 0 1.334.597 1.334 1.334v8c0 .736-.597 1.333-1.334 1.333h-6A1.333 1.333 0 0 1 5 15.167v-8Zm7.333 0h-6v8h6v-8Z"
         clipRule="evenodd"
       />
       <path
         className={`${color}`}
         fillRule="evenodd"
-        d="M0 0h13v6h-2V2H2v12h3v2H0V0Z"
+        d="M.333 1.833C.333 1.097.93.5 1.667.5h6C8.403.5 9 1.097 9 1.833V4.5H7.667V1.833h-6v8h2v1.334h-2A1.333 1.333 0 0 1 .333 9.833v-8Z"
         clipRule="evenodd"
       />
     </svg>
