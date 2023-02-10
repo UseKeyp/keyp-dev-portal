@@ -51,9 +51,9 @@ const LoginPortal = () => {
   return (
     <div className="flex h-screen flex-col justify-center sm:items-center">
       <div className="max-w-2 sm:justify-middle flex justify-start">
-        <h1 className="flex flex-col items-start gap-x-4 gap-y-2 text-center sm:flex-row sm:items-center mb-20">
+        <h1 className="mb-20 flex flex-col items-start gap-x-4 gap-y-2 text-center sm:flex-row sm:items-center">
           <Icon height="60px" width="200px" name="keypnameandlogo" />
-          <div className="flex text-6xl font-light text-blue-1200 mb-0 sm:mb-2">
+          <div className="mb-0 flex text-6xl font-light text-blue-1200 sm:mb-2">
             Dev Portal
           </div>
         </h1>
@@ -86,6 +86,22 @@ const LoginPortal = () => {
           alt="google"
         >
           <Icon name="google" />
+        </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_CHESS')}
+          classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2]"
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          alt="chess"
+        >
+          <div className="group flex flex-row items-center gap-x-4 hover:text-white">
+            <div className="flex sm:pl-4">
+              <Icon name="chess_com" />
+            </div>
+            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-48">
+              Chess.com
+            </div>
+          </div>
         </Button>
         {/* <Button
           onClick={() => onSubmitSignUp('KEYP_TWITTER')}
@@ -124,7 +140,7 @@ const LoginPortal = () => {
             <Icon name="apple"></Icon>
           </div>
         </Button> */}
-        {process.env.NODE_ENV !== 'prod' ? (
+        {!['staging', 'prod'].includes(process.env.ENVIRONMENT) ? (
           <Button
             onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
             classNameVariant="hover:bg-[#005285] hover:border-[#005285]"
