@@ -48,7 +48,7 @@ export const Empty = () => {
 
   return (
     <>
-      <div className="mt-4 flex gap-x-8 rounded-md border border-black p-8">
+      <div className="mt-4 flex items-center gap-x-4 rounded-md border border-black p-4 sm:gap-x-8 sm:p-8">
         <div className="absolute left-0">
           {isExploding && <ConfettiExplosion duration="4400" />}
         </div>
@@ -68,12 +68,12 @@ export const Empty = () => {
         >
           Create Client
         </Button>
-        <div className="ont-light flex text-gray-1600">
+        <div className="flex font-light text-gray-1600">
           Create a client to generate a Client ID for your app. Make sure to
           assign a Client URI and Redirect URIs.
         </div>
       </div>
-      {error?.message}
+      <div className="text-red-1200">{error?.message}</div>
     </>
   )
 }

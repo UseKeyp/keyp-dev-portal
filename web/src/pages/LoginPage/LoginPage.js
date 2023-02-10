@@ -73,32 +73,39 @@ const LoginPortal = () => {
             <div className="flex sm:pl-4">
               <Icon name="discord" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-48">
+            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-68">
               Discord
             </div>
           </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
-          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
+          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4]"
           borderColor="border-[#E5E7EB]"
           fluid={true}
           alt="google"
         >
-          <Icon name="google" />
+          <div className="group flex flex-row items-center gap-x-4 hover:text-white">
+            <div className="flex sm:pl-4">
+              <Icon name="google" />
+            </div>
+            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-68">
+              Google
+            </div>
+          </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_CHESS')}
-          classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2]"
+          classNameVariant="hover:bg-[#6c9d41] hover:border-[#6c9d41]"
           borderColor="border-[#E5E7EB]"
           fluid={true}
           alt="chess"
         >
           <div className="group flex flex-row items-center gap-x-4 hover:text-white">
             <div className="flex sm:pl-4">
-              <Icon name="chess_com" />
+              <Icon height="24" width="40" name="chess_com" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-48">
+            <div className="mr-36 flex font-light text-gray-1200 group-hover:text-white sm:mr-44">
               Chess.com
             </div>
           </div>
@@ -152,7 +159,7 @@ const LoginPortal = () => {
               <div className="flex sm:pl-4">
                 <Icon height="24px" width="24px" name="keypcircle" />
               </div>
-              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-36">
+              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-54">
                 Test Provider
               </div>
             </div>

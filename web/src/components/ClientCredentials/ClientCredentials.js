@@ -5,7 +5,7 @@ import Tooltip from '../Tooltip/Tooltip.js'
 import URLRedirects from '../URLRedirects/URLRedirects.js'
 
 const ClientCredentials = ({ client }) => {
-  const [showEditSection, setShowEditSection] = useState(false)
+  const [showEditSection, setShowEditSection] = useState(true)
   const [copySuccess, setCopySuccess] = useState('Copy ID')
 
   function handleCopy() {
