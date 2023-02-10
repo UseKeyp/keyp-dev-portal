@@ -10,7 +10,7 @@ export const KEYP = 'KEYP'
 
 let KEYP_OAUTH_DOMAIN = 'http://localhost/oauth'
 if (process.env.ENVIRONMENT === 'staging')
-  KEYP_OAUTH_DOMAIN = 'https://app.staging-env.keyp.com/oauth'
+  KEYP_OAUTH_DOMAIN = 'https://app.staging-env.usekeyp.com/oauth'
 if (process.env.ENVIRONMENT === 'prod')
   KEYP_OAUTH_DOMAIN = 'https://app.usekeyp.com/oauth'
 
