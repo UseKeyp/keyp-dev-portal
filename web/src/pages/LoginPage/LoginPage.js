@@ -73,7 +73,7 @@ const LoginPortal = () => {
             <div className="flex sm:pl-4">
               <Icon name="discord" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-68">
+            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-72">
               Discord
             </div>
           </div>
@@ -85,11 +85,11 @@ const LoginPortal = () => {
           fluid={true}
           alt="google"
         >
-          <div className="group flex flex-row items-center gap-x-4 hover:text-white">
-            <div className="flex sm:pl-4">
-              <Icon name="google" />
+          <div className="group flex flex-row items-center gap-x-6 hover:text-white sm:gap-x-4">
+            <div className="mb-2 flex sm:ml-1">
+              <Icon height="14" name="google" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-68">
+            <div className="mr-64 flex font-light text-gray-1200 group-hover:text-white sm:mr-[18rem] sm:pl-2">
               Google
             </div>
           </div>
@@ -102,10 +102,10 @@ const LoginPortal = () => {
           alt="chess"
         >
           <div className="group flex flex-row items-center gap-x-4 hover:text-white">
-            <div className="flex sm:pl-4">
-              <Icon height="24" width="40" name="chess_com" />
+            <div className="flex sm:pl-2">
+              <Icon height="24" width="24" name="chess_pawn" />
             </div>
-            <div className="mr-36 flex font-light text-gray-1200 group-hover:text-white sm:mr-44">
+            <div className="mr-54 flex font-light text-gray-1200 group-hover:text-white sm:mr-64">
               Chess.com
             </div>
           </div>
@@ -159,7 +159,7 @@ const LoginPortal = () => {
               <div className="flex sm:pl-4">
                 <Icon height="24px" width="24px" name="keypcircle" />
               </div>
-              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-54">
+              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-60">
                 Test Provider
               </div>
             </div>
