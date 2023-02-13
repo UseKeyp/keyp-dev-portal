@@ -52,7 +52,7 @@ export const Empty = () => {
 
   return (
     <>
-      <div className="mt-4 flex items-center gap-x-4 rounded-md border border-black p-4 sm:gap-x-8 sm:p-8">
+      <div className="mt-4 flex items-center gap-x-4 rounded-md border border-gray-800 p-4 sm:gap-x-8 sm:p-6">
         <div className="absolute left-0">
           {isExploding && <ConfettiExplosion duration="4400" />}
         </div>

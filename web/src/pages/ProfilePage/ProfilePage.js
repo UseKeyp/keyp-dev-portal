@@ -4,6 +4,7 @@ import { MetaTags } from '@redwoodjs/web'
 import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
+import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
 
 const ProfilePage = () => {
   const { logOut, currentUser, isAuthenticated } = useAuth()
@@ -62,8 +63,56 @@ const ProfilePage = () => {
           </div>
         )}
       </div>
-      <AppHeader />
-      <ClientCell />
+      <div className="mb-12 mt-12 flex flex-col">
+        <AppHeader title="Wallet" />
+        <ItemDescriptionCell
+          title={`Your ${
+            currentUser?.username ? currentUser?.username : ''
+          } Wallet Address`}
+          tokenOrAddress={currentUser?.accessToken}
+          description="Using Keyps OAuth creates a wallet for you. We use MPC and this wallet can be used like any other EVM compatible address."
+        />
+      </div>
+      <div className="mt-12 flex flex-col">
+        <AppHeader
+          links={[
+            {
+              title: 'Postman',
+              url: 'https://www.postman.com/speeding-spaceship-663022/workspace/keyp-public-workspace/collection/25667367-e1156fb2-60c3-4a42-b76b-47902a22512e?ctx=documentation',
+            },
+          ]}
+          title="API Access Token"
+        />
+        <ItemDescriptionCell
+          title="Access token"
+          tokenOrAddress={currentUser?.accessToken}
+          description="To let you try out the API right away we created an access token for the Dev Portal app. You can use this access token to test the API in Postman. Once you create, you can get an access token with the client...."
+        >
+          <div className="flex flex-row gap-x-1">
+            <div>-&gt;</div>
+            <a
+              className="text-sm text-blue-1200 hover:text-blue-1600 sm:text-base"
+              target="_blank"
+              href="https://www.postman.com/speeding-spaceship-663022/workspace/keyp-public-workspace/collection/25667367-e1156fb2-60c3-4a42-b76b-47902a22512e?ctx=documentation"
+              rel="noreferrer"
+            >
+              Use in Postman
+            </a>
+          </div>
+        </ItemDescriptionCell>
+      </div>
+      <div className="mt-12 flex flex-col">
+        <AppHeader
+          title="Applications"
+          links={[
+            {
+              title: 'Docs',
+              url: 'https://docs.usekeyp.com/',
+            },
+          ]}
+        />
+        <ClientCell />
+      </div>
     </>
   )
 }
