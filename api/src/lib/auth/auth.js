@@ -32,6 +32,7 @@ export const getCurrentUser = async (session) => {
     select: {
       id: true,
       username: true,
+      address: true,
     },
   })
   logger.debug({ custom: user }, 'getCurrentUser')
