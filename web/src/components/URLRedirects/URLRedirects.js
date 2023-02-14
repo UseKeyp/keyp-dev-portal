@@ -78,12 +78,24 @@ const URLRedirects = ({ client, showEditSection }) => {
   // The length is 6 because we add an empty string to the start of the array
   const MAX_REDIRECT_URLS = 6
   const [urls, setUrls] = useState(initialUrls)
-  const [clientURI, setClientURI] = useState(client.payload.client_uri)
-  const [clientName, setClientName] = useState(client.payload.client_name)
-  const [tosURI, setTosURI] = useState(client.payload.tos_uri)
-  const [logoURI, setLogoURI] = useState(client.payload.logo_uri)
-  const [policyURI, setPolicyURI] = useState(client.payload.policy_uri)
-  const [network, setNetwork] = useState(client.payload.network)
+  const [clientURI, setClientURI] = useState(
+    client.payload.client_uri ? client.payload.client_uri : ''
+  )
+  const [clientName, setClientName] = useState(
+    client.payload.client_name ? client.payload.client_name : ''
+  )
+  const [tosURI, setTosURI] = useState(
+    client.payload.tos_uri ? client.payload.tos_uri : ''
+  )
+  const [logoURI, setLogoURI] = useState(
+    client.payload.logo_uri ? client.payload.logo_uri : ''
+  )
+  const [policyURI, setPolicyURI] = useState(
+    client.payload.policy_uri ? client.payload.policy_uri : ''
+  )
+  const [network, setNetwork] = useState(
+    client.payload.network ? client.payload.network : ''
+  )
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
   const [clientSideError, setClientSideError] = useState('')
 
@@ -114,11 +126,11 @@ const URLRedirects = ({ client, showEditSection }) => {
     }
 
     setUrls(initialUrls)
-    setClientURI(client.payload.client_uri)
-    setClientName(client.payload.client_name)
-    setTosURI(client.payload.tos_uri)
-    setLogoURI(client.payload.logo_uri)
-    setPolicyURI(client.payload.policy_uri)
+    setClientURI(client.payload.client_uri ? client.payload.client_uri : '')
+    setClientName(client.payload.client_name ? client.payload.client_name : '')
+    setTosURI(client.payload.tos_uri ? client.payload.tos_uri : '')
+    setLogoURI(client.payload.logo_uri ? client.payload.logo_uri : '')
+    setPolicyURI(client.payload.policy_uri ? client.payload.policy_uri : '')
     setShowDiscardChanges(false)
     setClientSideError('')
   }
