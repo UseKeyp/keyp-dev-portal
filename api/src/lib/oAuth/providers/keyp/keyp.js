@@ -23,7 +23,7 @@ const KEYP_CLIENT_ID = 'dev-portal'
 const responseType = 'code'
 const params = {
   client_id: KEYP_CLIENT_ID,
-  scope: 'openid profile email',
+  scope: 'openid email',
   redirect_uri: KEYP_REDIRECT_URI,
 }
 
@@ -101,6 +101,8 @@ export const onConnected = async ({ accessToken, decoded }) => {
       create: {
         id: userDetails.sub,
         email: userDetails.email,
+        address: userDetails.address,
+        username: userDetails.username,
         accessToken,
       },
       where: { id: userDetails.sub },
