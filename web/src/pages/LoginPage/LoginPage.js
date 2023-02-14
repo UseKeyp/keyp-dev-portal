@@ -73,32 +73,39 @@ const LoginPortal = () => {
             <div className="flex sm:pl-4">
               <Icon name="discord" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-48">
+            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-72">
               Discord
             </div>
           </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
-          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] w-[327px]"
+          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4]"
           borderColor="border-[#E5E7EB]"
           fluid={true}
           alt="google"
         >
-          <Icon name="google" />
+          <div className="group flex flex-row items-center gap-x-6 hover:text-white sm:gap-x-4">
+            <div className="mb-2 flex sm:ml-1">
+              <Icon height="14" name="google" />
+            </div>
+            <div className="mr-64 flex font-light text-gray-1200 group-hover:text-white sm:mr-[18rem] sm:pl-2">
+              Google
+            </div>
+          </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_CHESS')}
-          classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2]"
+          classNameVariant="hover:bg-[#6c9d41] hover:border-[#6c9d41]"
           borderColor="border-[#E5E7EB]"
           fluid={true}
           alt="chess"
         >
           <div className="group flex flex-row items-center gap-x-4 hover:text-white">
-            <div className="flex sm:pl-4">
-              <Icon name="chess_com" />
+            <div className="flex sm:pl-2">
+              <Icon height="24" width="24" name="chess_pawn" />
             </div>
-            <div className="mr-60 flex font-light text-gray-1200 group-hover:text-white sm:mr-48">
+            <div className="mr-54 flex font-light text-gray-1200 group-hover:text-white sm:mr-64">
               Chess.com
             </div>
           </div>
@@ -152,7 +159,7 @@ const LoginPortal = () => {
               <div className="flex sm:pl-4">
                 <Icon height="24px" width="24px" name="keypcircle" />
               </div>
-              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-36">
+              <div className="mr-48 flex font-light text-gray-1200 group-hover:text-white sm:mr-60">
                 Test Provider
               </div>
             </div>

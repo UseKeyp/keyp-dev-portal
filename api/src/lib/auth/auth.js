@@ -33,6 +33,7 @@ export const getCurrentUser = async (session) => {
       id: true,
       username: true,
       address: true,
+      accessToken: true,
     },
   })
   logger.debug({ custom: user }, 'getCurrentUser')

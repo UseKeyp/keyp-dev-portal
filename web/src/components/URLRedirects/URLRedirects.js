@@ -78,12 +78,24 @@ const URLRedirects = ({ client, showEditSection }) => {
   // The length is 6 because we add an empty string to the start of the array
   const MAX_REDIRECT_URLS = 6
   const [urls, setUrls] = useState(initialUrls)
-  const [clientURI, setClientURI] = useState(client.payload.client_uri)
-  const [clientName, setClientName] = useState(client.payload.client_name)
-  const [tosURI, setTosURI] = useState(client.payload.tos_uri)
-  const [logoURI, setLogoURI] = useState(client.payload.logo_uri)
-  const [policyURI, setPolicyURI] = useState(client.payload.policy_uri)
-  const [network, setNetwork] = useState(client.payload.network)
+  const [clientURI, setClientURI] = useState(
+    client.payload.client_uri ? client.payload.client_uri : ''
+  )
+  const [clientName, setClientName] = useState(
+    client.payload.client_name ? client.payload.client_name : ''
+  )
+  const [tosURI, setTosURI] = useState(
+    client.payload.tos_uri ? client.payload.tos_uri : ''
+  )
+  const [logoURI, setLogoURI] = useState(
+    client.payload.logo_uri ? client.payload.logo_uri : ''
+  )
+  const [policyURI, setPolicyURI] = useState(
+    client.payload.policy_uri ? client.payload.policy_uri : ''
+  )
+  const [network, setNetwork] = useState(
+    client.payload.network ? client.payload.network : ''
+  )
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
   const [clientSideError, setClientSideError] = useState('')
 
@@ -114,11 +126,11 @@ const URLRedirects = ({ client, showEditSection }) => {
     }
 
     setUrls(initialUrls)
-    setClientURI(client.payload.client_uri)
-    setClientName(client.payload.client_name)
-    setTosURI(client.payload.tos_uri)
-    setLogoURI(client.payload.logo_uri)
-    setPolicyURI(client.payload.policy_uri)
+    setClientURI(client.payload.client_uri ? client.payload.client_uri : '')
+    setClientName(client.payload.client_name ? client.payload.client_name : '')
+    setTosURI(client.payload.tos_uri ? client.payload.tos_uri : '')
+    setLogoURI(client.payload.logo_uri ? client.payload.logo_uri : '')
+    setPolicyURI(client.payload.policy_uri ? client.payload.policy_uri : '')
     setShowDiscardChanges(false)
     setClientSideError('')
   }
@@ -208,7 +220,7 @@ const URLRedirects = ({ client, showEditSection }) => {
       <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
-            <div className="text-xs text-gray-800">
+            <div className="text-xs font-semibold text-gray-800">
               Client Network (Goerli or Mainnet)
             </div>
             <select
@@ -224,7 +236,9 @@ const URLRedirects = ({ client, showEditSection }) => {
                 </option>
               ))}
             </select>
-            <div className="text-xs text-gray-800">Client Name</div>
+            <div className="text-xs font-semibold text-gray-800">
+              Client Name
+            </div>
             <TextInput
               type="text"
               value={clientName}
@@ -233,7 +247,9 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs text-gray-800">Client URI</div>
+            <div className="text-xs font-semibold text-gray-800">
+              Client URI
+            </div>
             <TextInput
               type="text"
               value={clientURI}
@@ -243,7 +259,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs text-gray-800">Logo URI</div>
+            <div className="text-xs font-semibold text-gray-800">Logo URI</div>
             <TextInput
               type="text"
               value={logoURI}
@@ -253,7 +269,9 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs text-gray-800">Terms of Service URI</div>
+            <div className="text-xs font-semibold text-gray-800">
+              Terms of Service URI
+            </div>
             <TextInput
               type="text"
               value={tosURI}
@@ -263,7 +281,9 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs text-gray-800">Privacy Policy URI</div>
+            <div className="text-xs font-semibold text-gray-800">
+              Privacy Policy URI
+            </div>
             <TextInput
               type="text"
               value={policyURI}
@@ -272,35 +292,38 @@ const URLRedirects = ({ client, showEditSection }) => {
               className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
             />
           </div>
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            disabled={!showDiscardChanges}
-            fluid={true}
-            variant="green"
-            textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
-            classNameVariant={
-              showDiscardChanges
-                ? ''
-                : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
-            }
-          >
-            Save Changes
-          </Button>
-          {showDiscardChanges ? (
-            <button
-              onClick={() => discardChanges()}
+          <div className="flex flex-row gap-x-4">
+            {showDiscardChanges ? (
+              <Button
+                fluid={true}
+                borderColor="border-red-1200"
+                variant="red"
+                onClick={() => discardChanges()}
+              >
+                <div className="font-extrabold text-red-1200">Discard</div>
+              </Button>
+            ) : (
+              <></>
+            )}
+            <Button
               type="button"
-              className="mt-4 flex justify-center font-light text-red-1200"
+              onClick={handleSubmit}
+              disabled={!showDiscardChanges}
+              fluid={true}
+              variant="green"
+              textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
+              classNameVariant={
+                showDiscardChanges
+                  ? ''
+                  : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+              }
             >
-              Discard Changes
-            </button>
-          ) : (
-            <></>
-          )}
+              <div className="font-extrabold">Save</div>
+            </Button>
+          </div>
         </form>
         <div className="mt-4 flex grow flex-col sm:mt-0">
-          <h2 className="text-xs text-gray-800">URL REDIRECTS</h2>
+          <h2 className="text-xs font-semibold text-gray-800">URL REDIRECTS</h2>
           {urls.map((url, index) => (
             <div
               key={index}
@@ -313,7 +336,12 @@ const URLRedirects = ({ client, showEditSection }) => {
                   <></>
                 ) : (
                   <TextInput
-                    className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
+                    className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-300"
+                    variant={
+                      urls.length >= MAX_REDIRECT_URLS || index > 0
+                        ? 'bg-gray-200 focus:border-gray-300 focus:transition-none'
+                        : 'bg-white'
+                    }
                     placeholder="http://domain.com/redirect-url"
                     value={url}
                     onChange={(e) => handleChange(e, index)}
@@ -354,17 +382,17 @@ const URLRedirects = ({ client, showEditSection }) => {
                                 : 'text-white'
                             }`}
                           >
-                            Add
+                            <div className="font-extrabold">Add</div>
                           </div>
                         </Button>
                       )}
                     </div>
                   ) : (
                     <Button
-                      classNameVariant="bg-transparent border border-gray-800"
+                      classNameVariant="bg-transparent border border-red-1200"
                       onClick={() => handleRemoveURL(index)}
                     >
-                      <div className="text-gray-800">Remove</div>
+                      <div className="font-extrabold text-red-1200">Remove</div>
                     </Button>
                   )}
                 </div>
