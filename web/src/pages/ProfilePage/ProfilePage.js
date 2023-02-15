@@ -32,7 +32,7 @@ const ProfilePage = () => {
           title={
             <div className="flex flex-row gap-x-2 text-gray-1600">
               Your{' '}
-              {currentUser?.username || currentUser?.email ? (
+              {currentUser?.username ? (
                 <div className="font-normal">
                   {getStyledUsernameFromCurrentUser(currentUser)}
                 </div>
