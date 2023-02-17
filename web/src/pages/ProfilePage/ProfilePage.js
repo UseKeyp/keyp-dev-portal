@@ -43,7 +43,7 @@ const ProfilePage = () => {
             </div>
           }
           tokenOrAddress={currentUser?.address}
-          description="Using Keyp's OAuth creates a wallet for you. We use MPC and this wallet can be used like any other EVM compatible address."
+          description="Keyp's OAuth creates a wallet for you. This wallet uses MPC and can be used like any other EVM compatible address."
         />
       </div>
       <div className="mt-12 flex flex-col">
@@ -59,7 +59,7 @@ const ProfilePage = () => {
         <ItemDescriptionCell
           title="Access token"
           tokenOrAddress={currentUser?.accessToken}
-          description="To let you try out the API right away we created an access token for the Dev Portal app. You can use this access token to test the API in Postman. Once you create, you can get an access token with the client...."
+          description="We created an access token for the Dev Portal app so that you can try out our API right away! You can use this token to test the API in Postman."
         >
           <div className="flex flex-row gap-x-1">
             <div>-&gt;</div>
