@@ -170,7 +170,9 @@ const URLRedirects = ({ client, showEditSection }) => {
     return (
       !!pattern.test(url) ||
       url.startsWith('localhost') ||
-      url.startsWith('0.0.0.0:')
+      url.startsWith('0.0.0.0:') ||
+      url.startsWith('http://localhost') ||
+      url.startsWith('https://localhost')
     )
   }
 
@@ -221,7 +223,7 @@ const URLRedirects = ({ client, showEditSection }) => {
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
             <div className="text-xs font-semibold text-gray-800">
-              Client Network (Goerli or Mainnet)
+              Client Network
             </div>
             <select
               className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
@@ -230,7 +232,16 @@ const URLRedirects = ({ client, showEditSection }) => {
               value={network}
               onChange={(e) => handleNetworkChange(e.target.value)}
             >
-              {['goerli', 'mainnet'].map((network) => (
+              {[
+                'polygon',
+                'mainnet',
+                'gnosis',
+                'mumbai',
+                'goerli',
+                'arbitrum',
+                'arbitrum-nova',
+                'optimism',
+              ].map((network) => (
                 <option key={network} value={network}>
                   {network}
                 </option>
