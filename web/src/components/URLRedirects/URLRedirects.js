@@ -233,7 +233,7 @@ const URLRedirects = ({ client, showEditSection }) => {
               onChange={(e) => handleNetworkChange(e.target.value)}
             >
               {[
-                'matic',
+                'polygon',
                 'mainnet',
                 'gnosis',
                 'mumbai',
