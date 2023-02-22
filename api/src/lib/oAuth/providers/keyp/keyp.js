@@ -97,7 +97,11 @@ export const onConnected = async ({ accessToken, decoded }) => {
     logger.debug({ custom: userDetails }, 'User info')
 
     const user = await db.user.upsert({
-      update: { email: userDetails.email, accessToken },
+      update: {
+        email: userDetails.email,
+        username: userDetails.username,
+        accessToken,
+      },
       create: {
         id: userDetails.sub,
         email: userDetails.email,
