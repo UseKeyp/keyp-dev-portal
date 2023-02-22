@@ -1,45 +1,68 @@
-export default () => (
-  <main>
-    <style
-      dangerouslySetInnerHTML={{
-        __html: `
-              html, body {
-                margin: 0;
-              }
-              html * {
-                box-sizing: border-box;
-              }
-              main {
-                display: flex;
-                align-items: center;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-                text-align: center;
-                background-color: #E2E8F0;
-                height: 100vh;
-              }
-              section {
-                background-color: white;
-                border-radius: 0.25rem;
-                width: 32rem;
-                padding: 1rem;
-                margin: 0 auto;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-              }
-              h1 {
-                font-size: 2rem;
-                margin: 0;
-                font-weight: 500;
-                line-height: 1;
-                color: #2D3748;
-              }
-            `,
-      }}
-    />
+import { useAuth } from '@redwoodjs/auth'
+import { Link, routes } from '@redwoodjs/router'
+import { MetaTags } from '@redwoodjs/web'
 
-    <section>
-      <h1>
-        <span>404 Page Not Found</span>
-      </h1>
-    </section>
-  </main>
-)
+import Button from 'src/components/Button/Button'
+import Icon from 'src/components/Icon/Icon'
+import UserAccount from 'src/components/UserAccount/UserAccount'
+import DefaultLayout from 'src/layouts/DefaultLayout'
+
+export default function NotFoundPage() {
+  const { isAuthenticated, currentUser, logOut } = useAuth()
+  return (
+    <DefaultLayout>
+      <MetaTags title="No Go" description="Page not found" />
+      <div className="mt-8 flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
+        <div className="flex flex-col gap-y-2 gap-x-4 sm:flex-row sm:gap-y-0">
+          <Icon name="keypnameandlogo" height="48px" width="164px" />
+          <h1 className="flex text-5xl font-light text-blue-1200">
+            Dev Portal
+          </h1>
+        </div>
+        {isAuthenticated ? (
+          <UserAccount currentUser={currentUser} logOut={logOut} />
+        ) : (
+          <></>
+        )}
+      </div>
+      <main className="flex h-screen items-center justify-center text-center">
+        <section className="flex">
+          <div className="flex flex-col items-center justify-center gap-y-4 text-center">
+            <h1 className="text-2xl font-light text-gray-1200">
+              Mhhh, something is missing.
+            </h1>
+            <p className="text-lg font-light text-gray-1200">
+              (But you did find a 404)
+            </p>
+            <img src="/no-go.png" className="flex" alt="" />
+            <div className="flex flex-col items-center text-lg text-gray-1200 sm:flex-row">
+              <div className="flex font-light">Back to the</div>
+              <Link to={routes.profile()}>
+                <Button
+                  variant="transparent"
+                  classNameVariant="m-2"
+                  borderColor="border-blue-1200"
+                  size="regular"
+                  fluid={false}
+                >
+                  <div className="text-blue-1200">Dashboard</div>
+                </Button>
+              </Link>
+              <div className="flex font-light">or get in touch with us on</div>
+              <Button
+                href="https://discord.usekeyp.com/"
+                variant="transparent"
+                classNameVariant="m-2"
+                borderColor="border-blue-1200"
+                size="regular"
+                fluid={false}
+              >
+                <div className="text-blue-1200">Discord</div>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </DefaultLayout>
+  )
+}

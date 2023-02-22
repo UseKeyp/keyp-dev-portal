@@ -29,6 +29,7 @@ const ProfilePage = () => {
       <div className="mb-12 mt-12 flex flex-col">
         <AppHeader title="Wallet" />
         <ItemDescriptionCell
+          tooltipID="wallet-address"
           title={
             <div className="flex flex-row gap-x-2 text-gray-1600">
               Your{' '}
@@ -57,6 +58,7 @@ const ProfilePage = () => {
           title="API Access Token"
         />
         <ItemDescriptionCell
+          tooltipID="access-token"
           title="Access token"
           tokenOrAddress={currentUser?.accessToken}
           description="To let you try out the API right away we created an access token for the Dev Portal app. You can use this access token to test the API in Postman. Once you create, you can get an access token with the client...."
