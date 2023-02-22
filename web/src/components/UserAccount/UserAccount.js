@@ -81,7 +81,7 @@ const UserAccount = ({ currentUser, logOut }) => {
       {getProviderIconFromCurrentUser(currentUser)}
       {getStyledUsernameFromCurrentUser(currentUser) || <></>}
       <button
-        className="text-sm font-light text-gray-400 hover:text-gray-800"
+        className="text-sm font-light text-gray-400 hover:text-red-1200"
         onClick={logOut}
       >
         Logout
