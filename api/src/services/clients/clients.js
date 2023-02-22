@@ -56,6 +56,5 @@ export const updateClient = async ({
     policyURI,
     network,
   })
-  console.log(client)
   return client
 }
