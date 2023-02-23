@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@redwoodjs/web'
 
 import { toast } from '@redwoodjs/web/toast'
 
