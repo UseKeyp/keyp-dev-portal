@@ -10,7 +10,6 @@
 import { Router, Route, Set, Private } from '@redwoodjs/router'
 
 import DefaultLayout from 'src/layouts/DefaultLayout'
-
 import AllContextProviders from 'src/providers'
 
 const Routes = () => {

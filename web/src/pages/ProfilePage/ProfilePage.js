@@ -5,6 +5,7 @@ import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
 import Icon from 'src/components/Icon/Icon'
 import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
+import { TransferForm } from 'src/components/TransferForm/TransferForm'
 import UserAccount, {
   getStyledUsernameFromCurrentUser,
 } from 'src/components/UserAccount/UserAccount'
@@ -87,6 +88,18 @@ const ProfilePage = () => {
           ]}
         />
         <ClientCell />
+      </div>
+      <div className="mt-12 mb-8 flex flex-col">
+        <AppHeader
+          title="Tools"
+          links={[
+            {
+              title: 'Docs',
+              url: 'https://docs.usekeyp.com/api',
+            },
+          ]}
+        />
+        <TransferForm title="Transfer ERC-20" />
       </div>
     </>
   )
