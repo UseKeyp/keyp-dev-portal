@@ -45,7 +45,7 @@ const TransferFormFields = ({ typeOfToken }) => {
   const [tokenAddress, setTokenAddress] = useState('')
   const [amount, setAmount] = useState('')
   const [tokenId, setTokenId] = useState('')
-  const [recipientAddress, setRecipientAddress] = useState('')
+  const [toAddress, setToAddress] = useState('')
   const [transferErc20Loading, setTransferErc20Loading] = useState(false)
   const [transferErc20Error, setTransferErc20Error] = useState('')
   const [transferErc721Loading, setTransferErc721Loading] = useState(false)
@@ -170,8 +170,8 @@ const TransferFormFields = ({ typeOfToken }) => {
           <TextInput
             type="text"
             placeholder="0x0000000000000000000000000000000000000000"
-            value={recipientAddress}
-            onChange={(e) => setRecipientAddress(e.target.value)}
+            value={toAddress}
+            onChange={(e) => setToAddress(e.target.value)}
             className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
           />
         </div>
@@ -180,23 +180,23 @@ const TransferFormFields = ({ typeOfToken }) => {
           variant="green"
           onClick={() => {
             if (typeOfToken.includes('ERC-721')) {
-              if (network && tokenAddress && tokenId && recipientAddress) {
+              if (network && tokenAddress && tokenId && toAddress) {
                 transferErc721({
-                  network,
                   tokenAddress,
                   tokenId,
-                  recipientAddress,
+                  toAddress,
+                  network,
                 }).catch((e) => {
                   setTransferErc721Error(e?.message)
                 })
               }
             } else if (typeOfToken.includes('ERC-20')) {
-              if (network && tokenAddress && amount && recipientAddress) {
+              if (network && tokenAddress && amount && toAddress) {
                 transferErc20({
-                  network,
                   tokenAddress,
                   amount,
-                  recipientAddress,
+                  toAddress,
+                  network,
                 }).catch((e) => {
                   setTransferErc20Error(e?.message)
                 })

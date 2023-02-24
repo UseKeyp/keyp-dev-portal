@@ -1,11 +1,11 @@
 export const TRANSFER_ERC721_MUTATION = gql`
-  mutation transferTokens(
+  mutation TransferErc721Mutation(
     $tokenAddress: String!
     $tokenId: Int!
     $toAddress: String!
-    $network: String!
+    $network: Network!
   ) {
-    transferTokens(
+    transferErc721(
       tokenAddress: $tokenAddress
       tokenId: $tokenId
       toAddress: $toAddress
@@ -17,13 +17,13 @@ export const TRANSFER_ERC721_MUTATION = gql`
   }
 `
 export const TRANSFER_ERC20_MUTATION = gql`
-  mutation transferTokens(
+  mutation TransferErc20Mutation(
     $tokenAddress: String!
     $amount: String!
     $toAddress: String!
-    $network: String!
+    $network: Network!
   ) {
-    transferTokens(
+    transferErc20(
       tokenAddress: $tokenAddress
       amount: $amount
       toAddress: $toAddress
