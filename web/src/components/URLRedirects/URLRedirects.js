@@ -172,7 +172,9 @@ const URLRedirects = ({ client, showEditSection }) => {
       url.startsWith('localhost') ||
       url.startsWith('0.0.0.0:') ||
       url.startsWith('http://localhost') ||
-      url.startsWith('https://localhost')
+      url.startsWith('https://localhost') ||
+      url.startsWith('http://0.0.0.0') ||
+      url.startsWith('https://0.0.0.0')
     )
   }
 
