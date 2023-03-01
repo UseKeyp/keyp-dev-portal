@@ -25,12 +25,7 @@ export const schema = gql`
   }
 
   enum Network {
-    gnosis
     polygon
     mumbai
-    goerli
-    arbitrum
-    optimism
-    mainnet
   }
 `

@@ -99,7 +99,10 @@ const ProfilePage = () => {
             },
           ]}
         />
-        <TransferForm title="Transfer ERC-20" />
+        <div className="mb-4 flex flex-row gap-x-2">
+          <TransferForm title="Transfer ERC-20" />
+          <TransferForm title="Transfer ERC-721" />
+        </div>
       </div>
     </>
   )

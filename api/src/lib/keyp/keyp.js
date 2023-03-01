@@ -60,12 +60,13 @@ class KeypManager {
     })
   }
 
-  transferErc721 = async ({ tokenAddress, toAddress, network }) => {
+  transferErc721 = async ({ tokenAddress, toAddress, network, tokenId }) => {
     const tokenType = 'ERC721'
     return fetchKeyp({
-      path: 'transfers',
+      path: 'tokens/transfers',
       method: 'POST',
       body: JSON.stringify({
+        tokenId,
         tokenAddress,
         toAddress,
         tokenType,
@@ -75,14 +76,14 @@ class KeypManager {
     })
   }
 
-  transferErc20 = async ({ toAddress, fromAddress, amount, network }) => {
+  transferErc20 = async ({ toAddress, amount, network, tokenAddress }) => {
     const tokenType = 'ERC20'
     return fetchKeyp({
-      path: 'transfers',
+      path: 'tokens/transfers',
       method: 'POST',
       body: JSON.stringify({
         toAddress,
-        fromAddress,
+        tokenAddress,
         tokenType,
         amount,
         network,
@@ -112,10 +113,6 @@ export const fetchKeyp = async ({
         ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         ...(body && { 'Content-Type': 'application/json' }),
       },
-    }).then((res) => {
-      logger.debug({ custom: res }, 'fetchKeyp res')
-      if (res.status !== 200) throw res
-      return res.json()
     })
   } catch (e) {
     const errorMessage = `fetchKeyp() ${e}`
