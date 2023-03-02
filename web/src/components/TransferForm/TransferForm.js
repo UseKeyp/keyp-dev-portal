@@ -78,7 +78,7 @@ const TransferFormFields = ({ typeOfToken }) => {
       if (network && tokenAddress && amount && toAddress) {
         setTransferErc20Error('')
         setTransferErc20Loading(true)
-        const { error, data } = transferErc20({
+        const { error, data } = await transferErc20({
           tokenAddress,
           amount,
           toAddress,
@@ -96,12 +96,13 @@ const TransferFormFields = ({ typeOfToken }) => {
       setTransferErc20Loading(false)
     } else {
       toast.error('Token type not found')
+      setTransferErc20Loading(false)
+      setTransferErc721Loading(false)
     }
   }
 
   const transferErc721 = async (args) => {
     try {
-      setTransferErc721Loading(true)
       const { error, data } = await transferErc721Mutation({ variables: args })
       if (error) {
         if (error.error.error['code'] === -32000) {
@@ -116,10 +117,10 @@ const TransferFormFields = ({ typeOfToken }) => {
       setTransferErc721Error(e?.message)
       setTransferErc721Loading(false)
     }
+    return ''
   }
   const transferErc20 = async (args) => {
     try {
-      setTransferErc20Loading(true)
       const { error, data } = await transferErc20Mutation({ variables: args })
       if (error) {
         if (error.error.error['code'] === -32000) {
@@ -133,6 +134,7 @@ const TransferFormFields = ({ typeOfToken }) => {
       toast.error(e?.message)
       setTransferErc20Error(e?.message)
       setTransferErc20Loading(false)
+      return ''
     }
   }
 

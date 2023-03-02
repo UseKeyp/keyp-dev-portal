@@ -1,7 +1,7 @@
 export const schema = gql`
   type TransferResponse {
     status: TransferStatus!
-    hash: String!
+    hash: String
   }
 
   type Mutation {
