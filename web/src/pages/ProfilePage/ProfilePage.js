@@ -86,7 +86,9 @@ const ProfilePage = () => {
             },
           ]}
         />
+        <div className="mb-8">
         <ClientCell />
+        </div>
       </div>
     </>
   )
