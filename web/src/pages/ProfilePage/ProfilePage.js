@@ -31,11 +31,11 @@ const ProfilePage = () => {
         <ItemDescriptionCell
           tooltipID="wallet-address"
           title={
-            <div className="flex flex-row gap-x-2 text-gray-1600">
+            <div className="flex flex-row gap-x-1 text-gray-1600">
               Your{' '}
               {currentUser?.username ? (
-                <div className="font-normal">
-                  {getStyledUsernameFromCurrentUser(currentUser)}
+                <div className="font-bold">
+                  {getStyledUsernameFromCurrentUser(currentUser, 'text-[16px]')}
                 </div>
               ) : (
                 ''
@@ -66,7 +66,7 @@ const ProfilePage = () => {
           <div className="flex flex-row gap-x-1">
             <div>-&gt;</div>
             <a
-              className="text-sm text-blue-1200 hover:text-blue-1600 sm:text-base"
+              className="text-[16px] text-blue-1200 hover:text-blue-1600 sm:text-base"
               target="_blank"
               href="https://www.postman.com/speeding-spaceship-663022/workspace/keyp-public-workspace/collection/25667367-e1156fb2-60c3-4a42-b76b-47902a22512e?ctx=documentation"
               rel="noreferrer"
