@@ -22,7 +22,6 @@ class KeypManager {
     this.accessToken = accessToken
     validateConfigs(this)
   }
-
   createClient = () => {
     return fetchKeyp({
       path: 'clients',
@@ -113,6 +112,10 @@ export const fetchKeyp = async ({
         ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         ...(body && { 'Content-Type': 'application/json' }),
       },
+    }).then((res) => {
+      logger.debug({ custom: res }, 'fetchKeyp res')
+      if (res.status !== 200) throw res
+      return res.json()
     })
   } catch (e) {
     const errorMessage = `fetchKeyp() ${e}`
