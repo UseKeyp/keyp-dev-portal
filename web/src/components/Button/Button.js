@@ -33,13 +33,18 @@ const Button = ({
   href,
   alt,
   classNameVariant,
+  position,
   ...rest
 }) => {
   const Element = href ? 'a' : 'button'
   if (to) {
     return (
       <Link
-        className={`group flex items-center justify-center rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
+        className={`group flex rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
+            ${position === 'start' ? 'items-center justify-start' : ''}
+            ${position === 'middle' ? 'items-center justify-center' : ''}
+            ${position === 'end' ? 'items-center justify-end' : ''}
+            ${!position ? 'items-center justify-center' : ''}
             ${textColor ? textColor : 'text-white'}
             ${size === 'regular' && !fluid ? 'h-[48px] w-[200px]' : ''}
             ${size === 'small' && !fluid ? 'h-[32px] w-[200px]' : ''}
@@ -69,7 +74,11 @@ const Button = ({
 
   return (
     <Element
-      className={`group flex items-center justify-center rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
+      className={`group flex rounded-[6px] text-center text-lg font-bold leading-button tracking-wide
+            ${position === 'start' ? 'items-center justify-start' : ''}
+            ${position === 'middle' ? 'items-center justify-center' : ''}
+            ${position === 'end' ? 'items-center justify-end' : ''}
+            ${!position ? 'items-center justify-center' : ''}
             ${textColor ? textColor : 'text-white'}
             ${size === 'regular' && !fluid ? 'h-[48px] w-[200px]' : ''}
             ${size === 'small' && !fluid ? 'h-[32px] w-[200px]' : ''}
@@ -118,6 +127,7 @@ Button.propTypes = {
   alt: PropTypes.string,
   classNameVariant: PropTypes.string,
   borderColor: PropTypes.string,
+  position: PropTypes.string,
 }
 
 export default Button

@@ -1,3 +1,6 @@
+export const isBrowser = typeof window !== 'undefined'
+export const isMobile =
+  isBrowser && window.matchMedia('(max-width: 767px)').matches
 export function timeDifference(current, previous) {
   const msPerMinute = 60 * 1000
   const msPerHour = msPerMinute * 60

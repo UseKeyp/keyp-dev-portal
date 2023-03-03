@@ -6,6 +6,7 @@ import { toast } from '@redwoodjs/web/toast'
 import Button from 'src/components/Button/Button'
 import { QUERY as clientQuery } from 'src/components/ClientCell'
 import TextInput from 'src/components/TextInput/TextInput'
+import { isMobile } from 'src/utils/helpers'
 
 const UPDATE_CLIENT = gql`
   mutation UpdateClientMutation(
@@ -103,11 +104,11 @@ const URLRedirects = ({ client, showEditSection }) => {
     if (
       urls.length !== initialUrls.length ||
       urls[0] !== initialUrls[0] ||
-      clientURI !== client.payload.client_uri ||
-      clientName !== client.payload.client_name ||
-      tosURI !== client.payload.tos_uri ||
-      logoURI !== client.payload.logo_uri ||
-      policyURI !== client.payload.policy_uri
+      clientURI !== client.payload.client_uri && clientURI ||
+      clientName !== client.payload.client_name && clientName ||
+      tosURI !== client.payload.tos_uri && tosURI ||
+      logoURI !== client.payload.logo_uri && logoURI ||
+      policyURI !== client.payload.policy_uri && policyURI
     ) {
       setShowDiscardChanges(true)
     }
@@ -224,8 +225,8 @@ const URLRedirects = ({ client, showEditSection }) => {
       <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
-            <div className="text-xs font-semibold text-gray-800">
-              Client Network
+            <div className="mb-1 text-xs font-semibold text-gray-800">
+              CLIENT NETWORK
             </div>
             <select
               className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
@@ -249,8 +250,8 @@ const URLRedirects = ({ client, showEditSection }) => {
                 </option>
               ))}
             </select>
-            <div className="text-xs font-semibold text-gray-800">
-              Client Name
+            <div className="mb-1 text-xs font-semibold text-gray-800">
+              CLIENT NAME
             </div>
             <TextInput
               type="text"
@@ -260,8 +261,8 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs font-semibold text-gray-800">
-              Client URI
+            <div className="mb-1 text-xs font-semibold text-gray-800">
+              CLIENT URI
             </div>
             <TextInput
               type="text"
@@ -272,7 +273,9 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs font-semibold text-gray-800">Logo URI</div>
+            <div className="mb-1 text-xs font-semibold text-gray-800">
+              LOGO URI
+            </div>
             <TextInput
               type="text"
               value={logoURI}
@@ -282,8 +285,8 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs font-semibold text-gray-800">
-              Terms of Service URI
+            <div className="mb-1 text-xs font-semibold text-gray-800">
+              TERMS OF SERVICE URI
             </div>
             <TextInput
               type="text"
@@ -295,7 +298,7 @@ const URLRedirects = ({ client, showEditSection }) => {
           </div>
           <div className="mb-4 flex flex-col">
             <div className="text-xs font-semibold text-gray-800">
-              Privacy Policy URI
+              PRIVACY POLICY URI
             </div>
             <TextInput
               type="text"
@@ -305,38 +308,49 @@ const URLRedirects = ({ client, showEditSection }) => {
               className="w-full rounded-lg border border-gray-400 p-2 placeholder-gray-400"
             />
           </div>
-          <div className="flex flex-row gap-x-4">
-            {showDiscardChanges ? (
-              <Button
-                fluid={true}
-                borderColor="border-red-1200"
-                variant="red"
-                onClick={() => discardChanges()}
-              >
-                <div className="font-extrabold text-red-1200">Discard</div>
-              </Button>
+          <>
+            {' '}
+            {!isMobile ? (
+              <div className="flex flex-row gap-x-4">
+                {showDiscardChanges ? (
+                  <Button
+                    fluid={true}
+                    borderColor="border-red-1200"
+                    variant="red"
+                    onClick={() => discardChanges()}
+                  >
+                    <div className="font-extrabold text-red-1200">Discard</div>
+                  </Button>
+                ) : (
+                  <></>
+                )}
+                <Button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={!showDiscardChanges}
+                  fluid={true}
+                  variant="green"
+                  textColor={
+                    showDiscardChanges ? 'text-white' : 'text-gray-800'
+                  }
+                  classNameVariant={
+                    showDiscardChanges
+                      ? ''
+                      : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+                  }
+                >
+                  <div className="font-extrabold">Save</div>
+                </Button>
+              </div>
             ) : (
               <></>
-            )}
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              disabled={!showDiscardChanges}
-              fluid={true}
-              variant="green"
-              textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
-              classNameVariant={
-                showDiscardChanges
-                  ? ''
-                  : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
-              }
-            >
-              <div className="font-extrabold">Save</div>
-            </Button>
-          </div>
+            )}{' '}
+          </>
         </form>
         <div className="mt-4 flex grow flex-col sm:mt-0">
-          <h2 className="text-xs font-semibold text-gray-800">URL REDIRECTS</h2>
+          <h2 className="mb-1 text-xs font-semibold text-gray-800">
+            URL REDIRECTS
+          </h2>
           {urls.map((url, index) => (
             <div
               key={index}
@@ -417,6 +431,41 @@ const URLRedirects = ({ client, showEditSection }) => {
             {clientSideError}
           </div>
         </div>
+        <>
+          {isMobile ? (
+            <div className="flex flex-row gap-x-4">
+              {showDiscardChanges ? (
+                <Button
+                  fluid={true}
+                  borderColor="border-red-1200"
+                  variant="red"
+                  onClick={() => discardChanges()}
+                >
+                  <div className="font-extrabold text-red-1200">Discard</div>
+                </Button>
+              ) : (
+                <></>
+              )}
+              <Button
+                type="button"
+                onClick={handleSubmit}
+                disabled={!showDiscardChanges}
+                fluid={true}
+                variant="green"
+                textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
+                classNameVariant={
+                  showDiscardChanges
+                    ? ''
+                    : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+                }
+              >
+                <div className="font-extrabold">Save</div>
+              </Button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </>
       </div>
     </div>
   ) : (
