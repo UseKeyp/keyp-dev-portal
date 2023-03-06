@@ -104,11 +104,11 @@ const URLRedirects = ({ client, showEditSection }) => {
     if (
       urls.length !== initialUrls.length ||
       urls[0] !== initialUrls[0] ||
-      clientURI !== client.payload.client_uri && clientURI ||
-      clientName !== client.payload.client_name && clientName ||
-      tosURI !== client.payload.tos_uri && tosURI ||
-      logoURI !== client.payload.logo_uri && logoURI ||
-      policyURI !== client.payload.policy_uri && policyURI
+      (clientURI !== client.payload.client_uri && clientURI) ||
+      (clientName !== client.payload.client_name && clientName) ||
+      (tosURI !== client.payload.tos_uri && tosURI) ||
+      (logoURI !== client.payload.logo_uri && logoURI) ||
+      (policyURI !== client.payload.policy_uri && policyURI)
     ) {
       setShowDiscardChanges(true)
     }
