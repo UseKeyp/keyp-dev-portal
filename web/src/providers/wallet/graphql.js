@@ -13,6 +13,7 @@ export const TRANSFER_ERC721_MUTATION = gql`
     ) {
       status
       hash
+      error
     }
   }
 `
@@ -31,6 +32,7 @@ export const TRANSFER_ERC20_MUTATION = gql`
     ) {
       status
       hash
+      error
     }
   }
 `

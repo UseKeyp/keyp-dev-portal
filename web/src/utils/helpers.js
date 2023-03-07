@@ -1,3 +1,38 @@
+export const getExplorerBaseUrlFromName = (name) => {
+  if (
+    [
+      'ropsten',
+      'rinkeby',
+      'goerli',
+      'kovan',
+      'mainnet',
+      'mumbai',
+      'polygon',
+    ].includes(name)
+  ) {
+    if (name === 'mainnet') {
+      return 'https://etherscan.io/'
+    } else if (name === 'xdai') {
+      return 'https://blockscout.com/xdai/mainnet/'
+    } else if (name === 'polygon') {
+      return `https://polygonscan.com/`
+    } else if (name === 'mumbai') {
+      return `https://mumbai.polygonscan.com/`
+    } else {
+      return ''
+    }
+  } else {
+    return ''
+  }
+}
+export const trimAddress = (address) => {
+  if (typeof address !== 'string') return ''
+  return address.substring(0, 5) + '...' + address.substring(38, 42)
+}
+
+export const isHexAddress = (address) => {
+  return /^(0x)?[0-9a-f]{40}$/i.test(address)
+}
 export function timeDifference(current, previous) {
   const msPerMinute = 60 * 1000
   const msPerHour = msPerMinute * 60
