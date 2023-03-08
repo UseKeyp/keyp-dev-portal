@@ -345,6 +345,11 @@ const URLRedirects = ({ client, showEditSection }) => {
                       loading ? 'border-gray-400' : 'border-red-1200'
                     }`}
                     variant={`${loading ? '' : 'red'}`}
+                    classNameVariant={
+                      loading
+                        ? 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+                        : ''
+                    }
                     disabled={loading}
                     onClick={() => discardChanges()}
                   >
@@ -432,7 +437,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                             urls.length >= MAX_REDIRECT_URLS ||
                             !showDiscardChanges ||
                             loading
-                              ? 'border border-gray-800'
+                              ? 'border border-gray-400'
                               : ''
                           }`}
                           variant={`${
@@ -461,13 +466,21 @@ const URLRedirects = ({ client, showEditSection }) => {
                     <Button
                       classNameVariant={`${
                         loading
-                          ? 'bg-gray-1200 hover:bg-gray-2000'
+                          ? 'text-gray-400 bg-white hover:bg-white border border-gray-400'
                           : 'bg-transparent border border-red-1200'
                       }`}
                       onClick={() => handleRemoveURL(index)}
                       disabled={loading}
                     >
-                      <div className="font-extrabold text-red-1200">Remove</div>
+                      <div
+                        className={`${
+                          loading
+                            ? 'text-gray-800'
+                            : 'font-extrabold text-red-1200'
+                        }`}
+                      >
+                        Remove
+                      </div>
                     </Button>
                   )}
                 </div>
