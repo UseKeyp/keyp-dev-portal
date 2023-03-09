@@ -232,7 +232,7 @@ const TransferFormFields = ({ typeOfToken }) => {
               value={network}
               onChange={(e) => setNetwork(e.target.value)}
             >
-              {['polygon', 'mumbai'].map((network) => (
+              {['polygon'].map((network) => (
                 <option key={network} value={network}>
                   {network}
                 </option>
