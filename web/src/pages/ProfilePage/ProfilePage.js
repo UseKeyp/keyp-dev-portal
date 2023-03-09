@@ -126,7 +126,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <Footer
-        title="test"
+        title="Dev Portal"
         links={[
           {
             title: 'Docs',
