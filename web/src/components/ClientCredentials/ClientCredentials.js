@@ -54,7 +54,7 @@ const ClientCredentials = ({ client }) => {
               </button>
             )}
           </div>
-          <div className="flex w-full gap-y-4 sm:gap-y-0 flex-col justify-between sm:flex-row">
+          <div className="flex w-full flex-col justify-between gap-y-4 sm:flex-row sm:gap-y-0">
             <div className="flex flex-col">
               <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
                 CLIENT ID

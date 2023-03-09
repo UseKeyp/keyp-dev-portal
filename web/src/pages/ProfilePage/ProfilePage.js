@@ -1,3 +1,7 @@
+import { useState } from 'react'
+
+import ConfettiExplosion from 'react-confetti-explosion'
+
 import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
@@ -11,6 +15,14 @@ import UserAccount, {
 
 const ProfilePage = () => {
   const { logOut, currentUser, isAuthenticated } = useAuth()
+  const [isExploding, setIsExploding] = useState(false)
+
+  function handleConfettiExplosion() {
+    setIsExploding(true)
+    setTimeout(() => {
+      setIsExploding(false)
+    }, 2000)
+  }
 
   return (
     <>
@@ -87,7 +99,15 @@ const ProfilePage = () => {
           ]}
         />
         <div className="mb-8">
-        <ClientCell />
+          <div className="absolute left-0">
+            {isExploding && <ConfettiExplosion duration="4400" />}
+          </div>
+          <div className="absolute right-0">
+            {isExploding && <ConfettiExplosion duration="4400" />}
+          </div>
+          <ClientCell
+            onClientCreation={() => handleConfettiExplosion()}
+          />
         </div>
       </div>
     </>
