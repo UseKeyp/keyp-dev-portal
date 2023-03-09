@@ -51,18 +51,25 @@ const URLRedirects = ({ client, showEditSection }) => {
     }
 
     let redirectUrls = urls.filter((url) => url.length > 1).join(',')
-    await updateClient({
-      variables: {
-        redirectUrls,
-        clientURI,
-        clientName,
-        tosURI,
-        logoURI,
-        policyURI,
-        id: client.id,
-        network,
-      },
-    })
+    setLoading(true)
+    try {
+      await updateClient({
+        variables: {
+          redirectUrls,
+          clientURI,
+          clientName,
+          tosURI,
+          logoURI,
+          policyURI,
+          id: client.id,
+          network,
+        },
+      })
+    } catch (e) {
+      setLoading(false)
+      setShowDiscardChanges(false)
+    }
+    setLoading(false)
     setShowDiscardChanges(false)
   }
 
@@ -99,6 +106,7 @@ const URLRedirects = ({ client, showEditSection }) => {
   )
   const [showDiscardChanges, setShowDiscardChanges] = useState(false)
   const [clientSideError, setClientSideError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (
@@ -152,15 +160,21 @@ const URLRedirects = ({ client, showEditSection }) => {
       return
     }
     let redirectUrls = urls.filter((url) => url.length > 1).join(',')
-    await updateClient({
-      variables: {
-        redirectUrls,
-        network,
-        id: client.id,
-      },
-    })
-    setUrls(['', ...urls.slice(0, index + 1), ...urls.slice(index + 1)])
-    setClientSideError('')
+    setLoading(true)
+    try {
+      await updateClient({
+        variables: {
+          redirectUrls,
+          network,
+          id: client.id,
+        },
+      })
+      setUrls(['', ...urls.slice(0, index + 1), ...urls.slice(index + 1)])
+      setClientSideError('')
+    } catch (e) {
+      setLoading(false)
+    }
+    setLoading(false)
   }
 
   const validateUrl = (url) => {
@@ -185,13 +199,19 @@ const URLRedirects = ({ client, showEditSection }) => {
     let redirectUrls = urls
       .filter((url) => url.length > 1 && validateUrl(url))
       .join(',')
-    await updateClient({
-      variables: {
-        redirectUrls,
-        network,
-        id: client.id,
-      },
-    })
+    setLoading(true)
+    try {
+      await updateClient({
+        variables: {
+          redirectUrls,
+          network,
+          id: client.id,
+        },
+      })
+    } catch (e) {
+      setLoading(false)
+    }
+    setLoading(false)
   }
 
   const handleChange = (e, index) => {
@@ -210,14 +230,20 @@ const URLRedirects = ({ client, showEditSection }) => {
       }
     }
     let redirectUrls = urls.filter((url) => url.length > 1).join(',')
+    setLoading(true)
     setNetwork(network)
-    await updateClient({
-      variables: {
-        network,
-        redirectUrls,
-        id: client.id,
-      },
-    })
+    try {
+      await updateClient({
+        variables: {
+          network,
+          redirectUrls,
+          id: client.id,
+        },
+      })
+    } catch (e) {
+      setLoading(false)
+    }
+    setLoading(false)
   }
 
   return showEditSection ? (
@@ -316,11 +342,27 @@ const URLRedirects = ({ client, showEditSection }) => {
                 {showDiscardChanges ? (
                   <Button
                     fluid={true}
-                    borderColor="border-red-1200"
-                    variant="red"
+                    borderColor={`${
+                      loading ? 'border-gray-400' : 'border-red-1200'
+                    }`}
+                    variant={`${loading ? '' : 'red'}`}
+                    classNameVariant={
+                      loading
+                        ? 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+                        : ''
+                    }
+                    disabled={loading}
                     onClick={() => discardChanges()}
                   >
-                    <div className="font-extrabold text-red-1200">Discard</div>
+                    <div
+                      className={`${
+                        loading
+                          ? 'text-gray-800'
+                          : 'font-extrabold text-red-1200'
+                      }`}
+                    >
+                      Discard
+                    </div>
                   </Button>
                 ) : (
                   <></>
@@ -328,14 +370,16 @@ const URLRedirects = ({ client, showEditSection }) => {
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={!showDiscardChanges}
+                  disabled={!showDiscardChanges || loading}
                   fluid={true}
                   variant="green"
                   textColor={
-                    showDiscardChanges ? 'text-white' : 'text-gray-800'
+                    showDiscardChanges && !loading
+                      ? 'text-white'
+                      : 'text-gray-800'
                   }
                   classNameVariant={
-                    showDiscardChanges
+                    showDiscardChanges && !loading
                       ? ''
                       : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
                   }
@@ -386,18 +430,21 @@ const URLRedirects = ({ client, showEditSection }) => {
                         <Button
                           disabled={
                             !showDiscardChanges ||
-                            urls.length >= MAX_REDIRECT_URLS
+                            urls.length >= MAX_REDIRECT_URLS ||
+                            loading
                           }
                           onClick={() => handleAddURL(index)}
                           classNameVariant={`${
                             urls.length >= MAX_REDIRECT_URLS ||
-                            !showDiscardChanges
-                              ? 'border border-gray-800'
+                            !showDiscardChanges ||
+                            loading
+                              ? 'border border-gray-400'
                               : ''
                           }`}
                           variant={`${
                             urls.length >= MAX_REDIRECT_URLS ||
-                            !showDiscardChanges
+                            !showDiscardChanges ||
+                            loading
                               ? 'white'
                               : 'green'
                           }`}
@@ -405,7 +452,8 @@ const URLRedirects = ({ client, showEditSection }) => {
                           <div
                             className={`${
                               urls.length >= MAX_REDIRECT_URLS ||
-                              !showDiscardChanges
+                              !showDiscardChanges ||
+                              loading
                                 ? 'text-gray-800'
                                 : 'text-white'
                             }`}
@@ -417,10 +465,23 @@ const URLRedirects = ({ client, showEditSection }) => {
                     </div>
                   ) : (
                     <Button
-                      classNameVariant="bg-transparent border border-red-1200"
+                      classNameVariant={`${
+                        loading
+                          ? 'text-gray-400 bg-white hover:bg-white border border-gray-400'
+                          : 'bg-transparent border border-red-1200'
+                      }`}
                       onClick={() => handleRemoveURL(index)}
+                      disabled={loading}
                     >
-                      <div className="font-extrabold text-red-1200">Remove</div>
+                      <div
+                        className={`${
+                          loading
+                            ? 'text-gray-800'
+                            : 'font-extrabold text-red-1200'
+                        }`}
+                      >
+                        Remove
+                      </div>
                     </Button>
                   )}
                 </div>
@@ -438,11 +499,25 @@ const URLRedirects = ({ client, showEditSection }) => {
               {showDiscardChanges ? (
                 <Button
                   fluid={true}
-                  borderColor="border-red-1200"
-                  variant="red"
+                  disabled={loading}
+                  borderColor={`${
+                    loading ? 'border-gray-400' : 'border-red-1200'
+                  }`}
+                  variant={`${loading ? '' : 'red'}`}
+                  classNameVariant={
+                    loading
+                      ? 'text-gray-800 bg-white hover:bg-white border border-gray-400'
+                      : ''
+                  }
                   onClick={() => discardChanges()}
                 >
-                  <div className="font-extrabold text-red-1200">Discard</div>
+                  <div
+                    className={`${
+                      loading ? 'text-gray-800' : 'font-extrabold text-red-1200'
+                    }`}
+                  >
+                    Discard
+                  </div>
                 </Button>
               ) : (
                 <></>
@@ -450,12 +525,16 @@ const URLRedirects = ({ client, showEditSection }) => {
               <Button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!showDiscardChanges}
+                disabled={!showDiscardChanges || loading}
                 fluid={true}
                 variant="green"
-                textColor={showDiscardChanges ? 'text-white' : 'text-gray-800'}
+                textColor={
+                  showDiscardChanges && !loading
+                    ? 'text-white'
+                    : 'text-gray-800'
+                }
                 classNameVariant={
-                  showDiscardChanges
+                  showDiscardChanges && !loading
                     ? ''
                     : 'text-gray-800 bg-white hover:bg-white border border-gray-400'
                 }

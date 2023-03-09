@@ -61,7 +61,7 @@ export const Empty = () => {
         </div>
         <Button
           fluid={true}
-          variant="green"
+          variant={`${loading ? 'grey' : 'green'}`}
           onClick={() => {
             createClient()
             handleConfettiExplosion()

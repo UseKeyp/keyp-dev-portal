@@ -13,11 +13,14 @@ const LoginPortal = () => {
   const { error, redirectTo } = useParams()
   const { toast } = useToast()
   const [errorText, setErrorText] = React.useState('')
+  const [loading, setLoading] = React.useState('')
+
   const getErrorText = (error) => {
     if (error === 'expired') return `Session expired, please log in again.`
   }
 
   const onSubmitSignUp = async (type) => {
+    setLoading(type)
     let parsedType = type
     let loginProvider = ''
     if (type.includes('KEYP')) {
@@ -29,6 +32,7 @@ const LoginPortal = () => {
       window.location = response.url + loginProvider
     } else {
       toast.error('Something went wrong')
+      setLoading('')
     }
   }
 
@@ -65,17 +69,34 @@ const LoginPortal = () => {
           </div>
           <Button
             onClick={() => onSubmitSignUp('KEYP_DISCORD')}
-            classNameVariant="hover:bg-[#5865F2] hover:border-[#5865F2] sm:w-[320px]"
+            disabled={loading === 'KEYP_DISCORD'}
+            classNameVariant={`${
+              loading === 'KEYP_DISCORD'
+                ? 'bg-[#5865F2] border-[#5865F2] sm:w-[320px]'
+                : 'hover:bg-[#5865F2] hover:border-[#5865F2] sm:w-[320px]'
+            }`}
             borderColor="border-[#E5E7EB]"
             fluid={true}
             position="start"
             alt="discord"
           >
-            <div className="group flex flex-row gap-x-4 hover:text-white">
+            <div
+              className={`${
+                loading === 'KEYP_DISCORD'
+                  ? 'group flex flex-row gap-x-4 text-white'
+                  : 'group flex flex-row gap-x-4 hover:text-white'
+              }`}
+            >
               <div className="flex pl-2">
-                <Icon height="24" width="24" name="discord" />
+                <Icon height="24" width="24" loading={loading} name="discord" />
               </div>
-              <div className="flex font-light text-gray-1200 group-hover:text-white">
+              <div
+                className={`${
+                  loading === 'KEYP_DISCORD'
+                    ? 'flex font-light text-white'
+                    : 'flex font-light text-gray-1200 group-hover:text-white'
+                }`}
+              >
                 Discord
               </div>
             </div>
@@ -83,34 +104,73 @@ const LoginPortal = () => {
         </div>
         <Button
           onClick={() => onSubmitSignUp('KEYP_GOOGLE')}
-          classNameVariant="hover:bg-[#4285F4] hover:border-[#4285F4] sm:w-[320px]"
+          disabled={loading === 'KEYP_GOOGLE'}
+          classNameVariant={`${
+            loading === 'KEYP_GOOGLE'
+              ? 'bg-[#4285F4] border-[#4285F4] sm:w-[320px]'
+              : 'hover:bg-[#4285F4] hover:border-[#4285F4] sm:w-[320px]'
+          }`}
           borderColor="border-[#E5E7EB]"
           fluid={true}
           position="start"
           alt="google"
         >
-          <div className="group flex flex-row items-center gap-x-6 hover:text-white sm:gap-x-4">
+          <div
+            className={`${
+              loading === 'KEYP_GOOGLE'
+                ? 'group flex flex-row items-center gap-x-6 text-white sm:gap-x-4'
+                : 'group flex flex-row items-center gap-x-6 hover:text-white sm:gap-x-4'
+            }`}
+          >
             <div className="flex pl-1.5">
-              <Icon height="24" name="google" />
+              <Icon height="24" loading={loading} name="google" />
             </div>
-            <div className="flex font-light text-gray-1200 group-hover:text-white">
+            <div
+              className={`${
+                loading === 'KEYP_GOOGLE'
+                  ? 'flex font-light text-white'
+                  : 'flex font-light text-gray-1200 group-hover:text-white'
+              }`}
+            >
               Google
             </div>
           </div>
         </Button>
         <Button
           onClick={() => onSubmitSignUp('KEYP_CHESS')}
-          classNameVariant="hover:bg-[#6c9d41] hover:border-[#6c9d41] sm:w-[320px]"
+          disabled={loading === 'KEYP_CHESS'}
+          classNameVariant={`${
+            loading === 'KEYP_CHESS'
+              ? 'bg-[#6c9d41] border-[#6c9d41] sm:w-[320px]'
+              : 'hover:bg-[#6c9d41] hover:border-[#6c9d41] sm:w-[320px]'
+          }`}
           borderColor="border-[#E5E7EB]"
           fluid={true}
           position="start"
           alt="chess"
         >
-          <div className="group flex flex-row items-center gap-x-4 hover:text-white">
+          <div
+            className={`${
+              loading === 'KEYP_CHESS'
+                ? 'group flex flex-row items-center gap-x-4 text-white'
+                : 'group flex flex-row items-center gap-x-4 hover:text-white'
+            }`}
+          >
             <div className="flex pl-2">
-              <Icon height="24" width="24" name="chess_pawn" />
+              <Icon
+                height="24"
+                width="24"
+                loading={loading}
+                name="chess_pawn"
+              />
             </div>
-            <div className="flex font-light text-gray-1200 group-hover:text-white">
+            <div
+              className={`${
+                loading === 'KEYP_CHESS'
+                  ? 'flex font-light text-white'
+                  : 'flex font-light text-gray-1200 group-hover:text-white'
+              }`}
+            >
               Chess.com
             </div>
           </div>
@@ -118,17 +178,39 @@ const LoginPortal = () => {
         {!['staging', 'prod'].includes(process.env.ENVIRONMENT) ? (
           <Button
             onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}
-            classNameVariant="hover:bg-[#005285] hover:border-[#005285] sm:w-[320px]"
+            disabled={loading === 'KEYP_NODE_OIDC'}
+            classNameVariant={`${
+              loading === 'KEYP_NODE_OIDC'
+                ? 'bg-[#005285] border-[#005285] sm:w-[320px]'
+                : 'hover:bg-[#005285] hover:border-[#005285] sm:w-[320px]'
+            }`}
             borderColor="border-[#E5E7EB]"
             fluid={true}
             position="start"
             alt="discord"
           >
-            <div className="group flex flex-row items-center gap-x-4 hover:text-white">
+            <div
+              className={`${
+                loading === 'KEYP_NODE_OIDC'
+                  ? 'group flex flex-row items-center gap-x-4 text-white'
+                  : 'group flex flex-row items-center gap-x-4 hover:text-white'
+              }`}
+            >
               <div className="flex pl-2">
-                <Icon height="24px" width="24px" name="keypcircle" />
+                <Icon
+                  height="24px"
+                  width="24px"
+                  name="keypcircle"
+                  loading={loading}
+                />
               </div>
-              <div className="flex font-light text-gray-1200 group-hover:text-white">
+              <div
+                className={`${
+                  loading === 'KEYP_NODE_OIDC'
+                    ? 'flex font-light text-white'
+                    : 'flex font-light text-gray-1200 group-hover:text-white'
+                }`}
+              >
                 Test Provider
               </div>
             </div>
