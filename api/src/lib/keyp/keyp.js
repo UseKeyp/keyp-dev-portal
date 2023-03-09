@@ -58,6 +58,38 @@ class KeypManager {
       accessToken: this.accessToken,
     })
   }
+
+  transferErc721 = async ({ tokenAddress, toAddress, network, tokenId }) => {
+    const tokenType = 'ERC721'
+    return fetchKeyp({
+      path: 'tokens/transfers',
+      method: 'POST',
+      body: JSON.stringify({
+        tokenId,
+        tokenAddress,
+        toAddress,
+        tokenType,
+        network,
+      }),
+      accessToken: this.accessToken,
+    })
+  }
+
+  transferErc20 = async ({ toAddress, amount, network, tokenAddress }) => {
+    const tokenType = 'ERC20'
+    return fetchKeyp({
+      path: 'tokens/transfers',
+      method: 'POST',
+      body: JSON.stringify({
+        toAddress,
+        tokenAddress,
+        tokenType,
+        amount,
+        network,
+      }),
+      accessToken: this.accessToken,
+    })
+  }
 }
 
 export const fetchKeyp = async ({

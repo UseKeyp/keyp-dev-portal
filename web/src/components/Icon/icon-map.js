@@ -441,6 +441,42 @@ const Landscape = ({ color }) => {
   )
 }
 
+const ArrowUp = ({ height, width }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 15 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0.333374 6.71849L7.33338 -3.57351e-08L14.3334 6.71849L12.9982 8L7.33338 2.56302L1.66858 8L0.333374 6.71849Z"
+        fill="#B0B6C1"
+      />
+    </svg>
+  )
+}
+const ArrowDown = ({ height, width }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 14 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14 1.28151L7 8L-5.60165e-08 1.28151L1.3352 -5.53596e-07L7 5.43698L12.6648 -5.83637e-08L14 1.28151Z"
+        fill="#B0B6C1"
+      />
+    </svg>
+  )
+}
 const LeftArrow = ({ color }) => {
   return (
     <svg
@@ -611,7 +647,35 @@ const Twitter = ({ height = 10, width = 12 }) => {
   )
 }
 
+const TransactionProcessing = () => {
+  return (
+    <svg
+      width="100"
+      height="100"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M50 2C76.5097 2 98 23.4903 98 50C98 76.5097 76.5097 98 50 98C23.4903 98 2 76.5097 2 50C2 30.2396 13.9406 13.2681 31 5.90718"
+        stroke="#459D00"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <circle cx="50" cy="50" r="40" fill="#7DD03C" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M67.8453 38.8215C68.4961 39.4724 68.4961 40.5276 67.8453 41.1785L46.1786 62.8452C45.5277 63.4961 44.4724 63.4961 43.8216 62.8452L32.1549 51.1785C31.504 50.5276 31.504 49.4724 32.1549 48.8215C32.8058 48.1706 33.8611 48.1706 34.5119 48.8215L45.0001 59.3097L65.4882 38.8215C66.1391 38.1706 67.1944 38.1706 67.8453 38.8215Z"
+        fill="white"
+      />
+    </svg>
+  )
+}
+
 const iconMap = {
+  arrow_up: ArrowUp,
+  arrow_down: ArrowDown,
   chess_com: ChessCom,
   chess_pawn: ChessPawn,
   copy: Copy,
@@ -629,6 +693,7 @@ const iconMap = {
   rightarrow: RightArrow,
   magnifyingglass: MagnifyingGlass,
   keypcircle: KeypCircle,
+  transaction_processing: TransactionProcessing,
 }
 
 export default iconMap
