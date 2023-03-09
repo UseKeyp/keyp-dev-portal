@@ -106,7 +106,6 @@ const ProfilePage = () => {
             {isExploding && <ConfettiExplosion duration="4400" />}
           </div>
           <ClientCell
-            exploding={isExploding}
             onClientCreation={() => handleConfettiExplosion()}
           />
         </div>
