@@ -1,3 +1,7 @@
+import { useState } from 'react'
+
+import ConfettiExplosion from 'react-confetti-explosion'
+
 import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
@@ -12,6 +16,14 @@ import UserAccount, {
 
 const ProfilePage = () => {
   const { logOut, currentUser, isAuthenticated } = useAuth()
+  const [isExploding, setIsExploding] = useState(false)
+
+  function handleConfettiExplosion() {
+    setIsExploding(true)
+    setTimeout(() => {
+      setIsExploding(false)
+    }, 2000)
+  }
 
   return (
     <>
@@ -32,11 +44,11 @@ const ProfilePage = () => {
         <ItemDescriptionCell
           tooltipID="wallet-address"
           title={
-            <div className="flex flex-row gap-x-2 text-gray-1600">
+            <div className="flex flex-row gap-x-1 text-gray-1600">
               Your{' '}
               {currentUser?.username ? (
-                <div className="font-normal">
-                  {getStyledUsernameFromCurrentUser(currentUser)}
+                <div className="font-bold">
+                  {getStyledUsernameFromCurrentUser(currentUser, 'text-[16px]')}
                 </div>
               ) : (
                 ''
@@ -45,7 +57,7 @@ const ProfilePage = () => {
             </div>
           }
           tokenOrAddress={currentUser?.address}
-          description="Using Keyp's OAuth creates a wallet for you. We use MPC and this wallet can be used like any other EVM compatible address."
+          description="Keyp's OAuth creates a wallet for you. This wallet uses MPC and can be used like any other EVM compatible address."
         />
       </div>
       <div className="mt-12 flex flex-col">
@@ -62,12 +74,12 @@ const ProfilePage = () => {
           tooltipID="access-token"
           title="Access token"
           tokenOrAddress={currentUser?.accessToken}
-          description="To let you try out the API right away we created an access token for the Dev Portal app. You can use this access token to test the API in Postman. Once you create, you can get an access token with the client...."
+          description="We created an access token for the Dev Portal app so that you can try out our API right away! You can use this token to test the API in Postman."
         >
           <div className="flex flex-row gap-x-1">
             <div>-&gt;</div>
             <a
-              className="text-sm text-blue-1200 hover:text-blue-1600 sm:text-base"
+              className="text-[16px] text-blue-1200 hover:text-blue-1600 sm:text-base"
               target="_blank"
               href="https://www.postman.com/speeding-spaceship-663022/workspace/keyp-public-workspace/collection/25667367-e1156fb2-60c3-4a42-b76b-47902a22512e?ctx=documentation"
               rel="noreferrer"
@@ -87,7 +99,17 @@ const ProfilePage = () => {
             },
           ]}
         />
-        <ClientCell />
+        <div className="mb-8">
+          <div className="absolute left-0">
+            {isExploding && <ConfettiExplosion duration="4400" />}
+          </div>
+          <div className="absolute right-0">
+            {isExploding && <ConfettiExplosion duration="4400" />}
+          </div>
+          <ClientCell
+            onClientCreation={() => handleConfettiExplosion()}
+          />
+        </div>
       </div>
       <div className="mt-12 mb-8 flex flex-col">
         <AppHeader

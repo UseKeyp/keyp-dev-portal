@@ -54,9 +54,9 @@ const ClientCredentials = ({ client }) => {
               </button>
             )}
           </div>
-          <div className="flex w-full flex-row justify-between">
+          <div className="flex w-full flex-col justify-between gap-y-4 sm:flex-row sm:gap-y-0">
             <div className="flex flex-col">
-              <div className="flex gap-x-1 text-xs text-gray-800">
+              <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
                 CLIENT ID
                 <Tooltip
                   id="client-id"
@@ -74,7 +74,7 @@ const ClientCredentials = ({ client }) => {
                   <Icon color="fill-gray-800" name="tooltip" />
                 </Tooltip>
               </div>
-              <div className="flex flex-row gap-x-2">
+              <div className="flex flex-col gap-x-2 sm:flex-row">
                 <div className="flex font-light">{client.id}</div>
                 <button
                   className="group flex"
@@ -103,17 +103,7 @@ const ClientCredentials = ({ client }) => {
                 </button>
               </div>
             </div>
-            <div className="flex gap-x-3">
-              <div className="flex flex-col">
-                {client?.createdBy ? (
-                  <div className="flex flex-col">
-                    <div className="flex text-xs text-gray-800">CREATED BY</div>
-                    <div className="flex font-light">{client.createdBy}</div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
+            <div className="flex gap-x-8 sm:flex-row sm:gap-x-4">
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
                   CREATED

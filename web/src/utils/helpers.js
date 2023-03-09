@@ -25,6 +25,7 @@ export const getExplorerBaseUrlFromName = (name) => {
     return ''
   }
 }
+
 export const trimAddress = (address) => {
   if (typeof address !== 'string') return ''
   return address.substring(0, 5) + '...' + address.substring(38, 42)
@@ -33,6 +34,12 @@ export const trimAddress = (address) => {
 export const isHexAddress = (address) => {
   return /^(0x)?[0-9a-f]{40}$/i.test(address)
 }
+
+export const isBrowser = typeof window !== 'undefined'
+
+export const isMobile =
+  isBrowser && window.matchMedia('(max-width: 767px)').matches
+
 export function timeDifference(current, previous) {
   const msPerMinute = 60 * 1000
   const msPerHour = msPerMinute * 60
