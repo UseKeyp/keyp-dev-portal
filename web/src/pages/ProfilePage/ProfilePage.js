@@ -7,6 +7,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
+import { Footer } from 'src/components/Footer/Footer'
 import Icon from 'src/components/Icon/Icon'
 import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
 import { TransferForm } from 'src/components/TransferForm/TransferForm'
@@ -28,10 +29,10 @@ const ProfilePage = () => {
   return (
     <>
       <MetaTags title="Profile" description="My profile" />
-      <div className="mt-8 mb-8 flex flex-col justify-between gap-y-8 sm:flex-row">
-        <div className="flex flex-col gap-y-2 gap-x-4 sm:flex-row sm:gap-y-0">
-          <Icon name="keypnameandlogo" height="48px" width="164px" />
-          <h1 className="flex text-5xl font-light text-blue-1200">
+      <div className="mt-12 mb-12 flex flex-col justify-between gap-y-8 sm:flex-row sm:items-center">
+        <div className="flex items-center justify-center gap-x-4 sm:flex-row">
+          <Icon name="keypnameandlogo" height="38px" width="128px" />
+          <h1 className="flex whitespace-nowrap text-[38px] font-light text-blue-1200">
             Dev Portal
           </h1>
         </div>
@@ -99,19 +100,17 @@ const ProfilePage = () => {
             },
           ]}
         />
-        <div className="mb-8">
+        <div className="mb-12">
           <div className="absolute left-0">
             {isExploding && <ConfettiExplosion duration="4400" />}
           </div>
           <div className="absolute right-0">
             {isExploding && <ConfettiExplosion duration="4400" />}
           </div>
-          <ClientCell
-            onClientCreation={() => handleConfettiExplosion()}
-          />
+          <ClientCell onClientCreation={() => handleConfettiExplosion()} />
         </div>
       </div>
-      <div className="mt-12 mb-8 flex flex-col">
+      <div className="mb-12 flex flex-col">
         <AppHeader
           title="Tools"
           links={[
@@ -121,11 +120,24 @@ const ProfilePage = () => {
             },
           ]}
         />
-        <div className="mb-4 flex flex-row gap-x-2">
+        <div className="flex flex-row gap-x-2">
           <TransferForm title="Transfer ERC-20" />
           <TransferForm title="Transfer ERC-721" />
         </div>
       </div>
+      <Footer
+        title="test"
+        links={[
+          {
+            title: 'Docs',
+            url: 'https://docs.usekeyp.com/api',
+          },
+          {
+            title: 'Discord',
+            url: 'https://discord.usekeyp.com/',
+          },
+        ]}
+      />
     </>
   )
 }
