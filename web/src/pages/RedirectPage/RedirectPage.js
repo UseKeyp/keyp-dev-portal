@@ -1,10 +1,90 @@
-import { navigate, routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
+import Button from 'src/components/Button/Button'
+import Icon from 'src/components/Icon/Icon'
+import UserAccount from 'src/components/UserAccount/UserAccount'
 import { useRedirection } from 'src/providers/redirection'
 
-const Redirect = ({ type }) => {
-  const { errorMessage, successMessage, isLoading } = useRedirection()
+const Redirect = () => {
+  const { errorMessage, isLoading } = useRedirection()
+  const customErrorObject = getCustomErrorObject(errorMessage)
+  const { isAuthenticated, currentUser, logOut } = useAuth()
+
+  function getCustomErrorObject(errorMessage) {
+    if (errorMessage === 'redirect_uris must only contain strings') {
+      return {
+        header: "You're Missing Something",
+        subheader: '(No redirect URL set for your client app)',
+        iconSrc: '/no-url-redirect.gif',
+        iconHeight: '228px',
+        iconWidth: '480px',
+        description: (
+          <div className="flex flex-col items-center font-light md:flex-row">
+            <div>Add redirect URLs in your</div>
+            <a href="https://dev.usekeyp.com" target="_blank" rel="noreferrer">
+              <Button
+                variant="transparent"
+                classNameVariant="m-2"
+                borderColor="border-blue-1200"
+                size="regular"
+                fluid={false}
+              >
+                <div className="text-blue-1200">Dev Portal</div>
+              </Button>
+            </a>
+            <div className="flex font-light">or get in touch with us on</div>
+            <Button
+              href="https://discord.usekeyp.com/"
+              variant="transparent"
+              classNameVariant="m-2"
+              borderColor="border-blue-1200"
+              size="regular"
+              fluid={false}
+            >
+              <div className="text-blue-1200">Discord</div>
+            </Button>
+          </div>
+        ),
+      }
+    } else {
+      return {
+        header: "We're not where we expected to be",
+        subheader: '(Some other redirect error)',
+        iconSrc: '/general-url-redirect-error.png',
+        iconHeight: '210px',
+        iconWidth: '191px',
+        description: (
+          <div className="flex flex-col items-center md:flex-row">
+            <div>Add redirect URLs in your</div>
+            <a href="https://dev.usekeyp.com" target="_blank" rel="noreferrer">
+              <Button
+                variant="transparent"
+                classNameVariant="m-2"
+                borderColor="border-blue-1200"
+                size="regular"
+                fluid={false}
+              >
+                <div className="text-blue-1200">Dev Portal</div>
+              </Button>
+            </a>
+            <div className="flex">or get in touch with us on</div>
+            <Button
+              href="https://discord.usekeyp.com/"
+              variant="transparent"
+              classNameVariant="m-2"
+              borderColor="border-blue-1200"
+              size="regular"
+              fluid={false}
+            >
+              <div className="text-blue-1200">Discord</div>
+            </Button>
+          </div>
+        ),
+      }
+    }
+  }
+
   if (isLoading)
     return (
       <div className="flex min-h-screen min-w-full items-center justify-center">
@@ -12,63 +92,42 @@ const Redirect = ({ type }) => {
       </div>
     )
 
-  let callToAction
-  if (['chess', 'node_oidc', 'discord'].includes(type)) {
-    if (successMessage) {
-      callToAction = (
-        <button
-          to={routes.profile()}
-          className="text-s mt-6"
-          size="large"
-          color="green"
-        >
-          See Profile
-        </button>
-      )
-    } else {
-      callToAction = (
-        <button
-          onClick={() => navigate(routes.login())}
-          className="text-s mt-6"
-          size="large"
-          color="green"
-        >
-          Try again
-        </button>
-      )
-    }
-  }
   return (
-    <div className="chess-background flex min-h-screen flex-col">
-      <div className="align-center flex w-full flex-grow flex-col items-center justify-center">
-        <div className="redirect-container w-80 sm:w-96">
-          <div className="redirect-contents w-full">
-            <div
-              className={`align-center flex rounded-lg border-2 p-4 border-${
-                successMessage ? `green` : `[#FFBB0D]`
-              }`}
-            >
-              <h3>{type}</h3>
-            </div>
-            <div className="mt-6 tracking-tight">
-              {successMessage}
-              {typeof errorMessage === 'string' ? (
-                <>
-                  <h2 className="mt-6 tracking-tight">
-                    Oops - there was an issue
-                  </h2>
-                  <h3 className="text-errorYellow mt-8 font-bold">
-                    {errorMessage.substring(0, 200)}
-                  </h3>
-                </>
-              ) : null}
-            </div>
-            {callToAction || (
-              <p className="mt-8 ">You will be redirected shortly</p>
-            )}
-          </div>
+    <div>
+      <MetaTags title="Redirect" description="Redirecting" />
+      <div className="mt-8 flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
+        <div className="flex flex-row items-center gap-y-2 gap-x-3 sm:gap-y-0">
+          <Icon name="keypnameandlogo" height="40px" width="134px" />
+          <h1 className="flex text-[38px] font-light text-blue-1200">
+            Dev Portal
+          </h1>
         </div>
+        {isAuthenticated && (
+          <UserAccount currentUser={currentUser} logOut={logOut} />
+        )}
       </div>
+      <main className="absolute inset-0">
+        <section className="flex h-screen items-center justify-center text-center">
+          <div className="flex flex-col items-center justify-center gap-y-4 text-center">
+            <h1 className="mt-32 flex text-[34px] font-light text-gray-1200 sm:mt-0">
+              {customErrorObject?.header}
+            </h1>
+            <p className="text-[16px] text-gray-1200">
+              {customErrorObject?.subheader}
+            </p>
+            <img
+              src={customErrorObject?.iconSrc}
+              height={customErrorObject?.iconHeight}
+              width={customErrorObject?.iconWidth}
+              className="flex"
+              alt="page not found"
+            />
+            <div className="mt-8 flex items-center text-[16px] text-gray-1200">
+              {customErrorObject?.description}
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   )
 }
