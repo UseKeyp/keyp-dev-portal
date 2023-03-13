@@ -7,6 +7,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
+import { ExampleForm } from 'src/components/ExampleForm/ExampleForm'
 import Icon from 'src/components/Icon/Icon'
 import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
 import { TransferForm } from 'src/components/TransferForm/TransferForm'
@@ -106,10 +107,11 @@ const ProfilePage = () => {
           <div className="absolute right-0">
             {isExploding && <ConfettiExplosion duration="4400" />}
           </div>
-          <ClientCell
-            onClientCreation={() => handleConfettiExplosion()}
-          />
+          <ClientCell onClientCreation={() => handleConfettiExplosion()} />
         </div>
+      </div>
+      <div className="flex flex-row">
+        <ExampleForm />
       </div>
       <div className="mt-12 mb-8 flex flex-col">
         <AppHeader

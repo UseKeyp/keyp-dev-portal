@@ -2,3 +2,29 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import url("https://rsms.me/inter/inter.css");
+
+@layer base {
+  Form {
+    @apply flex flex-col;
+  }
+
+  form label {
+    @apply mb-1 text-gray-800 text-[12px] font-semibold pt-2;
+  }
+
+  form input[type="text"] {
+    @apply h-[48px] relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding pl-4 pr-3 text-sm text-gray-700 transition-all ease-soft placeholder:text-gray-300 focus:border-green-400 focus:outline-none focus:transition-shadow;
+  }
+
+  form textarea {
+    @apply h-[48px] relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding pl-2 pr-3 text-sm text-gray-700 transition-all ease-soft placeholder:text-gray-300 focus:border-green-400 focus:outline-none focus:transition-shadow;
+  }
+
+  form span.error {
+    @apply text-red-500 text-[12px] font-semibold;
+  }
+
+  form button[type="submit"] {
+    @apply flex rounded-[6px] text-center text-lg font-bold leading-button tracking-wide h-[48px] w-full items-center justify-center text-[16px] bg-green-1200 hover:bg-green-1800 text-white mt-4;
+  }
+}
