@@ -118,10 +118,10 @@ export const fetchKeyp = async ({
       return res.json()
     })
   } catch (e) {
-    const errorMessage = `fetchKeyp() ${e}`
+    const errorMessage = `fetchKeyp() error`
     /* eslint-disable-next-line no-console */
-    console.error(e)
     logger.error(errorMessage)
+    logger.error(e)
     Sentry.captureException(errorMessage)
   }
 }

@@ -175,6 +175,45 @@ const LoginPortal = () => {
             </div>
           </div>
         </Button>
+        <Button
+          onClick={() => onSubmitSignUp('KEYP_TWITTER')}
+          disabled={loading === 'KEYP_TWITTER'}
+          classNameVariant={`${
+            loading === 'KEYP_TWITTER'
+              ? 'bg-[#005285] border-[#005285] sm:w-[320px]'
+              : 'hover:bg-[#005285] hover:border-[#005285] sm:w-[320px]'
+          }`}
+          borderColor="border-[#E5E7EB]"
+          fluid={true}
+          position="start"
+          alt="discord"
+        >
+          <div
+            className={`${
+              loading === 'KEYP_TWITTER'
+                ? 'group flex flex-row items-center gap-x-4 text-white'
+                : 'group flex flex-row items-center gap-x-4 hover:text-white'
+            }`}
+          >
+            <div className="flex pl-2">
+              <Icon
+                height="24px"
+                width="24px"
+                name="twitter"
+                loading={loading}
+              />
+            </div>
+            <div
+              className={`${
+                loading === 'KEYP_TWITTER'
+                  ? 'flex font-light text-white'
+                  : 'flex font-light text-gray-1200 group-hover:text-white'
+              }`}
+            >
+              Twitter
+            </div>
+          </div>
+        </Button>
         {!['staging', 'prod'].includes(process.env.ENVIRONMENT) ? (
           <Button
             onClick={() => onSubmitSignUp('KEYP_NODE_OIDC')}

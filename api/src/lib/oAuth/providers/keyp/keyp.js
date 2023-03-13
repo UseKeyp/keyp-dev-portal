@@ -99,6 +99,7 @@ export const onConnected = async ({ accessToken, decoded }) => {
     const user = await db.user.upsert({
       update: {
         email: userDetails.email,
+        address: userDetails.address,
         username: userDetails.username,
         accessToken,
       },
