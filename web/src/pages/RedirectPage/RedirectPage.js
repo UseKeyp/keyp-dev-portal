@@ -50,13 +50,13 @@ const Redirect = () => {
     } else {
       return {
         header: "We're not where we expected to be",
-        subheader: '(Some other redirect error)',
+        subheader: `(${errorMessage})`,
         iconSrc: '/general-url-redirect-error.png',
         iconHeight: '210px',
         iconWidth: '191px',
         description: (
           <div className="flex flex-col items-center md:flex-row">
-            <div>Add redirect URLs in your</div>
+            <div>Go back to the</div>
             <a href="https://dev.usekeyp.com" target="_blank" rel="noreferrer">
               <Button
                 variant="transparent"
@@ -95,24 +95,28 @@ const Redirect = () => {
   return (
     <div>
       <MetaTags title="Redirect" description="Redirecting" />
-      <div className="mt-8 flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
-        <div className="flex flex-row items-center gap-y-2 gap-x-3 sm:gap-y-0">
-          <Icon name="keypnameandlogo" height="40px" width="134px" />
-          <h1 className="flex text-[38px] font-light text-blue-1200">
-            Dev Portal
-          </h1>
+      <div className="mt-8 flex justify-center">
+        <div className="flex flex-col justify-between gap-y-2  sm:w-full sm:flex-row">
+          <div className="flex w-fit flex-row items-center gap-y-2 gap-x-3 sm:gap-y-0">
+            <Icon name="keypnameandlogo" height="40px" width="134px" />
+            <h1 className="flex whitespace-nowrap text-[38px] font-light text-blue-1200">
+              Dev Portal
+            </h1>
+          </div>
+          <div className="flex justify-end sm:w-full">
+            {isAuthenticated && (
+              <UserAccount currentUser={currentUser} logOut={logOut} />
+            )}
+          </div>
         </div>
-        {isAuthenticated && (
-          <UserAccount currentUser={currentUser} logOut={logOut} />
-        )}
       </div>
-      <main className="absolute inset-0">
-        <section className="flex h-screen items-center justify-center text-center">
+      <main className="flex justify-center">
+        <section className="flex items-center justify-center text-center">
           <div className="flex flex-col items-center justify-center gap-y-4 text-center">
-            <h1 className="mt-32 flex text-[34px] font-light text-gray-1200 sm:mt-0">
+            <h1 className="mt-8 flex text-[34px] font-light text-gray-1200 sm:mt-16 sm:mt-0">
               {customErrorObject?.header}
             </h1>
-            <p className="text-[16px] text-gray-1200">
+            <p className="text-[16px] font-normal text-gray-1200">
               {customErrorObject?.subheader}
             </p>
             <img
@@ -122,7 +126,7 @@ const Redirect = () => {
               className="flex"
               alt="page not found"
             />
-            <div className="mt-8 flex items-center text-[16px] text-gray-1200">
+            <div className="mt-8 flex items-center text-[16px] font-normal text-gray-1200">
               {customErrorObject?.description}
             </div>
           </div>
