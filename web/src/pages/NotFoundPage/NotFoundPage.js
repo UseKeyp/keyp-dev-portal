@@ -1,33 +1,16 @@
-import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 import Button from 'src/components/Button/Button'
-import Icon from 'src/components/Icon/Icon'
-import UserAccount from 'src/components/UserAccount/UserAccount'
-import DefaultLayout from 'src/layouts/DefaultLayout'
+import HeaderAndFooterDefaultLayout from 'src/layouts/HeaderAndFooterDefaultLayout/HeaderAndFooterDefaultLayout'
 
 export default function NotFoundPage() {
-  const { isAuthenticated, currentUser, logOut } = useAuth()
   return (
-    <DefaultLayout>
+    <HeaderAndFooterDefaultLayout>
       <MetaTags title="No Go" description="Page not found" />
-      <div className="mt-8 flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
-        <div className="flex flex-col gap-y-2 gap-x-4 sm:flex-row sm:gap-y-0">
-          <Icon name="keypnameandlogo" height="48px" width="164px" />
-          <h1 className="flex text-5xl font-light text-blue-1200">
-            Dev Portal
-          </h1>
-        </div>
-        {isAuthenticated ? (
-          <UserAccount currentUser={currentUser} logOut={logOut} />
-        ) : (
-          <></>
-        )}
-      </div>
-      <main className="flex h-screen items-center justify-center text-center">
+      <main className="flex h-full items-center justify-center text-center">
         <section className="flex">
-          <div className="flex flex-col items-center justify-center gap-y-4 text-center">
+          <div className="mt-8 flex flex-col items-center justify-center gap-y-4 text-center">
             <h1 className="text-2xl font-light text-gray-1200">
               Mhhh, something is missing.
             </h1>
@@ -69,6 +52,6 @@ export default function NotFoundPage() {
           </div>
         </section>
       </main>
-    </DefaultLayout>
+    </HeaderAndFooterDefaultLayout>
   )
 }

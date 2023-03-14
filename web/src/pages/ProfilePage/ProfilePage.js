@@ -7,16 +7,12 @@ import { MetaTags } from '@redwoodjs/web'
 
 import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
-import { Footer } from 'src/components/Footer/Footer'
-import Icon from 'src/components/Icon/Icon'
 import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
 import { TransferForm } from 'src/components/TransferForm/TransferForm'
-import UserAccount, {
-  getStyledUsernameFromCurrentUser,
-} from 'src/components/UserAccount/UserAccount'
+import { getStyledUsernameFromCurrentUser } from 'src/components/UserAccount/UserAccount'
 
 const ProfilePage = () => {
-  const { logOut, currentUser, isAuthenticated } = useAuth()
+  const { currentUser } = useAuth()
   const [isExploding, setIsExploding] = useState(false)
 
   function handleConfettiExplosion() {
@@ -29,17 +25,6 @@ const ProfilePage = () => {
   return (
     <>
       <MetaTags title="Profile" description="My profile" />
-      <div className="mt-12 mb-12 flex flex-col justify-between gap-y-8 sm:flex-row sm:items-center">
-        <div className="flex items-center justify-center gap-x-4 sm:flex-row">
-          <Icon name="keypnameandlogo" height="38px" width="128px" />
-          <h1 className="flex whitespace-nowrap text-[38px] font-light text-blue-1200">
-            Dev Portal
-          </h1>
-        </div>
-        {isAuthenticated && (
-          <UserAccount currentUser={currentUser} logOut={logOut} />
-        )}
-      </div>
       <div className="mb-12 mt-12 flex flex-col">
         <AppHeader title="Wallet" />
         <ItemDescriptionCell
@@ -125,19 +110,6 @@ const ProfilePage = () => {
           <TransferForm title="Transfer ERC-721" />
         </div>
       </div>
-      <Footer
-        title="Dev Portal"
-        links={[
-          {
-            title: 'Docs',
-            url: 'https://docs.usekeyp.com/api',
-          },
-          {
-            title: 'Discord',
-            url: 'https://discord.usekeyp.com/',
-          },
-        ]}
-      />
     </>
   )
 }
