@@ -106,9 +106,7 @@ const ProfilePage = () => {
           <div className="absolute right-0">
             {isExploding && <ConfettiExplosion duration="4400" />}
           </div>
-          <ClientCell
-            onClientCreation={() => handleConfettiExplosion()}
-          />
+          <ClientCell onClientCreation={() => handleConfettiExplosion()} />
         </div>
       </div>
       <div className="mt-12 mb-8 flex flex-col">
