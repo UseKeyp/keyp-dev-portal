@@ -3,23 +3,30 @@ import {
   Form,
   Label,
   TextField,
-  TextAreaField,
   Submit,
+  FormError,
 } from '@redwoodjs/forms'
-import { MetaTags } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 
+const CREATE_CONTACT = gql`
+  mutation CreateContactMutation($input: ContactInput!) {
+    createContact(input: $input) {
+      id
+    }
+  }
+`
 export const ExampleForm = () => {
-  const onSubmit = (data) => {
-    console.log(data)
+  const [create, { error }] = useMutation(CREATE_CONTACT)
+
+  const onSubmit = async (data) => {
+    create({ variables: { input: data } })
   }
 
   return (
     <>
-      <MetaTags title="Contact" description="Contact page" />
-
       <Form onSubmit={onSubmit}>
         <Label name="name" errorClassName="error">
-          Name
+          NAME <FieldError name="name" className="error" />
         </Label>
         <TextField
           name="name"
@@ -27,29 +34,31 @@ export const ExampleForm = () => {
           validation={{ required: true, minLength: 3 }}
           errorClassName="error"
         />
-        <FieldError name="name" className="error" />
 
         <Label name="email" errorClassName="error">
-          Email
+          EMAIL <FieldError name="email" className="error" />
         </Label>
         <TextField
           name="email"
-          validation={{ required: true }}
+          placeholder="http://domain.com/redirecturl"
+          validation={{ required: true, minLength: 6 }}
           errorClassName="error"
         />
-        <FieldError name="email" className="error" />
 
         <Label name="message" errorClassName="error">
-          Message
+          PRIVACY POLICY URI <FieldError name="message" className="error" />
         </Label>
-        <TextAreaField
+        <TextField
           name="message"
+          placeholder="http://domain.com/privacyurl"
           validation={{ required: true }}
           errorClassName="error"
         />
-        <FieldError name="message" className="error" />
-
         <Submit>Save</Submit>
+        <FormError
+          wrapperStyle={{ color: 'red', maxWidth: '200px', textAlign: 'left' }}
+          error={error}
+        />
       </Form>
     </>
   )
