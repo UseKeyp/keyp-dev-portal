@@ -5,6 +5,7 @@ import { routes, navigate, useParams } from '@redwoodjs/router'
 
 import Button from 'src/components/Button/Button'
 import Icon from 'src/components/Icon/Icon'
+import { MoreAccordion } from 'src/components/MoreAccordion/MoreAccordion'
 import { saveRedirectTo } from 'src/providers/redirection'
 import { useToast } from 'src/providers/toast'
 
@@ -62,7 +63,7 @@ const LoginPortal = () => {
           </div>
         </h1>
       </div>
-      <div className="mt-8 flex flex-col items-start gap-y-4 sm:items-center">
+      <div className="flex flex-col items-start gap-y-4 sm:items-center">
         <div className="flex w-full flex-col sm:w-[320px]">
           <div className="pb-4 text-[16px] font-light text-gray-1600">
             Log In or Sign Up
@@ -137,71 +138,27 @@ const LoginPortal = () => {
           </div>
         </Button>
         <Button
-          onClick={() => onSubmitSignUp('KEYP_CHESS')}
-          disabled={loading === 'KEYP_CHESS'}
-          classNameVariant={`${
-            loading === 'KEYP_CHESS'
-              ? 'bg-[#6c9d41] border-[#6c9d41] sm:w-[320px]'
-              : 'hover:bg-[#6c9d41] hover:border-[#6c9d41] sm:w-[320px]'
-          }`}
-          borderColor="border-[#E5E7EB]"
-          fluid={true}
-          position="start"
-          alt="chess"
-        >
-          <div
-            className={`${
-              loading === 'KEYP_CHESS'
-                ? 'group flex flex-row items-center gap-x-4 text-white'
-                : 'group flex flex-row items-center gap-x-4 hover:text-white'
-            }`}
-          >
-            <div className="flex pl-2">
-              <Icon
-                height="24"
-                width="24"
-                loading={loading}
-                name="chess_pawn"
-              />
-            </div>
-            <div
-              className={`${
-                loading === 'KEYP_CHESS'
-                  ? 'flex font-light text-white'
-                  : 'flex font-light text-gray-1200 group-hover:text-white'
-              }`}
-            >
-              Chess.com
-            </div>
-          </div>
-        </Button>
-        <Button
           onClick={() => onSubmitSignUp('KEYP_TWITTER')}
-          disabled={loading === 'KEYP_TWITTER'}
           classNameVariant={`${
             loading === 'KEYP_TWITTER'
-              ? 'bg-[#005285] border-[#005285] sm:w-[320px]'
-              : 'hover:bg-[#005285] hover:border-[#005285] sm:w-[320px]'
+              ? 'bg-[#4285F4] border-[#4285F4] sm:w-[320px]'
+              : 'hover:bg-[#4285F4] hover:border-[#4285F4] sm:w-[320px]'
           }`}
+          disabled={loading === 'KEYP_TWITTER'}
           borderColor="border-[#E5E7EB]"
           fluid={true}
           position="start"
-          alt="discord"
+          alt="twitter"
         >
           <div
             className={`${
               loading === 'KEYP_TWITTER'
-                ? 'group flex flex-row items-center gap-x-4 text-white'
-                : 'group flex flex-row items-center gap-x-4 hover:text-white'
+                ? 'group flex flex-row items-center gap-x-6 text-white sm:gap-x-4'
+                : 'group flex flex-row items-center gap-x-6 hover:text-white sm:gap-x-4'
             }`}
           >
             <div className="flex pl-2">
-              <Icon
-                height="24px"
-                width="24px"
-                name="twitter"
-                loading={loading}
-              />
+              <Icon height="24" loading={loading} name="twitter" />
             </div>
             <div
               className={`${
@@ -258,6 +215,79 @@ const LoginPortal = () => {
           <></>
         )}
         {errorText && <div className="mt-2">{errorText}</div>}
+        <div className="flex w-full flex-col sm:w-[320px]">
+          <MoreAccordion title="More">
+            <div className="flex gap-x-2 pl-3">
+              <Button
+                onClick={() => onSubmitSignUp('KEYP_CHESS')}
+                disabled={loading === 'KEYP_CHESS'}
+                classNameVariant={`${
+                  loading === 'KEYP_CHESS'
+                    ? 'bg-[#6c9d41] border-[#6c9d41] justify-center'
+                    : 'hover:bg-[#6c9d41] hover:border-[#6c9d41] justify-center'
+                }`}
+                borderColor="border-[#E5E7EB]"
+                size="square"
+                fluid={false}
+                position="start"
+                alt="chess"
+              >
+                <div
+                  className={`${
+                    loading === 'KEYP_CHESS'
+                      ? 'group flex flex-row items-center text-white'
+                      : 'group flex flex-row items-center hover:text-white'
+                  }`}
+                >
+                  <div className="flex">
+                    <Icon
+                      height="24"
+                      width="24"
+                      loading={loading}
+                      name="chess_pawn"
+                    />
+                  </div>
+                </div>
+              </Button>
+              <Button
+                onClick={() => onSubmitSignUp('KEYP_TWITCH')}
+                disabled={loading === 'KEYP_TWITCH'}
+                classNameVariant={`${
+                  loading === 'KEYP_TWITCH'
+                    ? 'bg-[#5865F2] border-[#5865F2] justify-center'
+                    : 'hover:bg-[#5865F2] hover:border-[#5865F2] justify-center'
+                }`}
+                borderColor="border-[#E5E7EB]"
+                fluid={false}
+                size="square"
+                position="start"
+                alt="discord"
+              >
+                <div className="group flex flex-row gap-x-4 hover:text-white">
+                  <div className="flex">
+                    <Icon
+                      height="24"
+                      width="24"
+                      loading={loading}
+                      name="twitch_logo_purple"
+                    />
+                  </div>
+                </div>
+              </Button>
+            </div>
+          </MoreAccordion>
+          <div className="mt-2 flex items-center gap-x-1 text-[9px] text-gray-800">
+            Powered by{' '}
+            <div className="pt-0.5">
+              <Icon
+                color="fill-[#B0B6C1]"
+                height="10.5px"
+                width="30px"
+                name="keypnameandlogogray"
+              />
+            </div>
+          </div>
+        </div>
         <h4 className="mt-20 w-full justify-center text-center">
           <a
             className="mr-4 text-[12px] font-light text-blue-1200"
