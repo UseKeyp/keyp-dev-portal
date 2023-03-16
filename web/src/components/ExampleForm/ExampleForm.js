@@ -56,7 +56,7 @@ export const ExampleForm = () => {
         />
         <Submit>Save</Submit>
         <FormError
-          wrapperStyle={{ color: 'red', maxWidth: '200px', textAlign: 'left' }}
+          wrapperStyle={{ color: '#E45200', maxWidth: '200px', textAlign: 'left' }}
           error={error}
         />
       </Form>
