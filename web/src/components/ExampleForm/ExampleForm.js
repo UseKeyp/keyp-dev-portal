@@ -25,7 +25,7 @@ export const ExampleForm = () => {
   return (
     <>
       <Form onSubmit={onSubmit}>
-        <Label name="name" errorClassName="error">
+        <Label name="name">
           NAME <FieldError name="name" className="error" />
         </Label>
         <TextField
@@ -35,7 +35,7 @@ export const ExampleForm = () => {
           errorClassName="error"
         />
 
-        <Label name="email" errorClassName="error">
+        <Label name="email">
           EMAIL <FieldError name="email" className="error" />
         </Label>
         <TextField
@@ -45,7 +45,7 @@ export const ExampleForm = () => {
           errorClassName="error"
         />
 
-        <Label name="message" errorClassName="error">
+        <Label name="message">
           PRIVACY POLICY URI <FieldError name="message" className="error" />
         </Label>
         <TextField
@@ -56,7 +56,12 @@ export const ExampleForm = () => {
         />
         <Submit>Save</Submit>
         <FormError
-          wrapperStyle={{ color: '#E45200', maxWidth: '200px', textAlign: 'left' }}
+          errorClassName="error"
+          wrapperStyle={{
+            color: '#E45200',
+            maxWidth: '200px',
+            textAlign: 'left',
+          }}
           error={error}
         />
       </Form>
