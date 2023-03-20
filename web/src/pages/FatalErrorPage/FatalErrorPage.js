@@ -6,12 +6,12 @@ if (process.env.NODE_ENV === 'development') {
 import { APP_DOMAIN } from 'api/src/lib/helpers'
 
 import Button from 'src/components/Button/Button'
-import HeaderAndFooterDefaultLayout from 'src/layouts/HeaderAndFooterDefaultLayout/HeaderAndFooterDefaultLayout'
+import DefaultLayout from 'src/layouts/DefaultLayout/DefaultLayout'
 
 export default RedwoodDevFatalErrorPage ||
   function FatalErrorPage() {
     return (
-      <HeaderAndFooterDefaultLayout>
+      <DefaultLayout>
         <main className="mt-8 flex items-center justify-center text-center">
           <section className="flex">
             <div className="flex flex-col items-center justify-center gap-y-4 text-center">
@@ -58,6 +58,6 @@ export default RedwoodDevFatalErrorPage ||
             </div>
           </section>
         </main>
-      </HeaderAndFooterDefaultLayout>
+      </DefaultLayout>
     )
   }

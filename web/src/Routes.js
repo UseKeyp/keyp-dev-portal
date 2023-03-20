@@ -9,24 +9,24 @@
 
 import { Router, Route, Set, Private } from '@redwoodjs/router'
 
-import DefaultLayout from 'src/layouts/DefaultLayout'
-import HeaderAndFooterDefaultLayout from 'src/layouts/HeaderAndFooterDefaultLayout/HeaderAndFooterDefaultLayout'
+import DefaultLayout from 'src/layouts/DefaultLayout/DefaultLayout'
+import DefaultLayoutNoHeaderOrFooter from 'src/layouts/DefaultLayoutNoHeaderOrFooter/DefaultLayoutNoHeaderOrFooter'
 import AllContextProviders from 'src/providers'
 
 const Routes = () => {
   return (
     <Router>
       <AllContextProviders>
-        <Set wrap={HeaderAndFooterDefaultLayout}>
-          <Route path="/redirect/{type}" page={RedirectPage} name="redirect" />
-          <Route notfound page={NotFoundPage} />
+        <Set wrap={DefaultLayoutNoHeaderOrFooter}>
+          <Route path="/login" page={LoginPage} name="login" />
         </Set>
         <Set wrap={DefaultLayout}>
-          <Route path="/" page={LoginPage} name="home" />
-          <Route path="/login" page={LoginPage} name="login" />
-          <Private wrap={HeaderAndFooterDefaultLayout} unauthenticated="login">
+          <Private unauthenticated="login">
             <Route path="/profile" page={ProfilePage} name="profile" />
+            <Route path="/" page={LoginPage} name="home" />
           </Private>
+          <Route path="/redirect/{type}" page={RedirectPage} name="redirect" />
+          <Route notfound page={NotFoundPage} />
         </Set>
       </AllContextProviders>
     </Router>
