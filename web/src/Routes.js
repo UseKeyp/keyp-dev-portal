@@ -9,21 +9,24 @@
 
 import { Router, Route, Set, Private } from '@redwoodjs/router'
 
-import DefaultLayout from 'src/layouts/DefaultLayout'
+import DefaultLayout from 'src/layouts/DefaultLayout/DefaultLayout'
+import DefaultLayoutNoHeaderOrFooter from 'src/layouts/DefaultLayoutNoHeaderOrFooter/DefaultLayoutNoHeaderOrFooter'
 import AllContextProviders from 'src/providers'
 
 const Routes = () => {
   return (
     <Router>
       <AllContextProviders>
-        <Set wrap={DefaultLayout}>
-          <Route path="/" page={LoginPage} name="home" />
-          <Route path="/redirect/{type}" page={RedirectPage} name="redirect" />
+        <Set wrap={DefaultLayoutNoHeaderOrFooter}>
           <Route path="/login" page={LoginPage} name="login" />
-          <Route notfound page={NotFoundPage} />
+        </Set>
+        <Set wrap={DefaultLayout}>
           <Private unauthenticated="login">
             <Route path="/profile" page={ProfilePage} name="profile" />
+            <Route path="/" page={LoginPage} name="home" />
           </Private>
+          <Route path="/redirect/{type}" page={RedirectPage} name="redirect" />
+          <Route notfound page={NotFoundPage} />
         </Set>
       </AllContextProviders>
     </Router>
