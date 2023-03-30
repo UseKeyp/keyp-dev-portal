@@ -225,7 +225,7 @@ const TransferFormFields = ({ typeOfToken }) => {
               NETWORK
             </div>
             <select
-              className="h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              className="h-[48px] w-full text-sm rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
               name="networks"
               id="networks"
               value={network}

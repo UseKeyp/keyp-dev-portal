@@ -255,7 +255,7 @@ const URLRedirects = ({ client, showEditSection }) => {
               CLIENT NETWORK
             </div>
             <select
-              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 text-sm bg-white p-2 placeholder-gray-400"
               name="networks"
               id="networks"
               value={network}

@@ -26,6 +26,7 @@ const ProfilePage = () => {
       <MetaTags title="Profile" description="My profile" />
       <div className="mb-12 mt-12 flex flex-col">
         <AppHeader title="Wallet" />
+        <div className="mt-2"></div>
         <ItemDescriptionCell
           tooltipID="wallet-address"
           title={
@@ -55,6 +56,7 @@ const ProfilePage = () => {
           ]}
           title="API Access Token"
         />
+        <div className="mt-2"></div>
         <ItemDescriptionCell
           tooltipID="access-token"
           title="Access token"
@@ -84,6 +86,7 @@ const ProfilePage = () => {
             },
           ]}
         />
+        <div className="mt-2"></div>
         <div className="mb-12">
           <div className="absolute left-0">
             {isExploding && <ConfettiExplosion duration="4400" />}
@@ -104,6 +107,7 @@ const ProfilePage = () => {
             },
           ]}
         />
+        <div className="mt-2"></div>
         <div className="flex flex-row gap-x-2">
           <TransferForm title="Transfer ERC-20" />
           <TransferForm title="Transfer ERC-721" />
