@@ -8,7 +8,7 @@ export const MoreAccordion = ({ title, open, children }) => {
   return (
     <div className="flex min-h-[48px] w-full flex-col rounded-lg border border-gray-300 sm:w-[320px]">
       <button
-        className="flex cursor-pointer items-center justify-between px-3 pt-2"
+        className="flex cursor-pointer items-center justify-between px-3 pt-3.5"
         onClick={() => setIsOpen(!isOpen)}
       >
         <h2 className="text-lg font-bold font-normal text-gray-2400">

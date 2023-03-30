@@ -56,7 +56,7 @@ const ClientCredentials = ({ client }) => {
           </div>
           <div className="flex w-full flex-col justify-between gap-y-4 sm:flex-row sm:gap-y-0">
             <div className="flex flex-col">
-              <div className="flex gap-x-1 text-xs font-semibold text-gray-800">
+              <div className="flex items-center gap-x-1 text-xs font-semibold text-gray-800">
                 CLIENT ID
                 <Tooltip
                   id="client-id"
@@ -66,7 +66,7 @@ const ClientCredentials = ({ client }) => {
                   bgColor="#eef0f2"
                   position="top"
                   tooltipChild={
-                    <div className="p-0.5 text-gray-2400">
+                    <div className="text-gray-2400">
                       Copy this into your app
                     </div>
                   }

@@ -372,7 +372,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                   onClick={handleSubmit}
                   disabled={!showDiscardChanges || loading}
                   fluid={true}
-                  variant="green"
+                  variant={`${loading || !showDiscardChanges ? '' : 'green'}`}
                   textColor={
                     showDiscardChanges && !loading
                       ? 'text-white'
@@ -527,7 +527,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                 onClick={handleSubmit}
                 disabled={!showDiscardChanges || loading}
                 fluid={true}
-                variant="green"
+                variant={`${loading || !showDiscardChanges ? '' : 'green'}`}
                 textColor={
                   showDiscardChanges && !loading
                     ? 'text-white'
