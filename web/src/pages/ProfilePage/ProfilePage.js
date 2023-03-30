@@ -1,13 +1,12 @@
 import { useState } from 'react'
 
+import { AppHeader, ItemDescriptionCell } from '@usekeyp/components-soft-ui'
 import ConfettiExplosion from 'react-confetti-explosion'
 
 import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
-import AppHeader from 'src/components/AppHeader/AppHeader'
 import ClientCell from 'src/components/ClientCell'
-import { ItemDescriptionCell } from 'src/components/ItemDescriptionCell/ItemDescriptionCell'
 import { TransferForm } from 'src/components/TransferForm/TransferForm'
 import { getStyledUsernameFromCurrentUser } from 'src/components/UserAccount/UserAccount'
 

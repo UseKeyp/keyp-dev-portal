@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Icon from 'src/components/Icon/Icon'
+import { Icon } from '@usekeyp/components-soft-ui'
 
 export const MoreAccordion = ({ title, open, children }) => {
   const [isOpen, setIsOpen] = useState(open)

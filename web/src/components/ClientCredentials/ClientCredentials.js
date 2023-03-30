@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
+import { Icon, Tooltip } from '@usekeyp/components-soft-ui'
+
 import { timeDifference } from 'src/utils/helpers'
 
-import Icon from '../Icon/Icon.js'
-import Tooltip from '../Tooltip/Tooltip.js'
 import URLRedirects from '../URLRedirects/URLRedirects.js'
 
 const ClientCredentials = ({ client }) => {

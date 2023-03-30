@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import { Button, TextInput } from '@usekeyp/components-soft-ui'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import Button from 'src/components/Button/Button'
 import { QUERY as clientQuery } from 'src/components/ClientCell'
-import TextInput from 'src/components/TextInput/TextInput'
 import { isMobile } from 'src/utils/helpers'
 
 const UPDATE_CLIENT = gql`

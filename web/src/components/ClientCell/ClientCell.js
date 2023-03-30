@@ -1,7 +1,8 @@
+import { Button } from '@usekeyp/components-soft-ui'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import Button from '../Button/Button.js'
 import ClientCredentials from '../ClientCredentials/ClientCredentials.js'
 
 export const QUERY = gql`

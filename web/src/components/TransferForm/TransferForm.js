@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
+import { Button, Icon, TextInput } from '@usekeyp/components-soft-ui'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import Button from 'src/components/Button/Button'
-import Icon from 'src/components/Icon/Icon'
-import TextInput from 'src/components/TextInput/TextInput'
 import {
   TRANSFER_ERC20_MUTATION,
   TRANSFER_ERC721_MUTATION,

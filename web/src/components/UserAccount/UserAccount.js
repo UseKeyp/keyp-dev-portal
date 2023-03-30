@@ -1,5 +1,3 @@
-import Icon from 'src/components/Icon/Icon'
-
 export function getStyledUsernameFromCurrentUser(currentUser, sizeVariant) {
   if (!currentUser?.id) {
     return ''
@@ -43,71 +41,3 @@ export function getStyledUsernameFromCurrentUser(currentUser, sizeVariant) {
       )
   }
 }
-
-export function getProviderIconFromCurrentUser(currentUser) {
-  if (!currentUser?.id) {
-    return <></>
-  }
-  switch (currentUser.id.split('-')[0].toLowerCase()) {
-    case 'discord':
-      return (
-        <div className="mt-0.5 flex">
-          <Icon height="9.75" width="12" name="discord" />
-        </div>
-      )
-    case 'google':
-      return (
-        <div className="flex">
-          <Icon height="9.75" width="12" name="google" />
-        </div>
-      )
-    case 'chess':
-      return (
-        <div className="flex">
-          <Icon height="9.75" width="12" name="chess_pawn" />
-        </div>
-      )
-    case 'twitter':
-      return (
-        <div className="flex">
-          <Icon height="9.75" width="12" name="twitter" />
-        </div>
-      )
-    case 'node_oidc':
-      return (
-        <div className="flex">
-          <Icon height="9.75" width="12" name="keypcircle" />
-        </div>
-      )
-    case 'twitch':
-      return (
-        <div className="flex">
-          <Icon height="9.75" width="12" name="twitch_logo_purple" />
-        </div>
-      )
-    default:
-      return <></>
-  }
-}
-const UserAccount = ({ currentUser, logOut }) => {
-  return (
-    <div
-      className={`my-auto flex w-full max-w-[327px] flex-row  items-center justify-between gap-x-16 rounded-md border border-gray-400 p-2 sm:w-auto ${
-        currentUser?.username ? 'sm:gap-x-4' : 'sm:gap-x-2'
-      }`}
-    >
-      <div className="flex flex-row items-center gap-x-2">
-        {getProviderIconFromCurrentUser(currentUser)}
-        {getStyledUsernameFromCurrentUser(currentUser) || <></>}
-      </div>
-      <button
-        className="text-[12px] font-light text-gray-400 hover:text-red-1200"
-        onClick={logOut}
-      >
-        Logout
-      </button>
-    </div>
-  )
-}
-
-export default UserAccount

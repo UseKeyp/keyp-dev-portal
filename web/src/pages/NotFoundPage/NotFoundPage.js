@@ -1,7 +1,8 @@
+import { Button } from '@usekeyp/components-soft-ui'
+
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
-import Button from 'src/components/Button/Button'
 import DefaultLayout from 'src/layouts/DefaultLayout/DefaultLayout'
 
 export default function NotFoundPage() {
