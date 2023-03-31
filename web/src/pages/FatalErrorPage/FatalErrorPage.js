@@ -3,9 +3,9 @@ if (process.env.NODE_ENV === 'development') {
   RedwoodDevFatalErrorPage = require('@redwoodjs/web').DevFatalErrorPage
 }
 
+import { Button } from '@usekeyp/components-soft-ui'
 import { APP_DOMAIN } from 'api/src/lib/helpers'
 
-import Button from 'src/components/Button/Button'
 import DefaultLayout from 'src/layouts/DefaultLayout/DefaultLayout'
 
 export default RedwoodDevFatalErrorPage ||

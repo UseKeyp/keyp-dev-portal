@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import { Button, TextInput } from '@usekeyp/components-soft-ui'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import Button from 'src/components/Button/Button'
 import { QUERY as clientQuery } from 'src/components/ClientCell'
-import TextInput from 'src/components/TextInput/TextInput'
 import { isMobile } from 'src/utils/helpers'
 
 const UPDATE_CLIENT = gql`
@@ -251,11 +251,11 @@ const URLRedirects = ({ client, showEditSection }) => {
       <div className="flex w-full flex-col gap-x-4 sm:flex-row">
         <form className="flex max-w-xl grow flex-col">
           <div className="mb-4 flex flex-col">
-            <div className="mb-1 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               CLIENT NETWORK
             </div>
             <select
-              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              className="mb-4 h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 pl-4 text-sm placeholder-gray-400"
               name="networks"
               id="networks"
               value={network}
@@ -277,7 +277,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                 </option>
               ))}
             </select>
-            <div className="mb-1 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               CLIENT NAME
             </div>
             <TextInput
@@ -288,7 +288,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="mb-1 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               CLIENT URI
             </div>
             <TextInput
@@ -300,7 +300,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="mb-1 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               LOGO URI
             </div>
             <TextInput
@@ -312,7 +312,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="mb-1 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               TERMS OF SERVICE URI
             </div>
             <TextInput
@@ -324,7 +324,7 @@ const URLRedirects = ({ client, showEditSection }) => {
             />
           </div>
           <div className="mb-4 flex flex-col">
-            <div className="text-xs font-semibold text-gray-800">
+            <div className="text-sm font-semibold text-gray-800">
               PRIVACY POLICY URI
             </div>
             <TextInput
@@ -372,7 +372,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                   onClick={handleSubmit}
                   disabled={!showDiscardChanges || loading}
                   fluid={true}
-                  variant="green"
+                  variant={`${loading || !showDiscardChanges ? '' : 'green'}`}
                   textColor={
                     showDiscardChanges && !loading
                       ? 'text-white'
@@ -393,7 +393,7 @@ const URLRedirects = ({ client, showEditSection }) => {
           </>
         </form>
         <div className="mt-4 flex grow flex-col sm:mt-0">
-          <h2 className="mb-1 text-xs font-semibold text-gray-800">
+          <h2 className="mb-1 text-sm font-semibold text-gray-800">
             URL REDIRECTS
           </h2>
           {urls.map((url, index) => (
@@ -527,7 +527,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                 onClick={handleSubmit}
                 disabled={!showDiscardChanges || loading}
                 fluid={true}
-                variant="green"
+                variant={`${loading || !showDiscardChanges ? '' : 'green'}`}
                 textColor={
                   showDiscardChanges && !loading
                     ? 'text-white'
