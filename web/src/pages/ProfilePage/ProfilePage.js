@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
-import { AppHeader, ItemDescriptionCell } from '@usekeyp/components-soft-ui'
+import {
+  AppHeader,
+  ItemDescriptionCell,
+  getStyledUsernameFromCurrentUser,
+} from '@usekeyp/components-soft-ui'
 import ConfettiExplosion from 'react-confetti-explosion'
 
 import { useAuth } from '@redwoodjs/auth'
@@ -8,7 +12,6 @@ import { MetaTags } from '@redwoodjs/web'
 
 import ClientCell from 'src/components/ClientCell'
 import { TransferForm } from 'src/components/TransferForm/TransferForm'
-import { getStyledUsernameFromCurrentUser } from 'src/components/UserAccount/UserAccount'
 
 const ProfilePage = () => {
   const { currentUser } = useAuth()
