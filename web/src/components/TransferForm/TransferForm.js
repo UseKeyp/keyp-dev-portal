@@ -221,11 +221,11 @@ const TransferFormFields = ({ typeOfToken }) => {
       ) : (
         <div className="flex flex-col gap-y-4">
           <div>
-            <div className="pb-2 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               NETWORK
             </div>
             <select
-              className="h-[48px] w-full text-sm rounded-lg border border-gray-400 bg-white p-2 placeholder-gray-400"
+              className="h-[48px] w-full rounded-lg border border-gray-400 bg-white p-2 pl-4 text-sm placeholder-gray-400"
               name="networks"
               id="networks"
               value={network}
@@ -239,7 +239,7 @@ const TransferFormFields = ({ typeOfToken }) => {
             </select>
           </div>
           <div>
-            <div className="pb-2 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               TOKEN ADDRESS
             </div>
             <TextInput
@@ -253,7 +253,7 @@ const TransferFormFields = ({ typeOfToken }) => {
           <div>
             {typeOfToken.includes('ERC-721') ? (
               <div>
-                <div className="pb-2 text-xs font-semibold text-gray-800">
+                <div className="mb-1 text-sm font-semibold text-gray-800">
                   TOKEN ID
                 </div>
                 <TextInput
@@ -266,7 +266,7 @@ const TransferFormFields = ({ typeOfToken }) => {
               </div>
             ) : (
               <div>
-                <div className="pb-2 text-xs font-semibold text-gray-800">
+                <div className="mb-1 text-sm font-semibold text-gray-800">
                   AMOUNT
                 </div>
                 <TextInput
@@ -280,7 +280,7 @@ const TransferFormFields = ({ typeOfToken }) => {
             )}
           </div>
           <div>
-            <div className="pb-2 text-xs font-semibold text-gray-800">
+            <div className="mb-1 text-sm font-semibold text-gray-800">
               RECIPIENT ADDRESS
             </div>
             <TextInput
