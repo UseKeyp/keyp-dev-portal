@@ -273,6 +273,30 @@ const LoginPortal = () => {
                   </div>
                 </div>
               </Button>
+              <Button
+                onClick={() => onSubmitSignUp('KEYP_EPIC_GAMES')}
+                disabled={loading === 'KEYP_EPIC_GAMES'}
+                classNameVariant={`${
+                  loading === 'KEYP_EPIC_GAMES'
+                    ? 'bg-[#2F2D2E] border-[#2F2D2E] justify-center'
+                    : 'hover:bg-[#2F2D2E] hover:border-[#2F2D2E] justify-center'
+                }`}
+                borderColor="border-[#E5E7EB]"
+                fluid={false}
+                size="square"
+                position="start"
+                alt="epic_games"
+              >
+                <div className="group flex flex-row gap-x-4 hover:text-white">
+                  <Icon
+                    color="fill-[#2F2D2E]"
+                    loading={loading}
+                    height="24px"
+                    width="24px"
+                    name="epic_games"
+                  />{' '}
+                </div>
+              </Button>
             </div>
           </MoreAccordion>
           <div className="mt-2 flex items-center gap-x-1 text-[9px] text-gray-800">
