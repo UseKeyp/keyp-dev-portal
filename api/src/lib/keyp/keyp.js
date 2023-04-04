@@ -5,7 +5,7 @@ import Sentry from 'src/lib/sentry'
 
 var path = require('path')
 
-let KEYP_API_URL = 'http://localhost:3001/v1'
+let KEYP_API_URL = 'http://localhost:4001/v1'
 if (process.env.ENVIRONMENT === 'staging')
   KEYP_API_URL = 'https://api.staging-env.usekeyp.com/v1'
 if (process.env.ENVIRONMENT === 'prod')
