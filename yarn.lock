@@ -1882,6 +1882,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:7.21.0":
+  version: 7.21.0
+  resolution: "@babel/runtime-corejs3@npm:7.21.0"
+  dependencies:
+    core-js-pure: ^3.25.1
+    regenerator-runtime: ^0.13.11
+  checksum: b46896f9a774eeb0e8d2597a0a43a87ede27eebec650b3e17719c14a502289ece95029fe5bc8be84798fb1879b69d54efc1f42c3127f1afaf7778d3b8bb692b5
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.19.4
   resolution: "@babel/runtime@npm:7.19.4"
@@ -4823,6 +4833,21 @@ __metadata:
     graphql: 16.6.0
     react: 17.0.2
   checksum: f844c4fcc3c7d36b6b0e3e09846b7307208f0943428a0cbc8a720db45ef5435b5c69b18e82a19bfec96ae63ca49f614d59ceb8360e5cf430f6251e335e23a925
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/forms@npm:^4.3.1":
+  version: 4.4.3
+  resolution: "@redwoodjs/forms@npm:4.4.3"
+  dependencies:
+    "@babel/runtime-corejs3": 7.21.0
+    core-js: 3.29.1
+    pascalcase: 1.0.0
+    react-hook-form: 7.43.7
+  peerDependencies:
+    graphql: 16.6.0
+    react: 17.0.2
+  checksum: 75f4ad92b8ce7257d0c49b2690a71428440de5bb71cd567d184a177e79c986392456d365e5622656cdc8c652f5dfa4ad53249dad92f30df3b957c434c40e9c0b
   languageName: node
   linkType: hard
 
@@ -8010,15 +8035,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/components-soft-ui@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@usekeyp/components-soft-ui@npm:0.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40usekeyp%2Fcomponents-soft-ui%2F0.1.0%2Fb25e10dfc639ab4ca7f6463752eaceb74ee90df6"
+"@usekeyp/components-soft-ui@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@usekeyp/components-soft-ui@npm:0.1.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40usekeyp%2Fcomponents-soft-ui%2F0.1.16%2Fbb1ed14c6090f00facc4dd9529f9ea1332c7c16c"
   dependencies:
+    "@redwoodjs/forms": ^4.3.1
     "@redwoodjs/router": ^3.3.0
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0
-    "@usekeyp/tailwind-presets": 0.1.0
+    "@usekeyp/tailwind-presets": ^0.1.16
     chart.js: ^4.0.1
     prop-types: ^15.8.1
     react: ^18.2.0
@@ -8030,14 +8056,14 @@ __metadata:
     surge: ^0.23.1
     uuid: ^9.0.0
     web-vitals: ^2.1.4
-  checksum: 4a7adf4eb2e227d38b510b2c4134a6782b9bb0cda1b28bd879c3a14054e3345b7e54d339d48e02682934aa21b414eb62076d59a5393ba3c02dcca69de5bd1fa3
+  checksum: f38c63184f8c6e7866d6c838fdaa16daa9787f876f00be65a5b1c79f942d82bdd76e69c385ca6b81b4d8302487a2fe6d47922736bdad509cac42333c88586b94
   languageName: node
   linkType: hard
 
-"@usekeyp/tailwind-presets@npm:0.1.0, @usekeyp/tailwind-presets@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@usekeyp/tailwind-presets@npm:0.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40usekeyp%2Ftailwind-presets%2F0.1.0%2F4597ff5e9df60ed0478c383a3332b13b66de184a"
-  checksum: 9cb59164934b8b66938128cbb934f45debe3b8188371761974bef2f367a7de6774f0f5ce8ef1d9a9ade32502db667073320e94a51af25bbd5e5476c598c4b168
+"@usekeyp/tailwind-presets@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@usekeyp/tailwind-presets@npm:0.1.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40usekeyp%2Ftailwind-presets%2F0.1.16%2F1e4bbe9edd402bfb8ba6b615deca5c38e987345f"
+  checksum: af078ab80e53d14c787b5a08e9130603f1c770e197a2585f7dd9d0681696993b8fb4a385a12fe5e673b9c8cd2b9ec80ab4bf874aea8195e93c511dada5ab80be
   languageName: node
   linkType: hard
 
@@ -11720,6 +11746,13 @@ __metadata:
   version: 3.26.1
   resolution: "core-js@npm:3.26.1"
   checksum: 82d36c6f54fc0349998fa7fc67d200ba272f1cd1674c6786dc17f9d259d6555fc05662044528eae73ad6e90f71d503ab5c060ad4745492ef804308209f9aec13
+  languageName: node
+  linkType: hard
+
+"core-js@npm:3.29.1":
+  version: 3.29.1
+  resolution: "core-js@npm:3.29.1"
+  checksum: e5fb4a18148e76a136b5c90d994715e15ed0e42cf0f073429174204bd119f1ba81dc582fff450e3792b73825cd1fe234ad76f85567ba7943039f5842be02591c
   languageName: node
   linkType: hard
 
@@ -24098,6 +24131,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:7.43.7":
+  version: 7.43.7
+  resolution: "react-hook-form@npm:7.43.7"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: ff376fd31c0a63191d4073fb64e05cd6384ac1ff46a28316be64c4bd4e9f5949c435ba99db19765806a61089308cbac1fdb0981848aa8a7e75df416371eb0799
+  languageName: node
+  linkType: hard
+
 "react-hot-toast@npm:2.4.0":
   version: 2.4.0
   resolution: "react-hot-toast@npm:2.4.0"
@@ -28572,8 +28614,8 @@ __metadata:
     "@redwoodjs/router": ^3.7.1
     "@redwoodjs/web": ^3.7.1
     "@typescript-eslint/eslint-plugin": latest
-    "@usekeyp/components-soft-ui": ^0.1.0
-    "@usekeyp/tailwind-presets": ^0.1.0
+    "@usekeyp/components-soft-ui": ^0.1.16
+    "@usekeyp/tailwind-presets": ^0.1.16
     autoprefixer: ^10.4.13
     eslint-config-prettier: ^8.6.0
     eslint-plugin-jest-dom: ^4.0.3
