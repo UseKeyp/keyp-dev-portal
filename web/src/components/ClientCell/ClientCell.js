@@ -64,12 +64,32 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-export const Success = ({ clients }) => {
+export const Success = ({ clients, onClientCreation }) => {
+  const [createClient, { loading, error }] = useMutation(CREATE_ClIENT, {
+    refetchQueries: [{ query: QUERY }],
+    onCompleted: () => {
+      toast.success('Client created!')
+      onClientCreation()
+    },
+  })
+  let clientsCopy = [...clients]
   return (
     <div>
-      {clients.map((client) => (
-        <ClientCredentials key={client.id} client={client} />
-      ))}
+      {clientsCopy
+        .sort((a, b) => new Date(b.createdAt) < new Date(a.createdAt))
+        .map((client) => (
+          <ClientCredentials key={client.id} client={client} />
+        ))}
+      <Button
+        variant={`${loading ? 'grey' : 'green'}`}
+        onClick={() => {
+          createClient()
+        }}
+        disabled={loading}
+      >
+        Create Client
+      </Button>
+      <div className="text-red-1200">{error?.message}</div>
     </div>
   )
 }
