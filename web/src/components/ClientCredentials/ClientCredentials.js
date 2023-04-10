@@ -107,42 +107,12 @@ const ClientCredentials = ({ client }) => {
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-sm font-semibold text-gray-800">
                   CREATED
-                  {/* <Tooltip
-                    id="created"
-                    delayHideTime={250}
-                    effect="float"
-                    borderColor="#C6CED2"
-                    bgColor="#eef0f2"
-                    position="top"
-                    tooltipChild={
-                      <div className="text-black">
-                        Date when this client was first created
-                      </div>
-                    }
-                  >
-                    <Icon color="fill-gray-800" name="tooltip" />
-                  </Tooltip> */}
                 </div>
                 <div className="flex font-light">{createdAtDate}</div>
               </div>
               <div className="flex flex-col">
                 <div className="flex gap-x-1 text-sm font-semibold text-gray-800">
-                  LAST USED
-                  {/* <Tooltip
-                    id="last-used"
-                    elayHideTime={250}
-                    effect="float"
-                    borderColor="#C6CED2"
-                    bgColor="#eef0f2"
-                    position="top"
-                    tooltipChild={
-                      <div className="text-black">
-                        Date when this client was last updated
-                      </div>
-                    }
-                  >
-                    <Icon color="fill-gray-800" name="tooltip" />
-                  </Tooltip> */}
+                  MODIFIED
                 </div>
                 <div className="flex font-light">{updatedAtDate}</div>
               </div>
