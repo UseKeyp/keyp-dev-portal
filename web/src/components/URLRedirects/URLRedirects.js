@@ -271,6 +271,8 @@ const URLRedirects = ({ client, showEditSection }) => {
                 'arbitrum-nova',
                 'optimism',
                 'sepolia',
+                'fuji',
+                'avalanche',
               ].map((network) => (
                 <option key={network} value={network}>
                   {network}
