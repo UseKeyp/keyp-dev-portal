@@ -5,6 +5,7 @@ import { Button, Icon, TextInput } from '@usekeyp/components-soft-ui'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
+import TransactionSpinner from 'src/components/TransactionSpinner/TransactionSpinner'
 import {
   TRANSFER_ERC20_MUTATION,
   TRANSFER_ERC721_MUTATION,
@@ -18,7 +19,7 @@ import {
 export const TransferForm = ({ title, open }) => {
   const [isOpen, setIsOpen] = useState(open)
   return (
-    <div className="mt-4 flex-grow self-start rounded-md border border-gray-800 p-4 sm:p-6">
+    <div className="mt-4 w-full flex-grow self-start rounded-md border border-gray-800 p-4 sm:p-6">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-gray-1600">{title}</h2>
         <button
@@ -189,7 +190,7 @@ const TransferFormFields = ({ typeOfToken }) => {
             <div className="flex text-[16px] font-bold text-green-1200">
               Transaction Processing
             </div>
-            <Icon name="transaction_processing" />
+            <TransactionSpinner />
             <a
               target="_blank"
               href={transactionURL}
@@ -231,7 +232,7 @@ const TransferFormFields = ({ typeOfToken }) => {
               value={network}
               onChange={(e) => setNetwork(e.target.value)}
             >
-              {['polygon'].map((network) => (
+              {['polygon', 'mumbai'].map((network) => (
                 <option key={network} value={network}>
                   {network}
                 </option>
