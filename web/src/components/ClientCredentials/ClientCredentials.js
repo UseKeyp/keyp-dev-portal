@@ -10,7 +10,7 @@ const ClientCredentials = ({ client }) => {
   const [showEditSection, setShowEditSection] = useState(
     !client.payload.client_name
   )
-  const [copySuccess, setCopySuccess] = useState('Copy ID')
+  const [copySuccess, setCopySuccess] = useState('Copy Client ID')
   const createdAtDate = timeDifference(new Date(), new Date(client.createdAt))
   const updatedAtDate = timeDifference(new Date(), new Date(client.updatedAt))
 
@@ -74,7 +74,7 @@ const ClientCredentials = ({ client }) => {
                   <Icon color="fill-gray-800" name="tooltip" />
                 </Tooltip>
               </div>
-              <div className="flex flex-col gap-x-2 sm:flex-row">
+              <div className="flex flex-row gap-x-2">
                 <div className="flex font-light">{client.id}</div>
                 <button
                   className="group flex"
@@ -94,9 +94,7 @@ const ClientCredentials = ({ client }) => {
                     }
                   >
                     <Icon
-                      color="fill-blue-1200 group-hover:fill-blue-1600 mt-1"
-                      height="20"
-                      width="20"
+                      color="fill-blue-1200 group-hover:fill-blue-1600 mt-1 h-[32px] w-[22px] sm:h-[16px] sm:w-[13px]"
                       name="copy"
                     />
                   </Tooltip>
