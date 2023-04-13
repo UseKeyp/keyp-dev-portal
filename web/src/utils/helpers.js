@@ -1,28 +1,48 @@
 export const getExplorerBaseUrlFromName = (name) => {
   if (
     [
-      'ropsten',
-      'rinkeby',
-      'goerli',
-      'kovan',
-      'mainnet',
-      'mumbai',
-      'polygon',
+      'MAINNET',
+      'GOERLI',
+      'SEPOLIA',
+      'GNOSIS',
+      'MATIC',
+      'MUMBAI',
+      'AVALANCHE',
+      'AVALANCHE-FUJI',
+      'ARBITRUM',
+      'ARBITRUM-NOVA',
+      'OPTIMISM',
+      'OPTIMISM-GOERLI',
     ].includes(name)
   ) {
-    if (name === 'mainnet') {
-      return 'https://etherscan.io/'
-    } else if (name === 'xdai') {
-      return 'https://blockscout.com/xdai/mainnet/'
-    } else if (name === 'polygon') {
-      return `https://polygonscan.com/`
-    } else if (name === 'mumbai') {
-      return `https://mumbai.polygonscan.com/`
-    } else {
-      return ''
+    switch (name) {
+      case 'MAINNET':
+        return 'https://etherscan.io/'
+      case 'GOERLI':
+        return `https://goerli.etherscan.io/`
+      case 'SEPOLIA':
+        return `https://sepolia.etherscan.io/`
+      case 'GNOSIS':
+        return `https://blockscout.com/xdai/mainnet/`
+      case 'MATIC':
+        return `https://polygonscan.com/`
+      case 'MUMBAI':
+        return `https://mumbai.polygonscan.com/`
+      case 'AVALANCHE':
+        return `https://snowtrace.io/`
+      case 'AVALANCHE-FUJI':
+        return `https://testnet.snowtrace.io/`
+      case 'ARBITRUM':
+        return `https://arbiscan.io/`
+      case 'OPTIMISM':
+        return `https://optimistic.etherscan.io/`
+      case 'OPTIMISM-GOERLI':
+        return `https://goerli-optimism.etherscan.io/`
+      case 'ARBITRUM-NOVA':
+        return `https://explorer.arbitrum.io/`
     }
   } else {
-    return ''
+    return `https://${name}.etherscan.io/`
   }
 }
 

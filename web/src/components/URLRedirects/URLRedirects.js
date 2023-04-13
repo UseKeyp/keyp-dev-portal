@@ -262,18 +262,18 @@ const URLRedirects = ({ client, showEditSection }) => {
               onChange={(e) => handleNetworkChange(e.target.value)}
             >
               {[
-                'mainnet',
-                'polygon',
-                'gnosis',
-                'mumbai',
-                'goerli',
-                'arbitrum',
-                'arbitrum-nova',
-                'optimism',
-                'optimism-goerli',
-                'sepolia',
-                'avalanche-fuji',
-                'avalanche',
+                'MAINNET',
+                'POLYGON',
+                'GNOSIS',
+                'MUMBAI',
+                'GOERLI',
+                'ARBITRUM',
+                'ARBITRUM-NOVA',
+                'OPTIMISM',
+                'OPTIMISM-GOERLI',
+                'SEPOLIA',
+                'AVALANCHE-FUJI',
+                'AVALANCHE',
               ].map((network) => (
                 <option key={network} value={network}>
                   {network}
