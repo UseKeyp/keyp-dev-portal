@@ -1,6 +1,6 @@
 {
   "name": "oauth-client",
-  "version": "1.2.4",
+  "version": "1.2.5-staging.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
