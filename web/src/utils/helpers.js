@@ -13,6 +13,7 @@ export const getExplorerBaseUrlFromName = (name) => {
       'ARBITRUM-NOVA',
       'OPTIMISM',
       'OPTIMISM-GOERLI',
+      'MANTLE-WADSLEY'
     ].includes(name)
   ) {
     switch (name) {
@@ -40,6 +41,8 @@ export const getExplorerBaseUrlFromName = (name) => {
         return `https://goerli-optimism.etherscan.io/`
       case 'ARBITRUM-NOVA':
         return `https://explorer.arbitrum.io/`
+      case 'MANTLE-WADSLEY':
+        return `https://explorer.testnet.mantle.xyz/`
     }
   } else {
     return `https://${name}.etherscan.io/`

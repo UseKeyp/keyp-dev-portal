@@ -274,6 +274,7 @@ const URLRedirects = ({ client, showEditSection }) => {
                 'SEPOLIA',
                 'AVALANCHE-FUJI',
                 'AVALANCHE',
+                'MANTLE-WADSLEY'
               ].map((network) => (
                 <option key={network} value={network}>
                   {network}
