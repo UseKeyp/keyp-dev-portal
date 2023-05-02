@@ -13,7 +13,7 @@ export const getExplorerBaseUrlFromName = (name) => {
       'ARBITRUM-NOVA',
       'OPTIMISM',
       'OPTIMISM-GOERLI',
-      'MANTLE-WADSLEY'
+      'MANTLE-WADSLEY',
     ].includes(name)
   ) {
     switch (name) {
