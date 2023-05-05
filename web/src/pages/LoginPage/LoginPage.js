@@ -274,10 +274,10 @@ const LoginPortal = () => {
                 </div>
               </Button>
               <Button
-                onClick={() => onSubmitSignUp('KEYP_EPIC_GAMES')}
-                disabled={loading === 'KEYP_EPIC_GAMES'}
+                onClick={() => onSubmitSignUp('KEYP_REDDIT')}
+                disabled={loading === 'KEYP_REDDIT'}
                 classNameVariant={`${
-                  loading === 'KEYP_EPIC_GAMES'
+                  loading === 'KEYP_REDDIT'
                     ? 'bg-[#2F2D2E] border-[#2F2D2E] justify-center'
                     : 'hover:bg-[#2F2D2E] hover:border-[#2F2D2E] justify-center'
                 }`}
@@ -285,7 +285,7 @@ const LoginPortal = () => {
                 fluid={false}
                 size="square"
                 position="start"
-                alt="epic_games"
+                alt="REDDIT"
               >
                 <div className="group flex flex-row gap-x-4 hover:text-white">
                   <Icon
@@ -293,7 +293,7 @@ const LoginPortal = () => {
                     loading={loading}
                     height="24px"
                     width="24px"
-                    name="epic_games"
+                    name="reddit"
                   />{' '}
                 </div>
               </Button>
