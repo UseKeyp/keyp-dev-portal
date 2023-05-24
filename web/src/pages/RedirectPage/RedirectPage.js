@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
@@ -38,6 +40,20 @@ const Redirect = ({ type }) => {
       )
     }
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (!callToAction) {
+      const timer = setTimeout(() => {
+        navigate(routes.home())
+      }, 3000)
+
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+  }, [callToAction])
+
   return (
     <div className="chess-background flex min-h-screen flex-col">
       <div className="align-center flex w-full flex-grow flex-col items-center justify-center">
