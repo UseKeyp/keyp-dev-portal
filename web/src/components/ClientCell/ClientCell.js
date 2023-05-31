@@ -1,5 +1,6 @@
 import { Button } from '@usekeyp/components-soft-ui'
 
+import { useAuth } from '@redwoodjs/auth'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -60,9 +61,13 @@ export const Empty = ({ onClientCreation }) => {
   )
 }
 
-export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
+export const Failure = ({ error }) => {
+  const { logOut } = useAuth()
+  if (error?.message === 'UNAUTHENTICATED') {
+    logOut()
+  }
+  return <div style={{ color: 'red' }}>Error: {error?.message}</div>
+}
 
 export const Success = ({ clients, onClientCreation }) => {
   const [createClient, { loading, error }] = useMutation(CREATE_ClIENT, {
