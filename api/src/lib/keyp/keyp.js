@@ -1,5 +1,7 @@
 import fetch from 'node-fetch'
 
+import { AuthenticationError } from '@redwoodjs/graphql-server'
+
 import { logger } from 'src/lib/logger'
 import Sentry from 'src/lib/sentry'
 
@@ -114,6 +116,9 @@ export const fetchKeyp = async ({
       },
     }).then((res) => {
       logger.debug({ custom: res }, 'fetchKeyp res')
+      if (res.status === 401) {
+        throw new AuthenticationError('UNAUTHENTICATED')
+      }
       if (res.status !== 200) throw res
       return res.json()
     })
@@ -123,6 +128,7 @@ export const fetchKeyp = async ({
     logger.error(errorMessage)
     logger.error(e)
     Sentry.captureException(errorMessage)
+    throw e
   }
 }
 
