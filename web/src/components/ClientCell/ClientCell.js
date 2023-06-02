@@ -81,7 +81,7 @@ export const Success = ({ clients, onClientCreation }) => {
   return (
     <div>
       {clientsCopy
-        .sort((a, b) => new Date(b.createdAt) < new Date(a.createdAt))
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
         .map((client) => (
           <ClientCredentials key={client.id} client={client} />
         ))}
