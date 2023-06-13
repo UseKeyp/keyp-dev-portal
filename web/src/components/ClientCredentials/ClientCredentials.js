@@ -8,17 +8,11 @@ import URLRedirects from '../URLRedirects/URLRedirects.js'
 
 const ClientCredentials = ({ client }) => {
   const [showEditSection, setShowEditSection] = useState(
-    isNewClient(client.payload.client_name)
+    client?.updatedAt === client?.createdAt
   )
   const [copySuccess, setCopySuccess] = useState('Copy Client ID')
   const createdAtDate = timeDifference(new Date(), new Date(client.createdAt))
   const updatedAtDate = timeDifference(new Date(), new Date(client.updatedAt))
-
-  function isNewClient(clientName) {
-    const regex = /^[\w-]+-[\w-]+-[\w-]+-[\w-]+$/
-    if (!clientName) return false
-    return regex.test(clientName)
-  }
 
   function handleCopy() {
     navigator.clipboard.writeText(client?.id)
