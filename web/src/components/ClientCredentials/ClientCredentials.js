@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import { Icon, Tooltip } from '@usekeyp/components-soft-ui'
 
-import { timeDifference } from 'src/utils/helpers'
+import { isMobile, timeDifference } from 'src/utils/helpers'
 
 import URLRedirects from '../URLRedirects/URLRedirects.js'
 
 const ClientCredentials = ({ client }) => {
   const [showEditSection, setShowEditSection] = useState(
-    !client.payload.client_name
+    client?.updatedAt === client?.createdAt
   )
   const [copySuccess, setCopySuccess] = useState('Copy Client ID')
   const createdAtDate = timeDifference(new Date(), new Date(client.createdAt))
@@ -20,6 +20,14 @@ const ClientCredentials = ({ client }) => {
     setTimeout(() => {
       setCopySuccess('Click to copy key')
     }, 2000)
+  }
+
+  function parseClientID(id) {
+    if (id.length > 20 && isMobile) {
+      return id.substring(0, 20) + '...'
+    } else {
+      return id
+    }
   }
 
   return (
@@ -74,8 +82,10 @@ const ClientCredentials = ({ client }) => {
                   <Icon color="fill-gray-800" name="tooltip" />
                 </Tooltip>
               </div>
-              <div className="flex flex-row gap-x-2">
-                <div className="flex font-light">{client.id}</div>
+              <div className="flex flex-row justify-between border border-gray-100 bg-gray-100 p-2 sm:gap-x-2">
+                <div className="flex items-center font-normal">
+                  {parseClientID(client?.id)}
+                </div>
                 <button
                   className="group flex"
                   onClick={() => {

@@ -442,8 +442,8 @@ const URLRedirects = ({ client, showEditSection }) => {
                             urls.length >= MAX_REDIRECT_URLS ||
                             !showDiscardChanges ||
                             loading
-                              ? 'border border-gray-400'
-                              : ''
+                              ? 'border border-gray-400 w-[140px] sm:w-[200px]'
+                              : 'w-[140px] sm:w-[200px]'
                           }`}
                           variant={`${
                             urls.length >= MAX_REDIRECT_URLS ||
@@ -471,8 +471,8 @@ const URLRedirects = ({ client, showEditSection }) => {
                     <Button
                       classNameVariant={`${
                         loading
-                          ? 'text-gray-400 bg-white hover:bg-white border border-gray-400'
-                          : 'bg-transparent border border-red-1200'
+                          ? 'text-gray-400 bg-white hover:bg-white border border-gray-400 w-[140px] sm:w-[200px]'
+                          : 'bg-transparent border border-red-1200 w-[140px] sm:w-[200px]'
                       }`}
                       onClick={() => handleRemoveURL(index)}
                       disabled={loading}

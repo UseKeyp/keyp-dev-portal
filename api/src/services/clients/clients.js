@@ -1,3 +1,5 @@
+import { AuthenticationError } from '@redwoodjs/graphql-server'
+
 import { db } from 'src/lib/db'
 import KeypManager from 'src/lib/keyp'
 const KEYP_CLIENT_ID = 'dev-portal'
@@ -11,7 +13,14 @@ export const clients = async () => {
     clientId: KEYP_CLIENT_ID,
     accessToken: user.accessToken,
   })
-  const clients = await keyp.getClients()
+  let clients
+  try {
+    clients = await keyp.getClients()
+  } catch (e) {
+    if (e instanceof AuthenticationError) {
+      throw new AuthenticationError('UNAUTHENTICATED')
+    }
+  }
   return clients
 }
 

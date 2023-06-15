@@ -19,7 +19,7 @@ const DefaultLayout = ({ children }) => {
                   Dev Portal
                 </h1>
               </div>
-              <div className="flex justify-center px-12 sm:px-0">
+              <div className="mx-4 flex justify-center">
                 {isAuthenticated && (
                   <UserAccount currentUser={currentUser} logOut={logOut} />
                 )}
